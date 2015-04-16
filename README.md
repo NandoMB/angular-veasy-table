@@ -63,7 +63,6 @@ $scope.config = {
 
 ## Documentation
 
-
 If you need, you can add in config object the following properties:
 <br />
 <br />
@@ -114,9 +113,6 @@ resizable: {
 }
 ```
 <br />
-<br />
-
-
 ## License
 The MIT License
 
