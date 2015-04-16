@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
 
-    /**
+    /*
      * [clean]          Run all tasks below.
      * [clean:build]    Clean build directory.
      * [clean:target]   Clean target directory.
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
       target: ['src/target']
     },
 
-    /**
+    /*
      * [html2js]        Generates a js file containing all templates in cache ($ templateCache).
      */
     html2js: {
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
       }
     },
 
-    /**
+    /*
      * ['uglify']         Run all tasks below.
      * ['uglify:tpls']    Uglify the directive's templates.
      * ['uglify:dist']    Uglify the directive.
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
       }
     },
 
-    /**
+    /*
      * [cssmin]           Minify all directives CSS.
      */
     cssmin: {
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
       }
     },
 
-    /**
+    /*
      * ['copy']           Run all tasks below
      * ['copy:src']       Copy all source files to dist folder.
      * ['copy:min']       Copy all uglify files to dist folder.

@@ -94,7 +94,7 @@ angular.module('veasyTable', [
         });
       }
 
-      /**
+      /*
        * ============================ Checkbox Controller ============================
        */
 
@@ -140,7 +140,7 @@ angular.module('veasyTable', [
         });
       };
 
-      /**
+      /*
        * ============================ Filter Controller ============================
        */
 
@@ -216,7 +216,7 @@ angular.module('veasyTable', [
         }
       };
 
-      /**
+      /*
        * ============================ OrderBy Controller ============================
        */
 
@@ -246,7 +246,7 @@ angular.module('veasyTable', [
         }
       };
 
-      /**
+      /*
        * ============================ Pagination Controller ============================
        */
 
@@ -307,7 +307,7 @@ angular.module('veasyTable', [
         }
       });
 
-      /**
+      /*
        * ============================ Filter Column Controller ============================
        */
 
@@ -346,7 +346,7 @@ angular.module('veasyTable', [
         });
       };
 
-      /**
+      /*
        * ============================ Resizable ============================
        */
 
