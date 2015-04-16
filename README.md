@@ -12,6 +12,10 @@ The main objective of this AngularJS directive is to create quickly and practica
 * Show and hide columns
 * Accepts asynchronous request
 
+### Todo:
+* ...
+* ...
+
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.2)
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
