@@ -18,6 +18,96 @@ The main objective of this AngularJS directive is to create quickly and practica
 * [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
 
+### Instalation
+
+```sh
+$ bower install angular-veasy-table
+```
+
+## Configuration
+
+##### In your HTML
+```html
+<head>
+  <link rel="stylesheet" href="./bower_components/angular-veasy-table/dist/veasy-table.min.css">
+</head>
+<body>
+  <veasy-table list="items" selected-items="selectedItems" config="config"></veasy-table>
+  
+  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table.min.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js"></script>
+</body>
+```
+
+##### In your angular app
+```js
+angular.module('myModule', ['veasyTable']);
+```
+
+##### In your controller
+```js
+$scope.columns = [
+  { header: 'Id', value: 'id', show: false },
+  { header: 'Nome', value: 'first_name', show: true },
+  { header: 'Sobrenome', value: 'last_name', show: true }
+];
+
+$scope.config = {
+  id: 'my-table',
+  columns: $scope.columns
+};
+```
+
+## Documentation
+If you need, you can add in config object the following properties:
+
+
+##### Enable selection by checkbox:
+```js
+checkbox: {
+  enable: true,     // Enable = true, Disable = false. (Default is false)
+  size: 20          // Set checkbox column size in pixels. (Default is 20)
+}
+```
+
+##### Enable pagination:
+```js
+pagination: {
+  enable: true,     // Enable = true, Disable = false. (Default is false)
+  currentPage: 0,   // Load in current page. (Default is 0)
+  itemsPerPage: 5   // How many itens per page. (Default is 10)
+}
+```
+
+##### Enable data filter:
+```js
+filter: {
+  enable: true,      // Enable = true, Disable = false. (Default is false)
+  conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
+}
+```
+
+##### Enable column filter (show and hide columns):
+```js
+columnFilter: {
+  enable: true,     // Enable = true, Disable = false. (Default is false)
+}
+```
+
+##### Enable column sort:
+```js
+ordenation: {
+  enable: true      // Enable = true, Disable = false. (Default is false)
+}
+```
+
+##### Enable column resize:
+```js
+resizable: {
+  enable: true,     // Enable = true, Disable = false. (Default is false)
+  minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
+}
+```
 
 
 
