@@ -26,7 +26,6 @@ The main objective of this AngularJS directive is to create quickly and practica
 
 ### Examples
 * [All features](http://nandomb.github.io/angular-veasy-table/demo/)
-* ...
 
 ### Instalation
 ```sh
