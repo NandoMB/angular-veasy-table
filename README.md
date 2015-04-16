@@ -18,7 +18,7 @@ The main objective of this AngularJS directive is to create quickly and practica
 * Add translate
 
 ### Dependencies
-* [AngularJS](https://angularjs.org/) (requires AngularJS 1.2)
+* [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
 * [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
