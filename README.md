@@ -23,6 +23,11 @@ The main objective of this AngularJS directive is to create quickly and practica
 * [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
 
+
+### Examples
+* [All features](http://nandomb.github.io/angular-veasy-table/demo/)
+* ...
+
 ### Instalation
 ```sh
 $ bower install angular-veasy-table
