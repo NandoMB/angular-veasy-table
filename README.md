@@ -1,4 +1,4 @@
-# [angular-veasy-table](https://github.com/NandoMB/angular-veasy-table)
+# [angular-veasy-table](http://nandomb.github.io/angular-veasy-table)
 
 The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.
 
