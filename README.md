@@ -15,7 +15,7 @@ The main objective of this AngularJS directive is to create quickly and practica
 ### Todo:
 * Add dynamic '$filter' in columns data
 * Add column with action buttons (edit, remove, ...)
-* ...
+* Add translate
 
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.2)
