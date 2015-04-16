@@ -9,7 +9,7 @@ angular.module('app', [
 
   // ------------------------------ EasyTable Configs - START
   $scope.config = {
-    id: 'veasy-table',
+    id: 'my-veasy-table',
     columns: [
       { header: 'Id',         value: 'id',          show: true },
       { header: 'First Name', value: 'first_name',  show: true },
@@ -238,6 +238,6 @@ angular.module('app', [
 
   $timeout(function () {
     init();
-  }, 1000);
+  }, 1500);
 
 }]);
