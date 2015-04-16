@@ -1,0 +1,17 @@
+<!-- Filter Column Modal -->
+<div class="modal-header">
+  <h4 class="modal-title">Quais colunas você deseja exibir?</h4>
+</div>
+<div class="modal-body">
+  <ul style="list-style-type: none;">
+    <li ng-repeat="column in columns">
+      <input type="checkbox" ng-model="column.show" ng-change="setVisibleColumns()"/>
+      <span>{{column.header}}</span>
+    </li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">OK</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+<!-- /Filter Column Modal -->
