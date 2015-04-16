@@ -41,12 +41,18 @@ $ bower install angular-veasy-table
   <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js"></script>
 </body>
 ```
-<br />
+
+Attributes           | Description
+---------------------|----------------
+list                 | This is a list of data
+selected-items       | This is a list of selected rows
+config               | This is an object used to configure your veasy-table
+
 ##### In your angular app
 ```js
 angular.module('myModule', ['veasyTable']);
 ```
-<br />
+
 ##### In your controller
 PS: The array of columns used below ($scope.columns) need a specific configuration.
 ```js
@@ -67,18 +73,17 @@ $scope.config = {
 ```
 
 ## Documentation
-
 If you need, you can add in config object the following properties:
 <br />
-<br />
 ##### Enable selection by checkbox:
+
 ```js
 checkbox: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
   size: 20          // Set checkbox column size in pixels. (Default is 20)
 }
 ```
-<br />
+
 ##### Enable pagination:
 ```js
 pagination: {
@@ -87,7 +92,7 @@ pagination: {
   itemsPerPage: 5   // How many itens per page. (Default is 10)
 }
 ```
-<br />
+
 ##### Enable data filter:
 ```js
 filter: {
@@ -95,21 +100,21 @@ filter: {
   conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
 }
 ```
-<br />
+
 ##### Enable column filter (show and hide columns):
 ```js
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
 }
 ```
-<br />
+
 ##### Enable column sort:
 ```js
 ordenation: {
   enable: true      // Enable = true, Disable = false. (Default is false)
 }
 ```
-<br />
+
 ##### Enable column resize:
 ```js
 resizable: {
@@ -117,7 +122,7 @@ resizable: {
   minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
 }
 ```
-<br />
+
 ## License
 The MIT License
 
