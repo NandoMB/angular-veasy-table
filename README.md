@@ -17,6 +17,7 @@ The main objective of this AngularJS directive is to create quickly and practica
 * Add column with action buttons (edit, remove, ...)
 * Add responsible columns
 * Add translate
+* Add items by page field
 
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
