@@ -15,14 +15,13 @@
     "angular": "~1.3.15"
   },
   "homepage": "https://github.com/NandoMB/angular-veasy-table",
-  "_release": "9813ab5f37",
+  "_release": "23db5de34f",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "9813ab5f3725d92ffbcb3eeca0efb34057d154aa"
+    "commit": "23db5de34f4e65ee0f207d3bb2aef428c9252c5b"
   },
   "_source": "git://github.com/NandoMB/angular-veasy-table.git",
   "_target": "*",
-  "_originalSource": "angular-veasy-table",
-  "_direct": true
+  "_originalSource": "angular-veasy-table"
 }

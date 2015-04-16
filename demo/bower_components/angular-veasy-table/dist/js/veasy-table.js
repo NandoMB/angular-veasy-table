@@ -193,7 +193,7 @@ angular.module('veasyTable', [
         var result = [];
 
         angular.forEach(scope.config.columns, function (column) {
-          var value = row[column.value];
+          var value = row[column.value] ? row[column.value] : '';
           angular.forEach(terms, function (term) {
             result.push(value.toString().toLowerCase().indexOf(term) >= 0);
           });
