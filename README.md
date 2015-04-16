@@ -13,7 +13,8 @@ The main objective of this AngularJS directive is to create quickly and practica
 * Accepts asynchronous request
 
 ### Todo:
-* ...
+* Add dynamic '$filter' in columns data
+* Add column with action buttons (edit, remove, ...)
 * ...
 
 ### Dependencies
