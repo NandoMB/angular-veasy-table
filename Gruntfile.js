@@ -110,6 +110,7 @@ module.exports = function (grunt) {
     'uglify:dist',
     'cssmin',
     'copy:min',
+    'copy:src',
     'clean:target'
   ]);
 
