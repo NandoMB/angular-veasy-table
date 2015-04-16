@@ -30,6 +30,12 @@ $ bower install angular-veasy-table
 
 ## Configuration
 
+Attributes           | Description
+---------------------|----------------
+list                 | This is a list of data
+selected-items       | This is a list of selected rows
+config               | This is an object used to configure your veasy-table
+
 ##### In your HTML
 ```html
 <head>
@@ -41,12 +47,6 @@ $ bower install angular-veasy-table
   <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js"></script>
 </body>
 ```
-
-Attributes           | Description
----------------------|----------------
-list                 | This is a list of data
-selected-items       | This is a list of selected rows
-config               | This is an object used to configure your veasy-table
 
 ##### In your angular app
 ```js
