@@ -19,7 +19,6 @@ The main objective of this AngularJS directive is to create quickly and practica
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
 
 ### Instalation
-
 ```sh
 $ bower install angular-veasy-table
 ```
@@ -33,23 +32,27 @@ $ bower install angular-veasy-table
 </head>
 <body>
   <veasy-table list="items" selected-items="selectedItems" config="config"></veasy-table>
-  
   <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table.min.js"></script>
   <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js"></script>
 </body>
 ```
-
+<br />
 ##### In your angular app
 ```js
 angular.module('myModule', ['veasyTable']);
 ```
-
+<br />
 ##### In your controller
+PS: The array of columns used below ($scope.columns) need a specific configuration.
 ```js
 $scope.columns = [
-  { header: 'Id', value: 'id', show: false },
-  { header: 'Nome', value: 'first_name', show: true },
-  { header: 'Sobrenome', value: 'last_name', show: true }
+  {
+    header: 'Id', // This string is displayed on table header name.
+    value: 'id',  // This string is the name of property in your list declared on your html.
+    show: false   // This property, show or hide this column on your table.
+  },
+  { header: 'First Name', value: 'first_name', show: true },
+  { header: 'Last Name', value: 'last_name', show: true }
 ];
 
 $scope.config = {
@@ -59,9 +62,11 @@ $scope.config = {
 ```
 
 ## Documentation
+
+
 If you need, you can add in config object the following properties:
-
-
+<br />
+<br />
 ##### Enable selection by checkbox:
 ```js
 checkbox: {
@@ -69,7 +74,7 @@ checkbox: {
   size: 20          // Set checkbox column size in pixels. (Default is 20)
 }
 ```
-
+<br />
 ##### Enable pagination:
 ```js
 pagination: {
@@ -78,7 +83,7 @@ pagination: {
   itemsPerPage: 5   // How many itens per page. (Default is 10)
 }
 ```
-
+<br />
 ##### Enable data filter:
 ```js
 filter: {
@@ -86,21 +91,21 @@ filter: {
   conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
 }
 ```
-
+<br />
 ##### Enable column filter (show and hide columns):
 ```js
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
 }
 ```
-
+<br />
 ##### Enable column sort:
 ```js
 ordenation: {
   enable: true      // Enable = true, Disable = false. (Default is false)
 }
 ```
-
+<br />
 ##### Enable column resize:
 ```js
 resizable: {
@@ -108,7 +113,8 @@ resizable: {
   minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
 }
 ```
-
+<br />
+<br />
 
 
 ## License
