@@ -25,8 +25,8 @@ angular.module('app', [
     },
     pagination: {
       enable: true,
-      currentPage: 4,
-      itemsPerPage: 5
+      currentPage: 0,
+      itemsPerPage: 10
     },
     filter: {
       enable: true,

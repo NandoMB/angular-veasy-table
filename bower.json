@@ -1,11 +1,26 @@
 {
   "name": "angular-veasy-table",
   "version": "0.0.2",
-  "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
+  "description": "AngularJS directive to create quickly and practical data tables.",
   "homepage": "http://nandomb.github.io/angular-veasy-table",
-  "license": "MIT",
+  "main": "./dist/js/angular-veasy-table.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NandoMB/angular-veasy-table.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "authors": [
     "Fernando Machado Bernardino <fernandombernardino@gmail.com>"
+  ],
+  "keywords": [
+    "angular",
+    "grid",
+    "table"
   ],
   "ignore": [
     "**/.*",
