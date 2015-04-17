@@ -1,5 +1,6 @@
 {
   "name": "angular-veasy-table",
+  "version": "1.0.0",
   "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
   "homepage": "http://nandomb.github.io/angular-veasy-table",
   "license": "MIT",
@@ -13,13 +14,13 @@
     "test",
     "tests"
   ],
-  "_release": "47bc25a731",
+  "_release": "1.0.0",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
+    "type": "version",
+    "tag": "1.0.0",
     "commit": "47bc25a7319c53f9fd3ce477bd5619d7e651b163"
   },
   "_source": "git://github.com/NandoMB/angular-veasy-table.git",
-  "_target": "*",
+  "_target": "~1.0.0",
   "_originalSource": "angular-veasy-table"
 }

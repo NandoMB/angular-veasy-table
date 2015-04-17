@@ -35,7 +35,7 @@ angular.module('app', [
     columnFilter: {
       enable: true,
     },
-    ordenation: {
+    sort: {
       enable: true
     },
     resizable: {
