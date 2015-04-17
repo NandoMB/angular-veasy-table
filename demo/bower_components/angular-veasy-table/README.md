@@ -11,10 +11,12 @@ The main objective of this AngularJS directive is to create quickly and practica
 * Resize columns
 * Show and hide columns
 * Accepts asynchronous request
+* Dynamic items by page
 
 ### Todo:
 * Add dynamic '$filter' in columns data
 * Add column with action buttons (edit, remove, ...)
+* Add responsible columns
 * Add translate
 
 ### Dependencies
@@ -25,7 +27,7 @@ The main objective of this AngularJS directive is to create quickly and practica
 
 
 ### Examples
-* [All features](http://nandomb.github.io/angular-veasy-table/demo/)
+* [Wit All Features Enabled](http://nandomb.github.io/angular-veasy-table/demo/)
 
 ### Instalation
 ```sh

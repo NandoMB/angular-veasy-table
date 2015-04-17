@@ -1,15 +1,11 @@
 {
   "name": "angular-veasy-table",
-  "version": "0.0.1",
-  "description": "https://github.com/NandoMB/angular-veasy-table",
-  "authors": [
-    "Fernando Machado Bernardino"
-  ],
+  "version": "0.0.2",
+  "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
+  "author": "Fernando Machado Bernardino <fernandombernardino@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "start": "node_modules/http-server/bin/http-server -c-1 -a localhost -p 3000 -o"
-  },
-  "dependencies": {
-    "http-server": "^0.7.5"
+    "start": "node_modules/http-server/bin/http-server -c-1 -a localhost -p 3000"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -17,6 +13,7 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-cssmin": "^0.12.2",
     "grunt-contrib-uglify": "^0.9.1",
-    "grunt-html2js": "^0.3.2"
+    "grunt-html2js": "^0.3.2",
+    "http-server": "^0.7.5"
   }
 }

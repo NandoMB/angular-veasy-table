@@ -16,52 +16,20 @@ angular.module('veasyTable', [
     link: function (scope, element, attributes, controller) {
       var init = function () {
         addResizeEventOnWindow();
-
         scope.isLoading = true;
 
-        if (!scope.config.checkbox) scope.config.checkbox = {};
-        if (!scope.config.pagination) scope.config.pagination = {};
-        if (!scope.config.filter) scope.config.filter = {};
-        if (!scope.config.columnFilter) scope.config.columnFilter = {};
-        if (!scope.config.ordenation) scope.config.ordenation = {};
-        if (!scope.config.resizable) scope.config.resizable = {};
-
-        // Checkbox
-        if (!scope.config.checkbox.enable) {
-          scope.config.checkbox.enable = false;
-          scope.config.checkbox.size = 0;
-        }
-
-        // Pagination
-        if (!scope.config.pagination.enable) {
-          scope.config.pagination.enable = false;
-          scope.config.pagination.currentPage = 0;
-          scope.config.pagination.itemsPerPage = scope.list.length || 0;
-        }
-
-        // Filter
-        if (!scope.config.filter.enable) {
-          scope.config.filter.enable = false;
-          scope.config.filter.conditional = false;
-        }
-
-        // Column Filter
-        if (!scope.config.columnFilter.enable) {
-          scope.config.columnFilter.enable = false;
-        }
-
-        // Ordenation
-        if (!scope.config.ordenation.enable) {
-          scope.config.ordenation.enable = false;
-        }
-
-        // Resizable
-        if (!scope.config.resizable.enable) {
-          scope.config.resizable.enable = false;
-          scope.config.resizable.minimumSize = 30;
-        }
+        // Validate Config
+        validateCheckbox();
+        validatePagination();
+        validateFilter();
+        validateColumnFilter();
+        validateSort();
+        validateResizable();
 
         // Others
+        scope.dragColIndex;
+        scope.initialPosition;
+        scope.direction;
         scope.predicate = '';
         scope.reverse = false;
         scope.query = '';
@@ -78,12 +46,7 @@ angular.module('veasyTable', [
           scope.cbs[i] = false;
         };
 
-        scope.dragColIndex;
-        scope.initialPosition;
-        scope.direction;
         scope.tableWidth = angular.element('#' + scope.config.id).width();
-
-
       };
 
       var addResizeEventOnWindow = function () {
@@ -92,7 +55,85 @@ angular.module('veasyTable', [
           setInitialColumnsSize();
           scope.$apply();
         });
-      }
+      };
+
+      var validateCheckbox = function () {
+        if (!scope.config.checkbox) {
+          scope.config.checkbox = {
+            enable: false,
+            size: 0
+          };
+        }
+
+        if (scope.config.checkbox.enable) {
+          if (!scope.config.checkbox.size || scope.config.checkbox.size < 20)
+            scope.config.checkbox.size = 20;
+        }
+      };
+
+      var validatePagination = function () {
+        if (!scope.config.pagination) {
+          scope.config.pagination = {
+            enable: false,
+            currentPage: 0,
+            itemsPerPage: scope.list.length || 10
+          };
+        }
+
+        if (scope.config.pagination.enable) {
+          if (!scope.config.pagination.currentPage || scope.config.pagination.currentPage <= 0)
+            scope.config.pagination.currentPage = 0;
+          else {
+            scope.config.pagination.currentPage -= 1;
+          }
+          if (!scope.config.pagination.itemsPerPage)
+            scope.config.pagination.itemsPerPage = 10;
+        }
+      };
+
+      var validateFilter = function () {
+        if (!scope.config.filter) {
+          scope.config.filter = {
+            enable: false,
+            conditional: false
+          };
+        }
+
+        if (scope.config.filter.enable) {
+          if (!scope.config.filter.conditional)
+            scope.config.filter.conditional = false;
+        }
+      };
+
+      var validateColumnFilter = function () {
+        if (!scope.config.columnFilter) {
+          scope.config.columnFilter = {
+            enable: false
+          };
+        }
+      };
+
+      var validateSort = function () {
+        if (!scope.config.sort) {
+          scope.config.sort = {
+            enable: false
+          };
+        }
+      };
+
+      var validateResizable = function () {
+        if (!scope.config.resizable) {
+          scope.config.resizable = {
+            enable: false,
+            minimumSize: 30
+          };
+        }
+
+        if (scope.config.resizable.enable) {
+          if (!scope.config.resizable.minimumSize || scope.config.resizable.minimumSize < 30)
+            scope.config.resizable.minimumSize = 30;
+        }
+      };
 
       /*
        * ============================ Checkbox Controller ============================
@@ -159,13 +200,15 @@ angular.module('veasyTable', [
           }
         });
 
-        if (scope.config.ordenation.enable) {
+        if (scope.config.sort.enable) {
           if (scope.predicate !== '') {
             scope.filteredList = $filter('orderBy')(scope.filteredList, scope.predicate, scope.reverse);
           }
         }
 
-        scope.config.pagination.currentPage = 0;
+        if (!scope.isLoading)
+          scope.config.pagination.currentPage = 0;
+
         scope.generatePages();
       };
 
@@ -221,7 +264,7 @@ angular.module('veasyTable', [
        */
 
       scope.sort = function (predicate) {
-        if (!scope.config.ordenation.enable) return;
+        if (!scope.config.sort.enable) return;
 
         if (scope.predicate === predicate) scope.reverse = !scope.reverse;
 
@@ -234,7 +277,7 @@ angular.module('veasyTable', [
       };
 
       scope.orderByIcon = function (direction, predicate) {
-        if (!scope.config.ordenation) return false;
+        if (!scope.config.sort) return false;
 
         switch (direction) {
           case 'asc':
@@ -321,7 +364,12 @@ angular.module('veasyTable', [
         });
 
         scope.visibleColumns = array;
-        scope.colspan = scope.visibleColumns.length + 1;
+
+        scope.colspan = scope.visibleColumns.length;
+
+        if (scope.config.checkbox.enable)
+          scope.colspan += 1;
+
         setInitialColumnsSize();
       };
 

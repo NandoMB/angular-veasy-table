@@ -1,25 +1,23 @@
 {
   "name": "angular-veasy-table",
-  "description": "http://nandomb.github.io/angular-veasy-table",
+  "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
+  "homepage": "http://nandomb.github.io/angular-veasy-table",
+  "license": "MIT",
   "authors": [
-    "Fernando Machado Bernardino"
+    "Fernando Machado Bernardino <fernandombernardino@gmail.com>"
   ],
-  "dependencies": {
-    "jquery": "~2.1.3",
-    "angular": "~1.3.15",
-    "bootstrap": "~3.3.4",
-    "angular-bootstrap": "~0.12.1",
-    "font-awesome": "~4.3.0"
-  },
-  "resolutions": {
-    "angular": "~1.3.15"
-  },
-  "homepage": "https://github.com/NandoMB/angular-veasy-table",
-  "_release": "23db5de34f",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "47bc25a731",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "23db5de34f4e65ee0f207d3bb2aef428c9252c5b"
+    "commit": "47bc25a7319c53f9fd3ce477bd5619d7e651b163"
   },
   "_source": "git://github.com/NandoMB/angular-veasy-table.git",
   "_target": "*",
