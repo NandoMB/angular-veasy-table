@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Which columns you want to display?</h4>
+  <h4 class="modal-title">{{translate.columnFilter.title}}</h4>
 </div>
 <div class="modal-body">
   <ul style="list-style-type: none;">
@@ -10,6 +10,7 @@
   </ul>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="ok()">OK</button>
-  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-primary" ng-click="ok()">{{translate.columnFilter.okButton}}</button>
+  <button class="btn btn-warning" ng-click="cancel()">{{translate.columnFilter.cancelButton}}</button>
 </div>
+

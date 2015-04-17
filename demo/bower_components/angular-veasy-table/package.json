@@ -1,9 +1,10 @@
 {
   "name": "angular-veasy-table",
-  "version": "0.0.2",
-  "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
+  "version": "1.1.0",
+  "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
   "author": "Fernando Machado Bernardino <fernandombernardino@gmail.com>",
   "license": "MIT",
+  "main": "./dist/js/angular-veasy-table.js",
   "scripts": {
     "start": "node_modules/http-server/bin/http-server -c-1 -a localhost -p 3000"
   },

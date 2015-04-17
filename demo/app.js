@@ -41,7 +41,31 @@ angular.module('app', [
     resizable: {
       enable: true,
       minimumSize: 30
+    },
+    events: {
+      onClickRow: function (row) {
+        alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
+        console.log('Row Clicked: ' + JSON.stringify(row, null, 2));
+        console.log('---------------------------------');
+      }
     }
+    // ,
+    // translate: {
+    //   filter: {
+    //     by: 'Filtrar por...',
+    //     and: 'E',
+    //     or: 'OU'
+    //   },
+    //   pagination: {
+    //     itemsByPage: 'Itens por Página',
+    //     totalItems: 'Total de Itens'
+    //   },
+    //   columnFilter: {
+    //     title: 'Quais colunas você deseja exibir?',
+    //     okButton: 'Ok',
+    //     cancelButton: 'Cancelar'
+    //   }
+    // }
   };
   // ------------------------------ EasyTable Configs - END
 

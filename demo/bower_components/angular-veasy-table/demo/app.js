@@ -7,44 +7,6 @@ angular.module('app', [
   $scope.people = [];
   $scope.selecteds = [];
 
-  // ------------------------------ EasyTable Configs - START
-  $scope.config = {
-    id: 'my-veasy-table',
-    columns: [
-      { header: 'Id',         value: 'id',          show: true },
-      { header: 'First Name', value: 'first_name',  show: true },
-      { header: 'Last Name',  value: 'last_name',   show: true },
-      { header: 'Email',      value: 'email',       show: true },
-      { header: 'Country',    value: 'country',     show: true },
-      { header: 'IP',         value: 'ip_address',  show: true },
-      { header: 'City',       value: 'city',        show: true }
-    ],
-    checkbox: {
-      enable: true,
-      size: 20
-    },
-    pagination: {
-      enable: true,
-      currentPage: 4,
-      itemsPerPage: 5
-    },
-    filter: {
-      enable: true,
-      conditional: true
-    },
-    columnFilter: {
-      enable: true
-    },
-    sort: {
-      enable: true
-    },
-    resizable: {
-      enable: true,
-      minimumSize: 30
-    }
-  };
-  // ------------------------------ EasyTable Configs - END
-
   var init = function () {
     $scope.people = [
       {
@@ -235,6 +197,67 @@ angular.module('app', [
     $scope.people.push(person);
     $scope.person = {};
   };
+
+  // ------------------------------ EasyTable Configs - START
+  $scope.config = {
+    id: 'my-veasy-table',
+    columns: [
+      { header: 'Id',         value: 'id',          show: true },
+      { header: 'First Name', value: 'first_name',  show: true },
+      { header: 'Last Name',  value: 'last_name',   show: true },
+      { header: 'Email',      value: 'email',       show: true },
+      { header: 'Country',    value: 'country',     show: true },
+      { header: 'IP',         value: 'ip_address',  show: true },
+      { header: 'City',       value: 'city',        show: true }
+    ],
+    checkbox: {
+      enable: true,
+      size: 20
+    },
+    pagination: {
+      enable: true,
+      currentPage: 0,
+      itemsPerPage: 10,
+    },
+    filter: {
+      enable: true,
+      conditional: true
+    },
+    columnFilter: {
+      enable: true
+    },
+    sort: {
+      enable: true
+    },
+    resizable: {
+      enable: true,
+      minimumSize: 30
+    },
+    events: {
+      onClickRow: function (row) {
+        alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
+        console.log(JSON.stringify(row, null, 2));
+        console.log('---------------------------------');
+      }
+    },
+    i18n: {
+      filter: {
+        by: 'Filtrar por...',
+        and: 'E',
+        or: 'OU'
+      },
+      pagination: {
+        itemsByPage: 'Itens por Página',
+        totalItems: 'Total de Itens'
+      },
+      columnFilter: {
+        title: 'Quais colunas você deseja exibir?',
+        okButton: 'Ok',
+        cancelButton: 'Cancelar'
+      }
+    }
+  };
+  // ------------------------------ EasyTable Configs - END
 
   $timeout(function () {
     init();
