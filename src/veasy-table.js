@@ -25,6 +25,8 @@ angular.module('veasyTable', [
         validateColumnFilter();
         validateSort();
         validateResizable();
+        validateEvents();
+        validateTranslate();
 
         // Others
         scope.dragColIndex;
@@ -133,6 +135,30 @@ angular.module('veasyTable', [
           if (!scope.config.resizable.minimumSize || scope.config.resizable.minimumSize < 30)
             scope.config.resizable.minimumSize = 30;
         }
+      };
+
+      var validateEvents = function () {
+        if (!scope.config.events) scope.config.events = {};
+        if (!scope.config.events.onClickRow) scope.config.events.onClickRow = function (row) {};
+
+      };
+
+      var validateTranslate = function () {
+        if (!scope.config.translate) scope.config.translate = {};
+        // Filter
+        if (!scope.config.translate.filter) scope.config.translate.filter = {};
+        if (!scope.config.translate.filter.by) scope.config.translate.filter.by = 'Filter by...';
+        if (!scope.config.translate.filter.and) scope.config.translate.filter.and = 'AND';
+        if (!scope.config.translate.filter.or) scope.config.translate.filter.or = 'OR';
+        // Pagination
+        if (!scope.config.translate.pagination) scope.config.translate.pagination = {};
+        if (!scope.config.translate.pagination.itemsByPage) scope.config.translate.pagination.itemsByPage = 'Items by Page';
+        if (!scope.config.translate.pagination.totalItems) scope.config.translate.pagination.totalItems = 'Total Items';
+        // Column Filter
+        if (!scope.config.translate.columnFilter) scope.config.translate.columnFilter = {};
+        if (!scope.config.translate.columnFilter.title) scope.config.translate.columnFilter.title = 'Which columns you want to display?';
+        if (!scope.config.translate.columnFilter.okButton) scope.config.translate.columnFilter.okButton = 'Ok';
+        if (!scope.config.translate.columnFilter.cancelButton) scope.config.translate.columnFilter.cancelButton = 'Cancel';
       };
 
       /*
@@ -379,8 +405,8 @@ angular.module('veasyTable', [
           controller: 'ColumnFilterController',
           size: size,
           resolve: {
-            columns: function () {
-              return scope.config.columns;
+            config: function () {
+              return scope.config;
             }
           }
         });
@@ -480,17 +506,28 @@ angular.module('veasyTable', [
         scope.visibleColumns[index - 1].size -= pixels;
       };
 
+      /*
+       * ============================== Events ==============================
+       */
+
+      scope.onClickRow = function (selectedRow) {
+        var row = angular.copy(selectedRow);
+        delete row.$$hashKey;
+        scope.config.events.onClickRow(row);
+      };
+
       init();
     }
   };
 }])
 
 
-.controller('ColumnFilterController', ['$scope', '$modalInstance', 'columns', function ($scope, $modalInstance, columns) {
+.controller('ColumnFilterController', ['$scope', '$modalInstance', 'config', function ($scope, $modalInstance, config) {
 
   var init = function () {
+    $scope.translate = config.translate;
+    $scope.columns = config.columns;
     $scope.visibleColumns = [];
-    $scope.columns = columns;
     $scope.setVisibleColumns();
   }
 

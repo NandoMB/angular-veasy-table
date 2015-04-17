@@ -110,7 +110,17 @@ module.exports = function (grunt) {
     'uglify:dist',
     'cssmin',
     'copy:min',
-    // 'copy:src',
+    'clean:target'
+  ]);
+
+  grunt.registerTask('dev', [
+    'clean',
+    'html2js',
+    'uglify:tpls',
+    'uglify:dist',
+    'cssmin',
+    'copy:min',
+    'copy:src',
     'clean:target'
   ]);
 

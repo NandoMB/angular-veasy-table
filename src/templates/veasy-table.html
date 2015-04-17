@@ -5,13 +5,13 @@
     <div class="col-sm-12" style="margin-bottom: 10px;">
 
       <!-- Filter -->
-      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 30%;margin-top: 5px;margin-right: 5px;" placeholder="Filter by..." ng-model="query" ng-change="search()">
+      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 30%;margin-top: 5px;margin-right: 5px;" placeholder="{{config.translate.filter.by}}" ng-model="query" ng-change="search()">
       <!-- /Filter -->
 
       <!-- Conditional Filter -->
       <div ng-show="{{config.filter.enable && config.filter.conditional}}" class="btn-group" style="margin-top: 5px;">
-        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">AND</label>
-        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">OR</label>
+        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">{{config.translate.filter.and}}</label>
+        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">{{config.translate.filter.or}}</label>
       </div>
       <!-- /Conditional Filter -->
 
@@ -19,12 +19,12 @@
       <div class="pull-right" style="margin-top: 5px;">
         <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="1000" name="itemsPerPage" class="form-control input-sm w-sm inline m-r" style="width: 55px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">
         <div class="pull-left" style="color: #6B6B6B;margin: 7px 5px 0 0;font-size: small;">
-          <span>Items by Page: </span>
+          <span>{{config.translate.pagination.itemsByPage}}: </span>
         </div>
         <!-- /Items by Page -->
 
         <!-- Column Filter -->
-        <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter('sm')"><i class="fa fa-filter"></i></button>
+        <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter('md')"><i class="fa fa-filter"></i></button>
         <!-- /Column Filter -->
 
       </div>
@@ -59,7 +59,7 @@
           </tr>
         </thead>
         <tbody ng-hide="isLoading">
-          <tr ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse">
+          <tr ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse" ng-click="onClickRow(row)">
             <td ng-show="{{config.checkbox.enable}}" class="truncate" style="vertical-align: middle;">
               <div>
                 <label>
@@ -99,14 +99,14 @@
               </ul>
             </div>
             <div class="col-sm-3" style="text-align: right;color: #6B6B6B;margin-top: 10px;margin-bottom: 14px;font-size: small;">
-              <span>Total Items: {{filteredList.length}}</span>
+              <span>{{config.translate.pagination.totalItems}}: {{filteredList.length}}</span>
             </div>
           </td>
         </tfoot>
         <tfoot ng-hide="config.pagination.enable || isLoading">
           <td colspan="{{colspan}}">
             <div class="col-sm-3 col-sm-offset-9" style="text-align: right;color: #6B6B6B;margin-top: 10px;margin-bottom: 14px;font-size: small;">
-              <span>Total Items: {{list.length}}</span>
+              <span>{{config.translate.pagination.totalItems}}: {{list.length}}</span>
             </div>
           </td>
         </tfoot>

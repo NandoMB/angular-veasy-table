@@ -15,12 +15,13 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * Show and hide columns
 * Accepts asynchronous request
 * Dynamic items by page
+* Translate labels
+* Select row event
 
 ### Todo:
 * Add dynamic '$filter' in columns data
 * Add column with action buttons (edit, remove, ...)
 * Add responsible columns
-* Add translate
 
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
@@ -129,6 +130,33 @@ ordenation: {
 resizable: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
   minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
+}
+```
+
+##### Enable events:
+```js
+events: {
+  onClickRow: function (row) {} // This event is executed when an row is clicked
+}
+```
+
+##### Enable translate:
+```js
+translate: {
+  filter: {
+    by: 'Filtrar por...',                           // Label of filter input
+    and: 'E',                                       // Label of filter condition AND
+    or: 'OU'                                        // Label of filter condition OR
+  },
+  pagination: {
+    itemsByPage: 'Itens por Página',                // Label of items by page
+    totalItems: 'Total de Itens'                    // Label of totel of items
+  },
+  columnFilter: {
+    title: 'Quais colunas você deseja exibir?',     // Label of column filter modal title
+    okButton: 'Ok',                                 // Label of column filter modal ok button
+    cancelButton: 'Cancelar'                        // Label of column filter modal cancel button
+  }
 }
 ```
 
