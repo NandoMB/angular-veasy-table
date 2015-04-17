@@ -25,17 +25,17 @@ angular.module('app', [
     },
     pagination: {
       enable: true,
-      currentPage: 0,
-      itemsPerPage: 10
+      currentPage: 4,
+      itemsPerPage: 5
     },
     filter: {
       enable: true,
-      conditional: true,
+      conditional: true
     },
     columnFilter: {
-      enable: true,
+      enable: true
     },
-    ordenation: {
+    sort: {
       enable: true
     },
     resizable: {

@@ -1,19 +1,36 @@
 <div style="min-width: 675px;">
 
-  <!-- Filter -->
+  <!-- Top Row -->
   <div class="row">
-    <div class="col-sm-12">
-      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 50%;margin-top: 5px;" placeholder="Filtrar por..." ng-model="query" ng-change="search()">
-      <div class="form-group input-sm pull-right" style="text-align: right;padding-right: 0px">
-        <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default pull-right" style="font-size: 12px; margin-left: 5px;" ng-click="openColumnFilter('sm')"><i class="fa fa-filter"></i></button>
-        <div ng-show="{{config.filter.enable && config.filter.conditional}}" class="btn-group">
-          <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">AND</label>
-          <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">OR</label>
+    <div class="col-sm-12" style="margin-bottom: 10px;">
+
+      <!-- Filter -->
+      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 30%;margin-top: 5px;margin-right: 5px;" placeholder="Filter by..." ng-model="query" ng-change="search()">
+      <!-- /Filter -->
+
+      <!-- Conditional Filter -->
+      <div ng-show="{{config.filter.enable && config.filter.conditional}}" class="btn-group" style="margin-top: 5px;">
+        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">AND</label>
+        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">OR</label>
+      </div>
+      <!-- /Conditional Filter -->
+
+      <!-- Items by Page -->
+      <div class="pull-right" style="margin-top: 5px;">
+        <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="1000" name="itemsPerPage" class="form-control input-sm w-sm inline m-r" style="width: 55px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">
+        <div class="pull-left" style="color: #6B6B6B;margin: 7px 5px 0 0;font-size: small;">
+          <span>Items by Page: </span>
         </div>
+        <!-- /Items by Page -->
+
+        <!-- Column Filter -->
+        <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter('sm')"><i class="fa fa-filter"></i></button>
+        <!-- /Column Filter -->
+
       </div>
     </div>
   </div>
-  <!-- /Filter -->
+  <!-- /Top Row -->
 
   <!-- Table -->
   <div class="row">
@@ -34,7 +51,7 @@
                   <div class="veasyt-resizer" ng-class="addResizeBarClass($index)"></div>
                 </div>
                 <div class="use-ellipsis" style="float:left;cursor: pointer;" ng-click="sort(column.value);">
-                  <i ng-show="config.ordenation.enable" class="fa" ng-class="{'fa-sort-asc': orderByIcon('asc', column.value), 'fa-sort-desc': orderByIcon('desc', column.value), 'fa-sort': orderByIcon('', column.value)}">
+                  <i ng-show="config.sort.enable" class="fa" ng-class="{'fa-sort-asc': orderByIcon('asc', column.value), 'fa-sort-desc': orderByIcon('desc', column.value), 'fa-sort': orderByIcon('', column.value)}">
                   </i> {{column.header}}
                 </div>
               </div>
@@ -60,6 +77,8 @@
         </tbody>
         <tfoot ng-show="!isLoading && config.pagination.enable">
           <td colspan="{{colspan}}">
+            <div class="" style="">
+            </div>
             <div class="col-sm-6 col-sm-offset-3" style="text-align: center;height: 35px;padding-top: 0;">
               <ul class="pagination input-sm" style="margin-top: 0px;">
                 <li ng-class="prevPageDisabled()">
@@ -80,14 +99,14 @@
               </ul>
             </div>
             <div class="col-sm-3" style="text-align: right;color: #6B6B6B;margin-top: 10px;margin-bottom: 14px;font-size: small;">
-              <span>Total de Registros: {{filteredList.length}}</span>
+              <span>Total Items: {{filteredList.length}}</span>
             </div>
           </td>
         </tfoot>
         <tfoot ng-hide="config.pagination.enable || isLoading">
           <td colspan="{{colspan}}">
             <div class="col-sm-3 col-sm-offset-9" style="text-align: right;color: #6B6B6B;margin-top: 10px;margin-bottom: 14px;font-size: small;">
-              <span>Total de Registros: {{list.length}}</span>
+              <span>Total Items: {{list.length}}</span>
             </div>
           </td>
         </tfoot>
