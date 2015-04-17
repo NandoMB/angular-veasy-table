@@ -1,6 +1,6 @@
 # [angular-veasy-table](http://nandomb.github.io/angular-veasy-table)
 
-The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.
+AngularJS directive to create quickly data tables without giving up the beauty and functionality.
 <br/>
 
 ![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.0.0.png)
