@@ -1,0 +1,17 @@
+{
+  "name": "angular-veasy-table",
+  "version": "0.0.2",
+  "description": "The main objective of this AngularJS directive is to create quickly and practical data tables without giving up key features know.",
+  "homepage": "http://nandomb.github.io/angular-veasy-table",
+  "license": "MIT",
+  "authors": [
+    "Fernando Machado Bernardino <fernandombernardino@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
