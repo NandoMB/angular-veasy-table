@@ -59,7 +59,7 @@
           </tr>
         </thead>
         <tbody ng-hide="isLoading">
-          <tr ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse" ng-click="onClickRow(row)">
+          <tr ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse">
             <td ng-show="{{config.checkbox.enable}}" class="truncate" style="vertical-align: middle;">
               <div>
                 <label>
@@ -67,7 +67,7 @@
                 </label>
               </div>
             </td>
-            <td ng-repeat="column in visibleColumns | orderBy:predicate:reverse" style="vertical-align: middle;" class="use-ellipsis" ng-class="addCellResizeClass($index)">{{row[column.value]}}</td>
+            <td ng-repeat="column in visibleColumns | orderBy:predicate:reverse" ng-click="onClickRow(row)" style="vertical-align: middle;" class="use-ellipsis" ng-class="addCellResizeClass($index)">{{row[column.value]}}</td>
           </tr>
         </tbody>
         <tbody ng-show="isLoading">

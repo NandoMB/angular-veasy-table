@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.1.1
+
+* Fix checkbox selection
+
 ## Version 1.1.0
 
 * Add translate labels

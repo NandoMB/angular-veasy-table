@@ -2,7 +2,7 @@ To run this demo project, please execute de code lines below:
 
   $ bower install
   $ npm install
-  $ cd ..
+  $ grunt dev
   $ npm start
 
 Enjoy!
