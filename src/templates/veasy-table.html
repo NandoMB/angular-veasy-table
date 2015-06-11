@@ -5,7 +5,7 @@
     <div class="col-sm-12" style="margin-bottom: 10px;">
 
       <!-- Filter -->
-      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 30%;margin-top: 5px;margin-right: 5px;" placeholder="{{config.translate.filter.by}}" ng-model="query" ng-change="search()">
+      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm w-sm inline m-r" style="width: 30%;margin-top: 5px;margin-right: 5px;" placeholder="{{config.translate.filter.by}}" ng-model="query" ng-change="changeQuery()">
       <!-- /Filter -->
 
       <!-- Conditional Filter -->
@@ -14,6 +14,12 @@
         <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">{{config.translate.filter.or}}</label>
       </div>
       <!-- /Conditional Filter -->
+
+      <!-- Searching Spin -->
+      <div style="display: inline-block;margin-left: 5px;">
+        <i ng-show="searching" class="fa fa-spin fa-refresh" style="margin-top: -9px;position: absolute;margin-left: 10px;"></i>
+      </div>
+      <!-- /Searching Spin -->
 
       <!-- Items by Page -->
       <div class="pull-right" style="margin-top: 5px;">

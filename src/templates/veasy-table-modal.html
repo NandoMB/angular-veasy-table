@@ -2,10 +2,12 @@
   <h4 class="modal-title">{{translate.columnFilter.title}}</h4>
 </div>
 <div class="modal-body">
-  <ul style="list-style-type: none;">
-    <li ng-repeat="column in columns">
-      <input type="checkbox" ng-model="column.show" ng-change="setVisibleColumns()"/>
-      <span>{{column.header}}</span>
+  <ul style="list-style-type: none;" data-as-sortable="board.dragControlListeners" data-ng-model="columns">
+    <li data-ng-repeat="column in columns" data-as-sortable-item>
+      <div data-as-sortable-item-handle>
+        <input type="checkbox" ng-model="column.show"/>
+        <span>{{column.header}}</span>
+      </div>
     </li>
   </ul>
 </div>

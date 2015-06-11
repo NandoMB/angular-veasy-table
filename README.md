@@ -7,6 +7,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 ### Features:
 * Selecting rows using checkbox
+* Order by specific column
 * Sort columns
 * Data paging (client-side)
 * Global data filter (filter all columns)
@@ -28,6 +29,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
 * [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
+* [ng-sortable](https://github.com/a5hik/ng-sortable) (requires ng-sortable 1.2.x)
 
 
 ### Examples
@@ -35,7 +37,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 ### Instalation
 ```sh
-$ bower install angular-veasy-table
+$ bower install angular-veasy-table --save
 ```
 
 ## Configuration

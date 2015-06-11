@@ -1,5 +1,6 @@
 angular.module('app', [
-  'veasyTable'
+  'veasyTable',
+  'ui.sortable'
 ])
 
 .controller('AppController', ['$scope', '$timeout', function ($scope, $timeout) {
@@ -221,7 +222,8 @@ angular.module('app', [
     },
     filter: {
       enable: true,
-      conditional: true
+      conditional: true,
+      delay: 500
     },
     columnFilter: {
       enable: true
@@ -261,6 +263,6 @@ angular.module('app', [
 
   $timeout(function () {
     init();
-  }, 1500);
+  }, 2500);
 
 }]);

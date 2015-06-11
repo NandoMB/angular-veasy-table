@@ -211,6 +211,17 @@ angular.module('veasyTable', [
        * ============================ Filter Controller ============================
        */
 
+      scope.changeQuery = function () {
+        if (scope.busy)
+          $timeout.cancel(scope.busy);
+
+        scope.searching = true;
+        scope.busy = $timeout(function () {
+          scope.search();
+          scope.searching = false;
+        }, scope.config.filter.delay);
+      };
+
       scope.changeCondition = function (condition) {
         scope.condition = condition;
         scope.search();
@@ -411,13 +422,25 @@ angular.module('veasyTable', [
           }
         });
 
-        modal.result.then(function (visibleColumns) {
-          scope.visibleColumns = visibleColumns;
+        modal.result.then(function (columns) {
+          scope.visibleColumns = angular.copy(columns);
           scope.colspan = scope.visibleColumns.length + 1;
           setInitialColumnsSize();
-        }, function () {
-          // dismiss
         });
+      };
+
+      scope.dragControlListeners = {
+        accept: function (sourceItemHandleScope, destSortableScope) {
+          //override to determine drag is allowed or not. default is true.
+          return true;
+        },
+        itemMoved: function (event) {
+          //Do what you want
+        },
+        orderChanged: function(event) {
+          //Do what you want
+        },
+        containment: '#board'
       };
 
       /*
@@ -532,6 +555,7 @@ angular.module('veasyTable', [
   }
 
   $scope.ok = function () {
+    $scope.setVisibleColumns($scope.columns);
     $modalInstance.close($scope.visibleColumns);
   };
 
@@ -539,10 +563,10 @@ angular.module('veasyTable', [
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.setVisibleColumns = function () {
+  $scope.setVisibleColumns = function (columns) {
     var array = [];
 
-    angular.forEach($scope.columns, function (column) {
+    angular.forEach(columns, function (column) {
       if(column.show) {
         array.push(column);
       }
