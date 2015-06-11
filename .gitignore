@@ -17,3 +17,5 @@
 /atlassian-ide-plugin.xml
 
 # Auto-added patterns
+
+demo/bower_components/
