@@ -3,7 +3,20 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
-
+    /*
+     * [bower]            .
+     * [bower:install]    .
+     */
+    bower: {
+      install: {
+        options: {
+          targetDir: 'demo/bower_components',
+          install: true,
+          verbose: true,
+          copy: false
+        }
+      }
+    },
     /*
      * [clean]          Run all tasks below.
      * [clean:build]    Clean build directory.
@@ -97,6 +110,7 @@ module.exports = function (grunt) {
 
   // Plugins
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -115,6 +129,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dev', [
     'clean',
+    'bower:install',
     'html2js',
     'uglify:tpls',
     'uglify:dist',
