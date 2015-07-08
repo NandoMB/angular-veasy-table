@@ -2,6 +2,22 @@ input, button, textarea, div {
   outline: none !important;
 }
 
+.veasyt-content {
+  min-width: 675px;
+}
+
+.veasyt-total {
+  text-align: right;
+  color: #6B6B6B;
+  margin: 30px 0;
+  font-size: small;
+}
+
+.veasyt-spin {
+  display: inline-block;
+  margin-left: 15px;
+}
+
 .use-ellipsis {
   overflow: hidden !important;
   text-overflow: ellipsis !important;

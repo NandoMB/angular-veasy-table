@@ -110,6 +110,7 @@ pagination: {
 filter: {
   enable: true,      // Enable = true, Disable = false. (Default is false)
   conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
+  delay: 500         // Delay in milliseconds. (Default is 500ms)
 }
 ```
 
@@ -131,7 +132,7 @@ ordenation: {
 ```js
 resizable: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
-  minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
+  minimumSize: 30   // Set minimum column size in pixels. (Default is 30px)
 }
 ```
 

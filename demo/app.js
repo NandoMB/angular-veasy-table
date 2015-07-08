@@ -199,7 +199,7 @@ angular.module('app', [
     $scope.person = {};
   };
 
-  // ------------------------------ EasyTable Configs - START
+  // ------------------------------ VEasyTable Configs - START
   $scope.config = {
     id: 'my-veasy-table',
     columns: [
