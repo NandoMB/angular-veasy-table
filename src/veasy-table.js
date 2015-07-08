@@ -548,7 +548,7 @@ angular.module('veasyTable', [
 .controller('ColumnFilterController', ['$scope', '$modalInstance', 'config', function ($scope, $modalInstance, config) {
 
   var init = function () {
-    $scope.translate = config.translate;
+    $scope.config = config;
     $scope.columns = config.columns;
     $scope.visibleColumns = [];
     $scope.setVisibleColumns();

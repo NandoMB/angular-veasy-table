@@ -1,18 +1,19 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{translate.columnFilter.title}}</h4>
+  <h3 class="modal-title">{{config.i18n.columnFilter.title}}</h3>
 </div>
 <div class="modal-body">
   <ul style="list-style-type: none;" data-as-sortable="board.dragControlListeners" data-ng-model="columns">
-    <li data-ng-repeat="column in columns" data-as-sortable-item>
-      <div data-as-sortable-item-handle>
-        <input type="checkbox" ng-model="column.show"/>
-        <span>{{column.header}}</span>
+    <li data-ng-repeat="column in columns" data-as-sortable-item class="veasyt-sortable-item">
+      <div class="checkbox" data-as-sortable-item-handle>
+        <label>
+          <input type="checkbox" ng-model="column.show"> {{column.header}}
+        </label>
       </div>
     </li>
   </ul>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="ok()">{{translate.columnFilter.okButton}}</button>
-  <button class="btn btn-warning" ng-click="cancel()">{{translate.columnFilter.cancelButton}}</button>
+  <button class="btn btn-primary" ng-click="ok()">{{config.i18n.columnFilter.okButton}}</button>
+  <button class="btn btn-default" ng-click="cancel()">{{config.i18n.columnFilter.cancelButton}}</button>
 </div>
 

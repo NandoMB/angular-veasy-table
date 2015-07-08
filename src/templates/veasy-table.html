@@ -4,14 +4,14 @@
   <div class="row">
     <div class="form-group col-md-4">
       <!-- Filter -->
-      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm" placeholder="{{config.translate.filter.by}}" ng-model="query" ng-change="changeQuery()">
+      <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm" placeholder="{{config.i18n.filter.by}}" ng-model="query" ng-change="changeQuery()">
       <!-- /Filter -->
     </div>
     <div class="form-group col-md-8">
       <!-- Conditional Filter -->
       <div ng-show="{{config.filter.enable && config.filter.conditional}}" class="btn-group">
-        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">{{config.translate.filter.and}}</label>
-        <label class="btn btn-primary input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">{{config.translate.filter.or}}</label>
+        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">{{config.i18n.filter.and}}</label>
+        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR')" btn-radio="'OR'">{{config.i18n.filter.or}}</label>
       </div>
       <!-- /Conditional Filter -->
       <!-- Searching Spin -->
@@ -25,7 +25,7 @@
       <!-- Items by Page -->
       <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="1000" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 55px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">
       <div class="pull-right" style="color: #6B6B6B;margin: 7px 5px 0 0;font-size: small;">
-        <span>{{config.translate.pagination.itemsByPage}}: </span>
+        <span>{{config.i18n.pagination.itemsByPage}}: </span>
       </div>
       <!-- /Items by Page -->
     </div>
@@ -98,7 +98,7 @@
                 </ul>
               </div>
               <div class="col-md-3 veasyt-total">
-                <span>{{config.translate.pagination.totalItems}}: {{filteredList.length}}</span>
+                <span>{{config.i18n.pagination.totalItems}}: {{filteredList.length}}</span>
               </div>
             </div>
           </td>
@@ -106,7 +106,7 @@
         <tfoot ng-hide="config.pagination.enable || isLoading">
           <td colspan="{{colspan}}">
             <div class="col-md-3 col-md-offset-9 veasyt-total">
-              <span>{{config.translate.pagination.totalItems}}: {{list.length}}</span>
+              <span>{{config.i18n.pagination.totalItems}}: {{list.length}}</span>
             </div>
           </td>
         </tfoot>

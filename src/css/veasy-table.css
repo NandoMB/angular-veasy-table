@@ -69,6 +69,7 @@ input, button, textarea, div {
   width: 90%;
   padding: 10px;
   margin-top: 0px;
+  margin-bottom: 1px;
   border-radius: 0px;
 }
 
@@ -84,4 +85,10 @@ input, button, textarea, div {
 
 .as-sortable-drag {
   opacity: .8;
+}
+
+.veasyt-sortable-item {
+  background-color: #FAFAFA;
+  border: 1px solid rgb(239, 239, 239);
+  margin-bottom: 1px;
 }
