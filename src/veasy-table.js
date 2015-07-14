@@ -17,7 +17,6 @@ angular.module('veasyTable', [
       var init = function () {
         addResizeEventOnWindow();
         scope.isLoading = true;
-        scope.haveData = false;
 
         // Validate Config
         validateCheckbox();
@@ -380,7 +379,7 @@ angular.module('veasyTable', [
 
       scope.$watchCollection('list', function (newValue) {
         scope.search();
-        if (scope.list.length > 0 && scope.isLoading && !scope.haveData) {
+        if (scope.list.length > 0) {
           if (!scope.config.pagination.enable) {
             scope.config.pagination.itemsPerPage = scope.list.length;
             scope.generatePages();
@@ -388,7 +387,6 @@ angular.module('veasyTable', [
 
           setVisibleColumnsInitial();
           scope.isLoading = false;
-          scope.haveData = true;
         }
       });
 
@@ -454,8 +452,7 @@ angular.module('veasyTable', [
        */
 
       var setInitialColumnsSize = function () {
-        // scope.tableWidth = angular.element('#' + scope.config.id).width();
-        scope.tableWidth = angular.element('#' + scope.config.id + '-parent').width();
+        scope.tableWidth = angular.element('#' + scope.config.id).width();
 
         angular.forEach(scope.visibleColumns, function (column, index) {
           scope.visibleColumns[index].size = (scope.tableWidth - scope.config.checkbox.size) / scope.visibleColumns.length;
