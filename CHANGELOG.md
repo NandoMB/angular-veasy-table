@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 1.2.2
+
+* Hides the table if there is no item to display
+* Add event on apply column filter
+
+## Version 1.2.1
+
+* Bootstrap fixes
+
+
 ## Version 1.2.0
 
 * Update to AngularJS 1.4
@@ -13,7 +23,7 @@
 ## Version 1.1.0
 
 * Add translate labels
-* Add event click in row
+* Add event on click in row
 
 ## Version 1.0.0
 

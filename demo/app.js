@@ -240,9 +240,17 @@ angular.module('app', [
         alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
         console.log(JSON.stringify(row, null, 2));
         console.log('---------------------------------');
+      },
+      onApplyColumnFilter: function (columns) {
+        alert('Applied Columns! More details in your console.');
+        console.log(JSON.stringify(columns, null, 2));
+        console.log('---------------------------------');
       }
     },
     i18n: {
+      message: {
+        noData: 'Não existem dados para exibir'
+      },
       filter: {
         by: 'Filtrar por...',
         and: 'E',
