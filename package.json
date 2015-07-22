@@ -1,6 +1,6 @@
 {
   "name": "angular-veasy-table",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
   "author": "Fernando Machado Bernardino <fernandombernardino@gmail.com>",
   "license": "MIT",

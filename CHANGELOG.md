@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.3.0
+
+* Open automatically column filter modal, if not have visible columns.
+
 ## Version 1.2.2
 
 * Hides the table if there is no item to display

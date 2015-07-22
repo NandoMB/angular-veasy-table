@@ -145,9 +145,6 @@ angular.module('veasyTable', [
 
       var validateTranslate = function () {
         if (!scope.config.i18n) scope.config.i18n = {};
-        // Messages
-        if (!scope.config.i18n.message) scope.config.i18n.message = {};
-        if (!scope.config.i18n.message.noData) scope.config.i18n.message.noData = 'No data to display';
         // Filter
         if (!scope.config.i18n.filter) scope.config.i18n.filter = {};
         if (!scope.config.i18n.filter.by) scope.config.i18n.filter.by = 'Filter by...';
@@ -387,6 +384,9 @@ angular.module('veasyTable', [
 
           setVisibleColumnsInitial();
           scope.isLoading = false;
+
+          if (scope.config.columnFilter.autoOpen && !haveVisibleColumn(scope.config.columns))
+            scope.openColumnFilter('md');
         }
       });
 
@@ -413,6 +413,14 @@ angular.module('veasyTable', [
         setInitialColumnsSize();
       };
 
+      var haveVisibleColumn = function (array) {
+        var filtered = array.filter(function (element) {
+          return element.show;
+        });
+
+        return filtered.length > 0;
+      };
+
       scope.openColumnFilter = function (size) {
         var modal = $modal.open({
           templateUrl: 'veasy-table-modal.html',
@@ -435,15 +443,10 @@ angular.module('veasyTable', [
 
       scope.dragControlListeners = {
         accept: function (sourceItemHandleScope, destSortableScope) {
-          //override to determine drag is allowed or not. default is true.
           return true;
         },
-        itemMoved: function (event) {
-          //Do what you want
-        },
-        orderChanged: function(event) {
-          //Do what you want
-        },
+        itemMoved: function (event) {},
+        orderChanged: function(event) {},
         containment: '#board'
       };
 

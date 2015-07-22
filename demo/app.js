@@ -226,7 +226,8 @@ angular.module('app', [
       delay: 500
     },
     columnFilter: {
-      enable: true
+      enable: true,
+      autoOpen: true
     },
     sort: {
       enable: true

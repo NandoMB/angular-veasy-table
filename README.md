@@ -18,11 +18,11 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * Dynamic items by page
 * Translate labels
 * Select row event
+* Auto open column filter modal
 
 ### Todo:
 * Add dynamic '$filter' in columns data
 * Add column with action buttons (edit, remove, ...)
-* Add responsible columns
 
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
@@ -118,6 +118,7 @@ filter: {
 ```js
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
+  autoOpen: true    // Open automatically column filter modal, if not have visible columns. (Default is false)
 }
 ```
 
