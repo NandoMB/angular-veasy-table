@@ -59,7 +59,7 @@
           </tr>
         </thead>
         <tbody ng-hide="isLoading">
-          <tr ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse">
+          <tr ng-class="{'clickable-row': config.events.onClickRow, 'default-row': !config.events.onClickRow}" ng-repeat="row in paginatedList[config.pagination.currentPage] | orderBy:predicate:reverse">
             <td ng-show="{{config.checkbox.enable}}" class="truncate" style="vertical-align: middle;">
               <div>
                 <label>

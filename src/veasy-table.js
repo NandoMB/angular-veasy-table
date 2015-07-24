@@ -139,8 +139,8 @@ angular.module('veasyTable', [
 
       var validateEvents = function () {
         if (!scope.config.events) scope.config.events = {};
-        if (!scope.config.events.onClickRow) scope.config.events.onClickRow = function (row) {};
-        if (!scope.config.events.onApplyColumnFilter) scope.config.events.onApplyColumnFilter = function (columns) {};
+        if (!scope.config.events.onClickRow) scope.config.events.onClickRow = undefined;
+        if (!scope.config.events.onApplyColumnFilter) scope.config.events.onApplyColumnFilter = undefined;
       };
 
       var validateTranslate = function () {
@@ -541,13 +541,19 @@ angular.module('veasyTable', [
        */
 
       scope.onClickRow = function (selectedRow) {
-        var row = angular.copy(selectedRow);
-        if (row.$$hashKey) delete row.$$hashKey;
-        scope.config.events.onClickRow(row);
+        if (scope.config.events.onClickRow) {
+          var row = angular.copy(selectedRow);
+
+          if (row.$$hashKey)
+            delete row.$$hashKey;
+
+          scope.config.events.onClickRow(row);
+        }
       };
 
       scope.onApplyColumnFilter = function (columns) {
-        scope.config.events.onApplyColumnFilter(columns);
+        if (scope.config.events.onApplyColumnFilter)
+          scope.config.events.onApplyColumnFilter(columns);
       };
 
       init();

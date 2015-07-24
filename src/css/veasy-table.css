@@ -61,6 +61,14 @@ input, button, textarea, div {
   cursor: default;
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
+.default-row {
+  cursor: default;
+}
+
 /**
  * OVERRIDE ng-sortable style
  */
