@@ -47,8 +47,37 @@ angular.module('veasyTable', [
         for (var i = 0; i < scope.filteredList.length; i++) {
           scope.cbs[i] = false;
         };
+      };
 
-        scope.tableWidth = angular.element('#' + scope.config.id).width();
+      scope.$watch(function () {
+        return angular.element('#' + scope.config.id).width();
+      }, function (newTableSize) {
+        scope.tableWidth = newTableSize;
+
+        if (scope.isLoading)
+          setLoaderColumnSize(newTableSize);
+        else
+          setInitialColumnsSize();
+      });
+
+      var setLoaderColumnSize = function (tamanho) {
+        var totalSize = scope.config.columns.reduce(function (total, element, index, array) {
+          return total + element.size;
+        }, 0);
+
+        var rest = 0;
+
+        if (totalSize < 100)
+          rest = 100 - totalSize;
+        else if (totalSize > 100)
+          rest = 100 - totalSize;
+
+        var lastColumnIndex = scope.config.columns.length - 1;
+        scope.config.columns[lastColumnIndex].size += rest;
+
+        angular.forEach(scope.config.columns, function (column) {
+          column.size = (tamanho * column.size) / 100;
+        });
       };
 
       var addResizeEventOnWindow = function () {
@@ -454,12 +483,38 @@ angular.module('veasyTable', [
        * ============================ Resizable ============================
        */
 
-      var setInitialColumnsSize = function () {
-        scope.tableWidth = angular.element('#' + scope.config.id).width();
-
-        angular.forEach(scope.visibleColumns, function (column, index) {
-          scope.visibleColumns[index].size = (scope.tableWidth - scope.config.checkbox.size) / scope.visibleColumns.length;
+      var fixAllColumnSizePercent = function () {
+        var totalSize = scope.config.columns.reduce(function (total, element, index, array) {
+          return total + element.size || 0;
         });
+
+        var rest = 100 - totalSize;
+
+        var lastColumnIndex = scope.config.columns.length - 1;
+        scope.config.columns[lastColumnIndex].size += rest;
+      };
+
+      var setInitialColumnsSize = function () {
+        var newTableSize = angular.copy(scope.tableWidth);
+
+        if (scope.config.checkbox.enable)
+          newTableSize = newTableSize - scope.config.checkbox.size;
+
+
+        if (scope.isLoading) {
+          var totalSize = scope.visibleColumns.reduce(function (total, nextElement, index, array) {
+            return total + nextElement.size;
+          }, 0);
+
+          var rest = newTableSize - totalSize;
+
+          var lastColumnIndex = scope.visibleColumns.length - 1;
+          scope.visibleColumns[lastColumnIndex].size += rest;
+        } else {
+          angular.forEach(scope.visibleColumns, function (column, index) {
+            scope.visibleColumns[index].size = (newTableSize / scope.visibleColumns.length);
+          });
+        }
       };
 
       scope.onDrag = function (event, index) {
