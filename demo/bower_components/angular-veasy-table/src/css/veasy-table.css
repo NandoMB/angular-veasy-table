@@ -2,6 +2,22 @@ input, button, textarea, div {
   outline: none !important;
 }
 
+.veasyt-content {
+  min-width: 675px;
+}
+
+.veasyt-total {
+  text-align: right;
+  color: #6B6B6B;
+  margin: 30px 0;
+  font-size: small;
+}
+
+.veasyt-spin {
+  display: inline-block;
+  margin-left: 15px;
+}
+
 .use-ellipsis {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -14,7 +30,7 @@ input, button, textarea, div {
 }
 
 .veasyt-grip {
-  margin-left: -5px;
+  margin-left: -10px;
   position: absolute;
   z-index: 5;
 }
@@ -31,11 +47,11 @@ input, button, textarea, div {
 }
 
 .no-select {
-  -webkit-touch-callout:none; 
-  -webkit-user-select:none; 
-  -khtml-user-select:none; 
-  -moz-user-select:none; 
-  -ms-user-select:none; 
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
   user-select:none;
 }
 
@@ -43,4 +59,44 @@ input, button, textarea, div {
   width: 100%;
   table-layout: fixed;
   cursor: default;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.default-row {
+  cursor: default;
+}
+
+/**
+ * OVERRIDE ng-sortable style
+ */
+
+.as-sortable-item, .as-sortable-placeholder {
+  width: 90%;
+  padding: 10px;
+  margin-top: 0px;
+  margin-bottom: 1px;
+  border-radius: 0px;
+}
+
+.as-sortable-item {
+  background-color: #ffffff;
+}
+
+.as-sortable-placeholder {
+  border: dashed 1px rgb(229, 229, 229);
+  background-color: #F7F7F7;
+  box-sizing: border-box;
+}
+
+.as-sortable-drag {
+  opacity: .8;
+}
+
+.veasyt-sortable-item {
+  background-color: #FAFAFA;
+  border: 1px solid rgb(239, 239, 239);
+  margin-bottom: 1px;
 }

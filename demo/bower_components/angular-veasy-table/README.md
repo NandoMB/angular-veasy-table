@@ -7,6 +7,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 ### Features:
 * Selecting rows using checkbox
+* Order by specific column
 * Sort columns
 * Data paging (client-side)
 * Global data filter (filter all columns)
@@ -17,17 +18,18 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * Dynamic items by page
 * Translate labels
 * Select row event
+* Auto open column filter modal
 
 ### Todo:
 * Add dynamic '$filter' in columns data
 * Add column with action buttons (edit, remove, ...)
-* Add responsible columns
 
 ### Dependencies
 * [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
 * [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
 * [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
+* [ng-sortable](https://github.com/a5hik/ng-sortable) (requires ng-sortable 1.2.x)
 
 
 ### Examples
@@ -35,7 +37,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 ### Instalation
 ```sh
-$ bower install angular-veasy-table
+$ bower install angular-veasy-table --save
 ```
 
 ## Configuration
@@ -69,11 +71,16 @@ PS: The array of columns used below ($scope.columns) need a specific configurati
 $scope.columns = [
   {
     header: 'Id', // This string is displayed on table header name.
+    
     value: 'id',  // This string is the name of property in your list declared on your html.
-    show: false   // This property, show or hide this column on your table.
+    
+    show: false,  // This property, show or hide this column on your table.
+    
+    size: 20      // This property is used to define column size in percentage (%)
+                  // If property 'show' is defined 'false', this size is ignored
   },
-  { header: 'First Name', value: 'first_name', show: true },
-  { header: 'Last Name', value: 'last_name', show: true }
+  { header: 'First Name', value: 'first_name', show: true, size: 40 },
+  { header: 'Last Name', value: 'last_name', show: true, size: 40 }
 ];
 
 $scope.config = {
@@ -99,7 +106,7 @@ checkbox: {
 pagination: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
   currentPage: 0,   // Load in current page. (Default is 0)
-  itemsPerPage: 5   // How many itens per page. (Default is 10)
+  itemsPerPage: 5   // How many itens per page. Minimum is 1 and maximum is 100. (Default is 10)
 }
 ```
 
@@ -108,6 +115,7 @@ pagination: {
 filter: {
   enable: true,      // Enable = true, Disable = false. (Default is false)
   conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
+  delay: 500         // Delay in milliseconds. (Default is 500ms)
 }
 ```
 
@@ -115,6 +123,8 @@ filter: {
 ```js
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
+  autoOpen: true    // Open automatically column filter modal, if not have visible columns. (Default is false)
+  modalSize: 'sm'   // The size of modal can be setted: 'sm, md or lg' (Default is 'sm')
 }
 ```
 
@@ -129,14 +139,15 @@ ordenation: {
 ```js
 resizable: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
-  minimumSize: 30   // Set minimum column size in pixels. (Default is 30)
+  minimumSize: 5   // Set minimum column size in percentage '%'. (Default is 5)
 }
 ```
 
 ##### Enable events:
 ```js
 events: {
-  onClickRow: function (row) {} // This event is executed when an row is clicked
+  onClickRow: function (row) {} // This event is called when an row is clicked
+  onApplyColumnFilter: function (columns) {} // This event is called when 'apply column' button (in modal) is clicked
 }
 ```
 
