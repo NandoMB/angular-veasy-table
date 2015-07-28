@@ -52,9 +52,9 @@ angular.module('veasyTable', [
       scope.$watch(function () {
         return angular.element('#' + scope.config.id).width();
       }, function (newTableSize) {
-        if (scope.isLoading) {
-          scope.tableWidth = newTableSize;
+        scope.tableWidth = newTableSize;
 
+        if (scope.isLoading) {
           var minimumColumnSizePercent = angular.copy(scope.config.resizable.minimumSize);
           scope.config.resizable.minimumSize = (newTableSize * scope.config.resizable.minimumSize) / 100;
 
