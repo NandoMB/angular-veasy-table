@@ -78,11 +78,15 @@ angular.module('veasyTable', [
         }, 0);
 
         var rest = 100 - totalSize;
-
         var lastIndex = scope.config.columns.length - 1;
+
+        if (!scope.config.columns[lastIndex].size)
+          return setColumnsSize();
+
         scope.config.columns[lastIndex].size += rest;
 
-        if (scope.config.columns[lastIndex].size < minimumColumnSize) return setColumnsSize();
+        if (scope.config.columns[lastIndex].size < minimumColumnSize)
+          return setColumnsSize();
 
         if (scope.config.checkbox.enable)
           tableSize -= scope.config.checkbox.size
