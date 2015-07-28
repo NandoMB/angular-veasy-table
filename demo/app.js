@@ -203,16 +203,16 @@ angular.module('app', [
   $scope.config = {
     id: 'my-veasy-table',
     columns: [
-      { header: 'Id',         value: 'id',          size: 5, show: true },
-      { header: 'First Name', value: 'first_name',  size: 10, show: true },
-      { header: 'Last Name',  value: 'last_name',   size: 10, show: true },
-      { header: 'Email',      value: 'email',       size: 40, show: true },
-      { header: 'Country',    value: 'country',     size: 15, show: true },
-      { header: 'IP',         value: 'ip_address',  size: 10, show: true },
-      { header: 'City',       value: 'city',        size: 10, show: true }
+      { header: 'Id',         value: 'id',          size: 20, show: true },
+      { header: 'First Name', value: 'first_name',  size: 20, show: true },
+      { header: 'Last Name',  value: 'last_name',   size: 20, show: true },
+      { header: 'Email',      value: 'email',       size: 70, show: true },
+      { header: 'Country',    value: 'country',     size: 20, show: true },
+      { header: 'IP',         value: 'ip_address',  size: 20, show: true },
+      { header: 'City',       value: 'city',        size: 20, show: true }
     ],
     checkbox: {
-      enable: true,
+      enable: false,
       size: 20
     },
     pagination: {
@@ -234,7 +234,7 @@ angular.module('app', [
     },
     resizable: {
       enable: true,
-      minimumSize: 30
+      minimumSize: 2
     },
     events: {
       onClickRow: function (row) {

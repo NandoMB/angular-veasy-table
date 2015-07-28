@@ -52,39 +52,57 @@ angular.module('veasyTable', [
       scope.$watch(function () {
         return angular.element('#' + scope.config.id).width();
       }, function (newTableSize) {
-        scope.tableWidth = newTableSize;
+        if (scope.isLoading) {
+          scope.tableWidth = newTableSize;
 
-        if (scope.isLoading)
-          setLoaderColumnSize(newTableSize);
-        else
-          setInitialColumnsSize();
+          var minimumColumnSizePercent = angular.copy(scope.config.resizable.minimumSize);
+          scope.config.resizable.minimumSize = (newTableSize * scope.config.resizable.minimumSize) / 100;
+
+          setColumnsSizeOnLoad(newTableSize, minimumColumnSizePercent);
+        }
       });
 
-      var setLoaderColumnSize = function (tamanho) {
+      var setColumnsSizeOnLoad = function (tableSize, minimumColumnSize) {
         var totalSize = scope.config.columns.reduce(function (total, element, index, array) {
-          return total + element.size;
+          if (element.show) {
+            if (!element.size || element.size < minimumColumnSize) {
+              delete element.size;
+              element.show = false;
+              return total;
+            }
+            return total + element.size;
+          } else {
+            if (element.size)
+              delete element.size;
+          }
         }, 0);
 
-        var rest = 0;
+        var rest = 100 - totalSize;
 
-        if (totalSize < 100)
-          rest = 100 - totalSize;
-        else if (totalSize > 100)
-          rest = 100 - totalSize;
+        var lastIndex = scope.config.columns.length - 1;
+        scope.config.columns[lastIndex].size += rest;
 
-        var lastColumnIndex = scope.config.columns.length - 1;
-        scope.config.columns[lastColumnIndex].size += rest;
+        if (scope.config.columns[lastIndex].size < minimumColumnSize) return setColumnsSize();
 
         angular.forEach(scope.config.columns, function (column) {
-          column.size = (tamanho * column.size) / 100;
+          if (column.size)
+            column.size = (tableSize * column.size) / 100;
+        });
+      };
+
+      var resetAllColumnsSize = function (array) {
+        scope.$apply(function () {
+          angular.forEach(array, function (column, index) {
+            column.size = 0;
+          });
         });
       };
 
       var addResizeEventOnWindow = function () {
         $window.addEventListener('resize', function () {
-          scope.tableWidth = angular.element('#' + scope.config.id).width();
-          setInitialColumnsSize();
-          scope.$apply();
+          resetAllColumnsSize(scope.visibleColumns);
+          scope.tableWidth = getTableSize();
+          setColumnsSize();
         });
       };
 
@@ -156,13 +174,13 @@ angular.module('veasyTable', [
         if (!scope.config.resizable) {
           scope.config.resizable = {
             enable: false,
-            minimumSize: 30
+            minimumSize: 10
           };
         }
 
         if (scope.config.resizable.enable) {
-          if (!scope.config.resizable.minimumSize || scope.config.resizable.minimumSize < 30)
-            scope.config.resizable.minimumSize = 30;
+          if (!scope.config.resizable.minimumSize || scope.config.resizable.minimumSize < 1)
+            scope.config.resizable.minimumSize = 1;
         }
       };
 
@@ -439,7 +457,7 @@ angular.module('veasyTable', [
         if (scope.config.checkbox.enable)
           scope.colspan += 1;
 
-        setInitialColumnsSize();
+        setColumnsSize();
       };
 
       var haveVisibleColumn = function (array) {
@@ -465,7 +483,7 @@ angular.module('veasyTable', [
         modal.result.then(function (columns) {
           scope.visibleColumns = angular.copy(columns);
           scope.colspan = scope.visibleColumns.length + 1;
-          setInitialColumnsSize();
+          setColumnsSize();
           scope.onApplyColumnFilter(columns);
         });
       };
@@ -483,36 +501,37 @@ angular.module('veasyTable', [
        * ============================ Resizable ============================
        */
 
-      var fixAllColumnSizePercent = function () {
-        var totalSize = scope.config.columns.reduce(function (total, element, index, array) {
-          return total + element.size || 0;
-        });
-
-        var rest = 100 - totalSize;
-
-        var lastColumnIndex = scope.config.columns.length - 1;
-        scope.config.columns[lastColumnIndex].size += rest;
-      };
-
-      var setInitialColumnsSize = function () {
-        var newTableSize = angular.copy(scope.tableWidth);
+      var setColumnsSize = function () {
+        var tableSize = angular.copy(scope.tableWidth);
 
         if (scope.config.checkbox.enable)
-          newTableSize = newTableSize - scope.config.checkbox.size;
+          tableSize = tableSize - scope.config.checkbox.size;
 
+        if (scope.isLoading && scope.visibleColumns.length > 0) {
+          var minimumColumnSize = (scope.config.resizable.minimumSize / tableSize) * 100;
 
-        if (scope.isLoading) {
           var totalSize = scope.visibleColumns.reduce(function (total, nextElement, index, array) {
             return total + nextElement.size;
           }, 0);
 
-          var rest = newTableSize - totalSize;
+          var rest = 100 - totalSize;
 
-          var lastColumnIndex = scope.visibleColumns.length - 1;
-          scope.visibleColumns[lastColumnIndex].size += rest;
+          var lastIndex = scope.config.columns.length - 1;
+          scope.visibleColumns[lastIndex].size += rest;
+
+          if (scope.config.columns[lastIndex].size < minimumColumnSize) {
+            angular.forEach(scope.visibleColumns, function (column, index) {
+              scope.visibleColumns[index].size = (tableSize / scope.visibleColumns.length);
+            });
+          } else {
+            angular.forEach(scope.visibleColumns, function (column) {
+              if (column.size)
+                column.size = (tableSize * column.size) / 100;
+            });
+          }
         } else {
           angular.forEach(scope.visibleColumns, function (column, index) {
-            scope.visibleColumns[index].size = (newTableSize / scope.visibleColumns.length);
+            scope.visibleColumns[index].size = (tableSize / scope.visibleColumns.length);
           });
         }
       };
