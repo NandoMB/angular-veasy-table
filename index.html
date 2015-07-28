@@ -26,14 +26,15 @@
 <p>AngularJS directive to create quickly data tables without giving up the beauty and functionality.
 <br></p>
 
-<p><img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png" alt="table"></p>
-<p><img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png" alt="modal"></p>
+<p><img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png" alt="alt tag">
+<img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png" alt="alt tag"></p>
 
 <h3>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features:</h3>
 
 <ul>
 <li>Selecting rows using checkbox</li>
+<li>Order by specific column</li>
 <li>Sort columns</li>
 <li>Data paging (client-side)</li>
 <li>Global data filter (filter all columns)</li>
@@ -44,6 +45,7 @@
 <li>Dynamic items by page</li>
 <li>Translate labels</li>
 <li>Select row event</li>
+<li>Auto open column filter modal</li>
 </ul>
 
 <h3>
@@ -52,7 +54,6 @@
 <ul>
 <li>Add dynamic '$filter' in columns data</li>
 <li>Add column with action buttons (edit, remove, ...)</li>
-<li>Add responsible columns</li>
 </ul>
 
 <h3>
@@ -67,6 +68,8 @@
 <a href="http://getbootstrap.com/">Bootstrap CSS</a> (requires Bootstrap 3.x)</li>
 <li>
 <a href="https://angular-ui.github.io/bootstrap/">Angular Bootstrap</a> (requires Bootstrap 0.12.x)</li>
+<li>
+<a href="https://github.com/a5hik/ng-sortable">ng-sortable</a> (requires ng-sortable 1.2.x)</li>
 </ul>
 
 <h3>
@@ -79,7 +82,7 @@
 <h3>
 <a id="instalation" class="anchor" href="#instalation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalation</h3>
 
-<div class="highlight highlight-sh"><pre>$ bower install angular-veasy-table</pre></div>
+<div class="highlight highlight-sh"><pre>$ bower install angular-veasy-table --save</pre></div>
 
 <h2>
 <a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
@@ -132,11 +135,16 @@
 <div class="highlight highlight-js"><pre>$scope.columns <span class="pl-k">=</span> [
   {
     header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Id<span class="pl-pds">'</span></span>, <span class="pl-c">// This string is displayed on table header name.</span>
+
     value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,  <span class="pl-c">// This string is the name of property in your list declared on your html.</span>
-    show<span class="pl-k">:</span> <span class="pl-c1">false</span>   <span class="pl-c">// This property, show or hide this column on your table.</span>
+
+    show<span class="pl-k">:</span> <span class="pl-c1">false</span>,  <span class="pl-c">// This property, show or hide this column on your table.</span>
+
+    size<span class="pl-k">:</span> <span class="pl-c1">20</span>      <span class="pl-c">// This property is used to define column size in percentage (%)</span>
+                  <span class="pl-c">// If property 'show' is defined 'false', this size is ignored</span>
   },
-  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>First Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>first_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span> },
-  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Last Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>last_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span> }
+  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>First Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>first_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span>, size<span class="pl-k">:</span> <span class="pl-c1">40</span> },
+  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Last Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>last_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span>, size<span class="pl-k">:</span> <span class="pl-c1">40</span> }
 ];
 
 $scope.config <span class="pl-k">=</span> {
@@ -164,7 +172,7 @@ $scope.config <span class="pl-k">=</span> {
 <div class="highlight highlight-js"><pre>pagination<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
   currentPage<span class="pl-k">:</span> <span class="pl-c1">0</span>,   <span class="pl-c">// Load in current page. (Default is 0)</span>
-  itemsPerPage<span class="pl-k">:</span> <span class="pl-c1">5</span>   <span class="pl-c">// How many itens per page. (Default is 10)</span>
+  itemsPerPage<span class="pl-k">:</span> <span class="pl-c1">5</span>   <span class="pl-c">// How many itens per page. Minimum is 1 and maximum is 100. (Default is 10)</span>
 }</pre></div>
 
 <h5>
@@ -173,6 +181,7 @@ $scope.config <span class="pl-k">=</span> {
 <div class="highlight highlight-js"><pre>filter<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,      <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
   conditional<span class="pl-k">:</span> <span class="pl-c1">true</span>  <span class="pl-c">// Conditional filter 'AND', 'OR'. (Default is false)</span>
+  delay<span class="pl-k">:</span> <span class="pl-c1">500</span>         <span class="pl-c">// Delay in milliseconds. (Default is 500ms)</span>
 }</pre></div>
 
 <h5>
@@ -180,6 +189,8 @@ $scope.config <span class="pl-k">=</span> {
 
 <div class="highlight highlight-js"><pre>columnFilter<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
+  autoOpen<span class="pl-k">:</span> <span class="pl-c1">true</span>    <span class="pl-c">// Open automatically column filter modal, if not have visible columns. (Default is false)</span>
+  modalSize<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm<span class="pl-pds">'</span></span>   <span class="pl-c">// The size of modal can be setted: 'sm, md or lg' (Default is 'sm')</span>
 }</pre></div>
 
 <h5>
@@ -194,14 +205,15 @@ $scope.config <span class="pl-k">=</span> {
 
 <div class="highlight highlight-js"><pre>resizable<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  minimumSize<span class="pl-k">:</span> <span class="pl-c1">30</span>   <span class="pl-c">// Set minimum column size in pixels. (Default is 30)</span>
+  minimumSize<span class="pl-k">:</span> <span class="pl-c1">5</span>   <span class="pl-c">// Set minimum column size in percentage '%'. (Default is 5)</span>
 }</pre></div>
 
 <h5>
 <a id="enable-events" class="anchor" href="#enable-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable events:</h5>
 
 <div class="highlight highlight-js"><pre>events<span class="pl-k">:</span> {
-  <span class="pl-en">onClickRow</span>: <span class="pl-k">function</span> (<span class="pl-smi">row</span>) {} <span class="pl-c">// This event is executed when an row is clicked</span>
+  <span class="pl-en">onClickRow</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">row</span>) {} <span class="pl-c">// This event is called when an row is clicked</span>
+  <span class="pl-en">onApplyColumnFilter</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">columns</span>) {} <span class="pl-c">// This event is called when 'apply column' button (in modal) is clicked</span>
 }</pre></div>
 
 <h5>
