@@ -106,7 +106,7 @@ checkbox: {
 pagination: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
   currentPage: 0,   // Load in current page. (Default is 0)
-  itemsPerPage: 5   // How many itens per page. (Default is 10)
+  itemsPerPage: 5   // How many itens per page. Minimum is 1 and maximum is 100. (Default is 10)
 }
 ```
 

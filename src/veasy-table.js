@@ -103,10 +103,22 @@ angular.module('veasyTable', [
 
       var addResizeEventOnWindow = function () {
         $window.addEventListener('resize', function () {
+          var backup = angular.copy(scope.visibleColumns);
+
+          angular.forEach(backup, function (column) {
+            column.size = (column.size * 100) / scope.tableWidth;
+          });
+
           resetAllColumnsSize(scope.visibleColumns);
           scope.tableWidth = getTableSize();
-          setColumnsSize();
-          scope.$apply();
+
+          angular.forEach(backup, function (column) {
+            column.size = (column.size * scope.tableWidth) / 100;
+          });
+
+          scope.$apply(function () {
+            scope.visibleColumns = backup;
+          });
         });
       };
 

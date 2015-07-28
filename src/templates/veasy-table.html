@@ -2,12 +2,12 @@
 
   <!-- Top Row -->
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-4 col-sm-4">
       <!-- Filter -->
       <input ng-show="{{config.filter.enable}}" type="text" name="query" class="pull-left form-control input-sm" placeholder="{{config.i18n.filter.by}}" ng-model="query" ng-change="changeQuery()">
       <!-- /Filter -->
     </div>
-    <div class="form-group col-md-8">
+    <div class="form-group col-md-8 col-sm-8">
       <!-- Conditional Filter -->
       <div ng-show="{{config.filter.enable && config.filter.conditional}}" class="btn-group">
         <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND')" btn-radio="'AND'">{{config.i18n.filter.and}}</label>
@@ -23,7 +23,7 @@
       <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter(config.columnFilter.modalSize)"><i class="fa fa-filter"></i></button>
       <!-- /Column Filter -->
       <!-- Items by Page -->
-      <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="1000" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 55px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">
+      <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="100" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 65px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">
       <div class="pull-right" style="color: #6B6B6B;margin: 7px 5px 0 0;font-size: small;">
         <span>{{config.i18n.pagination.itemsByPage}}: </span>
       </div>
