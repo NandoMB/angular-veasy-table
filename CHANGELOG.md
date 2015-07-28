@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.4.0
+
+* Now you can set column size on load VEasyTable.
+* Personalize modal size.
+
 ## Version 1.3.0
 
 * Open automatically column filter modal, if not have visible columns.

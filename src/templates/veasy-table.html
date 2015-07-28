@@ -20,7 +20,7 @@
       </div>
       <!-- /Searching Spin -->
       <!-- Column Filter -->
-      <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter('md')"><i class="fa fa-filter"></i></button>
+      <button ng-show="{{config.columnFilter.enable}}" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter(config.columnFilter.modalSize)"><i class="fa fa-filter"></i></button>
       <!-- /Column Filter -->
       <!-- Items by Page -->
       <input ng-show="{{config.pagination.enable}}" type="number" min="1" max="1000" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 55px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search()">

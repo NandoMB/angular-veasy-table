@@ -103,6 +103,7 @@ angular.module('veasyTable', [
           resetAllColumnsSize(scope.visibleColumns);
           scope.tableWidth = getTableSize();
           setColumnsSize();
+          scope.$apply();
         });
       };
 
@@ -159,6 +160,14 @@ angular.module('veasyTable', [
           scope.config.columnFilter = {
             enable: false
           };
+        }
+
+        if (scope.config.columnFilter.enable) {
+          if (!scope.config.columnFilter.autoOpen)
+            scope.config.columnFilter.autoOpen = false;
+
+          if (!scope.config.columnFilter.modalSize)
+            scope.config.columnFilter.modalSize = 'sm';
         }
       };
 
@@ -433,7 +442,7 @@ angular.module('veasyTable', [
           scope.isLoading = false;
 
           if (scope.config.columnFilter.autoOpen && !haveVisibleColumn(scope.config.columns))
-            scope.openColumnFilter('md');
+            scope.openColumnFilter(scope.config.columnFilter.modalSize);
         }
       });
 
