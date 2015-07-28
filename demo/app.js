@@ -1,5 +1,6 @@
 angular.module('app', [
-  'veasyTable'
+  'veasyTable',
+  'ui.sortable'
 ])
 
 .controller('AppController', ['$scope', '$timeout', function ($scope, $timeout) {
