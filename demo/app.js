@@ -8046,7 +8046,7 @@ angular.module('app', [
     columnFilter: {
       enable: true,
       autoOpen: true,
-      modalSize: 'sm'
+      modalSize: 'md'
     },
     sort: {
       enable: true

@@ -139,7 +139,7 @@ ordenation: {
 ```js
 resizable: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
-  minimumSize: 30   // Set minimum column size in pixels. (Default is 30px)
+  minimumSize: 5   // Set minimum column size in percentage '%'. (Default is 5)
 }
 ```
 

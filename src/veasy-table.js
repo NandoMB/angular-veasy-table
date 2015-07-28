@@ -84,6 +84,9 @@ angular.module('veasyTable', [
 
         if (scope.config.columns[lastIndex].size < minimumColumnSize) return setColumnsSize();
 
+        if (scope.config.checkbox.enable)
+          tableSize -= scope.config.checkbox.size
+
         angular.forEach(scope.config.columns, function (column) {
           if (column.size)
             column.size = (tableSize * column.size) / 100;
@@ -182,14 +185,13 @@ angular.module('veasyTable', [
       var validateResizable = function () {
         if (!scope.config.resizable) {
           scope.config.resizable = {
-            enable: false,
-            minimumSize: 10
+            enable: false
           };
         }
 
         if (scope.config.resizable.enable) {
           if (!scope.config.resizable.minimumSize || scope.config.resizable.minimumSize < 1)
-            scope.config.resizable.minimumSize = 1;
+            scope.config.resizable.minimumSize = 5;
         }
       };
 
@@ -465,8 +467,6 @@ angular.module('veasyTable', [
 
         if (scope.config.checkbox.enable)
           scope.colspan += 1;
-
-        setColumnsSize();
       };
 
       var haveVisibleColumn = function (array) {
