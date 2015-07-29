@@ -3,7 +3,8 @@
 AngularJS directive to create quickly data tables without giving up the beauty and functionality.
 <br/>
 
-![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.0.0.png)
+![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png)
+![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png)
 
 ### Features:
 * Selecting rows using checkbox

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.4.1
+
+* onApplyColumnFilter, now convert the size from pixel to percentage.
+
 ## Version 1.4.0
 
 * Now you can set column size on load VEasyTable.
