@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.4.1
+## Version 1.4.4
 
 * onApplyColumnFilter, now convert the size from pixel to percentage.
 
