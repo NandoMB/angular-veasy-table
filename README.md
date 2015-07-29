@@ -124,7 +124,7 @@ filter: {
 ```js
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
-  autoOpen: true    // Open automatically column filter modal, if not have visible columns. (Default is false)
+  autoOpen: true,    // Open automatically column filter modal, if not have visible columns. (Default is false)
   modalSize: 'sm'   // The size of modal can be setted: 'sm, md or lg' (Default is 'sm')
 }
 ```
