@@ -1,6 +1,10 @@
 # Changelog
 
-## Version 1.4.1
+## Version 1.4.5
+
+* Now, the filter is matched with only visible data.
+
+## Version 1.4.4
 
 * onApplyColumnFilter, now convert the size from pixel to percentage.
 

@@ -326,7 +326,7 @@ angular.module('veasyTable', [
       var searchWithANDCondition = function (row) {
         var rowData = '';
 
-        angular.forEach(scope.config.columns, function (column) {
+        angular.forEach(scope.visibleColumns, function (column) {
           rowData += (' ' + row[column.value]);
         });
 
@@ -346,7 +346,7 @@ angular.module('veasyTable', [
         var terms = angular.lowercase(scope.query).split(' ');
         var result = [];
 
-        angular.forEach(scope.config.columns, function (column) {
+        angular.forEach(scope.visibleColumns, function (column) {
           var value = row[column.value] ? row[column.value] : '';
           angular.forEach(terms, function (term) {
             result.push(value.toString().toLowerCase().indexOf(term) >= 0);
