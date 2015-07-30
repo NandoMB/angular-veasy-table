@@ -74,6 +74,7 @@ angular.module('veasyTable', [
           } else {
             if (element.size)
               delete element.size;
+
             return total;
           }
         }, 0);
