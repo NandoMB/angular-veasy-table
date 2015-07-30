@@ -517,7 +517,7 @@ angular.module('veasyTable', [
           scope.visibleColumns = angular.copy(columns);
           scope.colspan = scope.visibleColumns.length + 1;
           setColumnsSize();
-          scope.onApplyColumnFilter(angular.copy(columns));
+          scope.onApplyColumnFilter(angular.copy(scope.visibleColumns));
         });
       };
 
