@@ -82,6 +82,9 @@ angular.module('veasyTable', [
           }
         }, 0);
 
+        if (visibleColumnsIds.length < 1)
+          return setColumnsSize();
+
         var rest = 100 - totalSize;
         var lastVisibleColumnIndex = visibleColumnsIds[visibleColumnsIds.length -1];
 

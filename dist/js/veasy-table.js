@@ -82,6 +82,9 @@ angular.module('veasyTable', [
           }
         }, 0);
 
+        if (visibleColumnsIds.length < 1)
+          return setColumnsSize();
+
         var rest = 100 - totalSize;
         var lastVisibleColumnIndex = visibleColumnsIds[visibleColumnsIds.length -1];
 
@@ -585,8 +588,6 @@ angular.module('veasyTable', [
           }, 5000);
         }
       };
-
-
 
       scope.onMove = function (event) {
         if (!scope.dragging) return;
