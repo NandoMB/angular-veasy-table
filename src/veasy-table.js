@@ -63,6 +63,8 @@ angular.module('veasyTable', [
       });
 
       var setColumnsSizeOnLoad = function (tableSize, minimumColumnSize) {
+        var visibleColumnsIds = [];
+
         var totalSize = scope.config.columns.reduce(function (total, element, index, array) {
           if (element.show) {
             if (!element.size || element.size < minimumColumnSize) {
@@ -70,6 +72,7 @@ angular.module('veasyTable', [
               element.show = false;
               return total;
             }
+            visibleColumnsIds.push(index);
             return total + element.size;
           } else {
             if (element.size)
@@ -80,14 +83,14 @@ angular.module('veasyTable', [
         }, 0);
 
         var rest = 100 - totalSize;
-        var lastIndex = scope.config.columns.length - 1;
+        var lastVisibleColumnIndex = visibleColumnsIds[visibleColumnsIds.length -1];
 
-        if (!scope.config.columns[lastIndex].size)
+        if (!scope.config.columns[lastVisibleColumnIndex].size)
           return setColumnsSize();
 
-        scope.config.columns[lastIndex].size += rest;
+        scope.config.columns[lastVisibleColumnIndex].size += rest;
 
-        if (scope.config.columns[lastIndex].size < minimumColumnSize)
+        if (scope.config.columns[lastVisibleColumnIndex].size < minimumColumnSize)
           return setColumnsSize();
 
         if (scope.config.checkbox.enable)

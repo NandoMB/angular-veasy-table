@@ -1,6 +1,6 @@
 {
   "name": "angular-veasy-table",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
   "homepage": "http://nandomb.github.io/angular-veasy-table",
   "main": "./dist/js/angular-veasy-table.js",
