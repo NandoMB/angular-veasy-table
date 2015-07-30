@@ -499,7 +499,7 @@ angular.module('veasyTable', [
       };
 
       scope.openColumnFilter = function (size) {
-        scope.onApplyColumnFilter(scope.visibleColumns);
+        scope.onApplyColumnFilter(angular.copy(scope.visibleColumns));
 
         var modal = $modal.open({
           templateUrl: 'veasy-table-modal.html',
