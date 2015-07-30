@@ -499,6 +499,8 @@ angular.module('veasyTable', [
       };
 
       scope.openColumnFilter = function (size) {
+        scope.onApplyColumnFilter(scope.visibleColumns);
+
         var modal = $modal.open({
           templateUrl: 'veasy-table-modal.html',
           controller: 'ColumnFilterController',
@@ -665,6 +667,7 @@ angular.module('veasyTable', [
           angular.forEach(columns, function (column, index) {
             column.size = (column.size * 100) / tableWidth;
           });
+
           scope.config.events.onApplyColumnFilter(columns);
         }
       };
