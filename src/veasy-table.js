@@ -576,8 +576,14 @@ angular.module('veasyTable', [
         scope.dragging = false;
         scope.dragColIndex = undefined;
 
-        if (!!scope.config.events.onApplyColumnFilter)
-          scope.onApplyColumnFilter(angular.copy(scope.visibleColumns));
+        if (!!scope.config.events.onApplyColumnFilter) {
+          if (scope.resizeTimer)
+            $timeout.cancel(scope.resizeTimer);
+
+          scope.resizeTimer = $timeout(function () {
+            scope.onApplyColumnFilter(angular.copy(scope.visibleColumns));
+          }, 5000);
+        }
       };
 
       scope.onMove = function (event) {
