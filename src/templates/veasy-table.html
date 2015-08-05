@@ -18,7 +18,7 @@
       </div>
       <!-- Searching Spin -->
       <div class="veasyt-spin">
-        <i ng-if="searching" class="fa fa-spin fa-refresh"></i>
+        <i ng-show="searching" class="fa fa-spin fa-refresh"></i>
       </div>
       <!-- Column Filter -->
       <button ng-if="config.columnFilter.enable" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter(config.columnFilter.modalSize)">
@@ -50,7 +50,7 @@
                 <div ng-if="config.resizable.enable && $index > 0" ng-mousedown="onDragStart($event, $index)" class="veasyt-grip" style="height: 30px;">
                   <div class="veasyt-resizer" ng-class="addResizeBarClass($index)"></div>
                 </div>
-                <div class="use-ellipsis" style="float:left;cursor: pointer;" ng-click="sort(column.value, paginatedList);">
+                <div class="use-ellipsis" style="float:left;" ng-click="sort(column.value, list);" ng-class="{'clickable-row': config.sort.enable, 'default-row': !config.sort.enable}">
                   <i ng-show="config.sort.enable" class="fa" ng-class="{'fa-sort-asc': orderByIcon('asc', column.value), 'fa-sort-desc': orderByIcon('desc', column.value), 'fa-sort': orderByIcon('', column.value)}">
                   </i> {{column.header}}
                 </div>

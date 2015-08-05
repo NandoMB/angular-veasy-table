@@ -21,10 +21,9 @@ angular.module('veasyTable', [
         scope.minimumTableSize = 400;
         scope.query = '';
         scope.condition = 'AND';
+        scope.searching = false;
         scope.paginatedList = [];
         scope.cbs = [];
-
-        validateConfig();
 
         scope.dragControlListeners = {
           accept: function (sourceItemHandleScope, destSortableScope) { return true; },
@@ -32,6 +31,9 @@ angular.module('veasyTable', [
           orderChanged: function(event) {},
           containment: '#board'
         };
+
+        validateConfig();
+        onWindowResize();
 
         scope.$watch(function () {
           return angular.element('#' + scope.config.id).width();
@@ -79,21 +81,96 @@ angular.module('veasyTable', [
         if (!scope.config) scope.config = {};
         if (!scope.config.id) scope.config.id = 'veasy-table';
         if (!scope.config.columns) scope.config.columns = [];
+
         if (!scope.config.checkbox) scope.config.checkbox = {};
         if (!scope.config.checkbox.enable) scope.config.checkbox.enable = false;
         if (!scope.config.checkbox.size) scope.config.checkbox.size = 20;
+
+        if (!scope.config.sort) scope.config.sort = {};
+        if (!scope.config.sort.enable) scope.config.sort.enable = false;
+
+        if (!scope.config.pagination) scope.config.pagination = {};
+        if (!scope.config.pagination.enable) scope.config.pagination.enable = false;
+        if (!scope.config.pagination.currentPage) scope.config.pagination.currentPage = 0;
+        if (!scope.config.pagination.itemsPerPage) scope.config.pagination.itemsPerPage = 10;
+
+        if (!scope.config.filter) scope.config.filter = {};
+        if (!scope.config.filter.enable) scope.config.filter.enable = false;
+        if (!scope.config.filter.conditional) scope.config.filter.conditional = false;
+        if (!scope.config.filter.delay) scope.config.filter.delay = 500;
+
+        if (!scope.config.columnFilter) scope.config.columnFilter = {};
+        if (!scope.config.columnFilter.enable) scope.config.columnFilter.enable = false;
+        if (!scope.config.columnFilter.autoOpen) scope.config.columnFilter.autoOpen = false;
+        if (!scope.config.columnFilter.modalSize) scope.config.columnFilter.modalSize = 'md';
+
         if (!scope.config.resizable) scope.config.resizable = {};
         if (!scope.config.resizable.enable) scope.config.resizable.enable = false;
         if (!scope.config.resizable.minimumSize) scope.config.resizable.minimumSize = 1;
-        if (!scope.config.pagination) scope.config.pagination = {};
-        if (!scope.config.pagination.enable) scope.config.pagination.enable = false;
-        if (!scope.config.pagination.enable) scope.config.pagination.currentPage = 0;
-        if (!scope.config.pagination.enable) scope.config.pagination.itemsPerPage = 10;
+
+        if (!scope.config.events) scope.config.events = {};
+        if (!scope.config.events.onClickRow) scope.config.events.onClickRow = undefined;
+        if (!scope.config.events.onApplyColumnFilter) scope.config.events.onApplyColumnFilter = undefined;
+        if (!scope.config.events.onTableStateChange) scope.config.events.onTableStateChange = undefined;
+
+        if (!scope.config.i18n) scope.config.i18n = {};
+        if (!scope.config.i18n.filter) scope.config.i18n.filter = {};
+        if (!scope.config.i18n.filter.by) scope.config.i18n.filter.by = 'Filter by...';
+        if (!scope.config.i18n.filter.and) scope.config.i18n.filter.and = 'AND';
+        if (!scope.config.i18n.filter.or) scope.config.i18n.filter.or = 'OR';
+        if (!scope.config.i18n.pagination) scope.config.i18n.pagination = {};
+        if (!scope.config.i18n.pagination.itemsByPage) scope.config.i18n.pagination.itemsByPage = 'Items by Page';
+        if (!scope.config.i18n.pagination.totalItems) scope.config.i18n.pagination.totalItems = 'Total of Items';
+        if (!scope.config.i18n.columnFilter) scope.config.i18n.columnFilter = {};
+        if (!scope.config.i18n.columnFilter.title) scope.config.i18n.columnFilter.title = 'Which columns you want to display?';
+        if (!scope.config.i18n.columnFilter.okButton) scope.config.i18n.columnFilter.okButton = 'Ok';
+        if (!scope.config.i18n.columnFilter.cancelButton) scope.config.i18n.columnFilter.cancelButton = 'Cancel';
       };
 
       /*
        * Events
        */
+
+      var convertColumnSize = {
+        toPixel: function (columns, tableSize) {
+          angular.forEach(columns, function (column) {
+            column.size = (column.size * 100) / tableSize;
+          });
+          return columns;
+        },
+        toPercentage: function (columns, tableSize) {
+          angular.forEach(columns, function (column) {
+            column.size = (column.size * tableSize) / 100;
+          });
+          return columns;
+        }
+      };
+
+      var resetAllColumnsSize = function (array) {
+        scope.$apply(function () {
+          angular.forEach(array, function (column, index) {
+            column.size = 0;
+          });
+        });
+      };
+
+      var onWindowResize = function () {
+        $window.addEventListener('resize', function () {
+          var backup = angular.copy(scope.visibleColumns);
+          var tableSize = getTableSize();
+
+          backup = convertColumnSize.toPixel(backup, tableSize);
+
+          resetAllColumnsSize(scope.visibleColumns);
+          tableSize = getTableSize();
+
+          backup = convertColumnSize.toPercentage(backup, tableSize);
+
+          scope.$apply(function () {
+            scope.visibleColumns = backup;
+          });
+        });
+      };
 
       scope.onClickRow = function (selectedRow) {
         if (!scope.config.events.onClickRow) return;
@@ -167,8 +244,6 @@ angular.module('veasyTable', [
               idsVisibleColumns.push(index);
               return (total + element.size);
             } else {
-              // delete element.size;
-              // return total;
               element.size = minimumSize;
               return (total + element.size);
             }
@@ -216,6 +291,8 @@ angular.module('veasyTable', [
       };
 
       scope.changeQuery = function (condition, query) {
+        scope.searching = true;
+
         if (scope.queryBusy)
           $timeout.cancel(scope.queryBusy);
 
@@ -232,8 +309,6 @@ angular.module('veasyTable', [
       };
 
       var executeSearch = function (condition, query) {
-        scope.searching = true;
-
         var result = $filter('filter')(scope.list, function (row) {
           switch (condition) {
             case 'AND':
@@ -242,15 +317,6 @@ angular.module('veasyTable', [
               return searchWithORCondition(row, query);
           }
         });
-
-        // if (scope.config.sort.enable) {
-        //   if (scope.predicate !== '') {
-        //     scope.filteredList = $filter('orderBy')(scope.filteredList, scope.predicate, scope.reverse);
-        //   }
-        // }
-
-        // if (!scope.isLoading)
-        //   scope.config.pagination.currentPage = 0;
 
         scope.searching = false;
         return result;
@@ -423,6 +489,9 @@ angular.module('veasyTable', [
         if (scope.predicate !== '') {
           list = $filter('orderBy')(list, scope.predicate, scope.reverse);
         }
+
+        loadData(list);
+
       };
 
       scope.orderByIcon = function (direction, predicate) {
@@ -469,7 +538,6 @@ angular.module('veasyTable', [
       };
 
       scope.onCheckRow = function (index, row) {
-        // var index = list.indexOf(row);
         var checked = scope.cbs[index];
 
         if (exists(scope.selectedItems, row)) {

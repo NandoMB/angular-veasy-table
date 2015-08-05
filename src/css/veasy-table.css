@@ -103,7 +103,6 @@ input, button, textarea, div {
 }
 
 .veasyt-sortable-item {
-  background-color: #FAFAFA;
-  border: 1px solid rgb(239, 239, 239);
+  border: 1px solid #F4F4F4;
   margin-bottom: 1px;
 }

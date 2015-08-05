@@ -5,10 +5,12 @@ angular.module('app', [
 
 .controller('appController', ['$scope', '$timeout', 'peopleService', function ($scope, $timeout, peopleService) {
 
-  $scope.people = [];
-  $scope.selecteds = [];
-
   var init = function () {
+    $scope.loadingData = true;
+    $scope.haveData = false;
+    $scope.people = [];
+    $scope.selecteds = [];
+
     $scope.config = {
       id: 'veasy-table',
       columns: [
@@ -23,6 +25,10 @@ angular.module('app', [
       checkbox: {
         enable: true,
         size: 20
+      }
+      ,
+      sort: {
+        enable: true
       }
       ,
       pagination: {
@@ -41,10 +47,6 @@ angular.module('app', [
         enable: true,
         autoOpen: true,
         modalSize: 'md'
-      }
-      ,
-      sort: {
-        enable: true
       }
       ,
       resizable: {
@@ -93,8 +95,15 @@ angular.module('app', [
 
     peopleService.findAll().then(function (data) {
       $scope.people = data;
+      dataVerify($scope.people);
     });
+  };
 
+  var dataVerify = function (list) {
+    $scope.loadingData = false;
+    $scope.haveData = false;
+    if (list.length > 0)
+      $scope.haveData = true;
   };
 
   $scope.addPerson = function (person) {
@@ -103,9 +112,7 @@ angular.module('app', [
     $scope.person = {};
   };
 
-  $timeout(function () {
-    init();
-  }, 1000);
+  init();
 
 }])
 
@@ -116,7 +123,7 @@ angular.module('app', [
       var deferred = $q.defer();
 
       $timeout(function () {
-        $http.get('people.json').success(function (data) {
+        $http.get('../people.json').success(function (data) {
           deferred.resolve(data);
         });
       }, 2500);
