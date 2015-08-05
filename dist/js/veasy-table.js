@@ -19,10 +19,19 @@ angular.module('veasyTable', [
         scope.isLoading = true;
         scope.tableSize = 0;
         scope.minimumTableSize = 400;
+        scope.query = '';
         scope.condition = 'AND';
         scope.paginatedList = [];
+        scope.cbs = [];
 
         validateConfig();
+
+        scope.dragControlListeners = {
+          accept: function (sourceItemHandleScope, destSortableScope) { return true; },
+          itemMoved: function (event) {},
+          orderChanged: function(event) {},
+          containment: '#board'
+        };
 
         scope.$watch(function () {
           return angular.element('#' + scope.config.id).width();
@@ -45,6 +54,10 @@ angular.module('veasyTable', [
         }, function (newList) {
           if (newList && newList.length > 0) {
 
+            angular.forEach(newList, function (value, key) {
+              scope.cbs[key] = false;
+            });
+
             if (!scope.config.pagination.enable) {
               scope.config.pagination.itemsPerPage = newList.length;
               scope.currentPage = 0;
@@ -57,6 +70,10 @@ angular.module('veasyTable', [
           }
         });
       };
+
+      /*
+       * Validations
+       */
 
       var validateConfig = function () {
         if (!scope.config) scope.config = {};
@@ -74,6 +91,48 @@ angular.module('veasyTable', [
         if (!scope.config.pagination.enable) scope.config.pagination.itemsPerPage = 10;
       };
 
+      /*
+       * Events
+       */
+
+      scope.onClickRow = function (selectedRow) {
+        if (!scope.config.events.onClickRow) return;
+
+        var row = angular.copy(selectedRow);
+
+        if (row.$$hashKey)
+          delete row.$$hashKey;
+
+        scope.config.events.onClickRow(row);
+      };
+
+      var onApplyColumnFilter = function (columns) {
+        if (!scope.config.events.onApplyColumnFilter) return;
+
+        var tableSize = getTableSize();
+
+        angular.forEach(columns, function (column, index) {
+          column.size = (column.size * 100) / tableSize;
+        });
+
+        scope.config.events.onApplyColumnFilter(columns);
+      };
+
+      var onTableStateChange = function (columns) {
+        if (!scope.config.events.onTableStateChange) return;
+
+        if (scope.resizeTimer)
+          $timeout.cancel(scope.resizeTimer);
+
+        scope.resizeTimer = $timeout(function () {
+          scope.config.events.onTableStateChange(columns);
+        }, 4000);
+      };
+
+      /*
+       * Initial table configs
+       */
+
       var loadTable = function (columnsArray, minimumColumnSize) {
         if (scope.config.columnFilter.autoOpen && defineColumnsVisibility(columnsArray).length < 1)
           scope.openColumnFilter(scope.config.columnFilter.modalSize);
@@ -86,10 +145,6 @@ angular.module('veasyTable', [
         generatePages(list);
         scope.totalOfItems = list.length;
       };
-
-      /*
-       * Initial Column Size
-       */
 
       var defineColumns = function (columnsArray, minimumSize) {
         var columns = defineColumnsVisibility(columnsArray);
@@ -152,71 +207,6 @@ angular.module('veasyTable', [
       };
 
       /*
-       * Resizable
-       */
-
-      scope.onDragStart = function (event, index) {
-        scope.initialPosition = normalizeMousePosition(event).x;
-        scope.draggableColumnIndex = index;
-        scope.dragging = true;
-      };
-
-      scope.onDragStop = function (event) {
-        scope.draggableColumnIndex = undefined;
-        scope.dragging = false;
-
-        // if (!!scope.config.events.onApplyColumnFilter) {
-        //   if (scope.resizeTimer)
-        //     $timeout.cancel(scope.resizeTimer);
-
-        //   scope.resizeTimer = $timeout(function () {
-        //     scope.onApplyColumnFilter(angular.copy(scope.visibleColumns));
-        //   }, 5000);
-        // }
-      };
-
-      scope.onMove = function (event, columns) {
-        if (!scope.dragging) return;
-
-        var index = angular.copy(scope.draggableColumnIndex);
-        var rightColumnSize = columns[index].size;
-        var leftColumnSize = columns[index - 1].size;
-        var minimumSize = getColumnMinimumSizeInPixels();
-        var offset = normalizeTableOffset(event);
-        var actualPosition = normalizeMousePosition(event).x;
-
-        if (actualPosition > scope.initialPosition)
-          scope.direction = true; // to right
-        if (actualPosition < scope.initialPosition)
-          scope.direction = false; // to left
-
-        var pixels = calculateResizeDistance(scope.initialPosition, actualPosition, offset.left);
-
-        if (((rightColumnSize + pixels) < minimumSize) || ((leftColumnSize - pixels) < minimumSize))
-          pixels = 0;
-
-        move(pixels, index);
-      };
-
-      var calculateResizeDistance = function (initialPosition, actualPosition, offset) {
-        scope.direction = true;
-
-        if (actualPosition < initialPosition) scope.direction = false;
-
-        var a = Math.abs(parseInt(initialPosition - offset));
-        var b = Math.abs(parseInt(actualPosition - offset));
-
-        scope.initialPosition = actualPosition;
-
-        return (a - b);
-      };
-
-      var move = function (pixels, index) {
-        scope.visibleColumns[index].size += pixels;
-        scope.visibleColumns[index - 1].size -= pixels;
-      };
-
-      /*
        * Data Filter
        */
 
@@ -237,6 +227,7 @@ angular.module('veasyTable', [
       scope.search = function (condition, query) {
         var list = executeSearch(condition, query);
         scope.totalOfItems = list.length;
+        scope.currentPage = 0;
         loadData(list);
       };
 
@@ -333,32 +324,91 @@ angular.module('veasyTable', [
             result.push(i);
         }
 
-        // checkSelectedCheckboxes();
-
         return result;
       };
 
       scope.setPage = function (page) {
         scope.currentPage = page;
-      };
-
-      scope.prevPage = function () {
-        if (scope.currentPage > 0) scope.currentPage--;
-      };
-
-      scope.prevPageDisabled = function () {
-        return scope.currentPage == 0 ? 'disabled' : '';
+        validateSelectedCheckboxes(scope.list);
       };
 
       scope.nextPage = function () {
-        if (scope.currentPage < scope.paginatedList.length - 1) scope.currentPage++;
+        if (scope.currentPage < scope.paginatedList.length - 1) scope.setPage(scope.currentPage + 1);
+      };
+
+      scope.prevPage = function () {
+        if (scope.currentPage > 0) scope.setPage(scope.currentPage - 1);
       };
 
       scope.nextPageDisabled = function () {
         return scope.currentPage == (scope.paginatedList.length - 1) ? 'disabled' : '';
       };
 
-      /**
+      scope.prevPageDisabled = function () {
+        return scope.currentPage == 0 ? 'disabled' : '';
+      };
+
+      /*
+       * Resizable
+       */
+
+      scope.onDragStart = function (event, index) {
+        scope.initialPosition = normalizeMousePosition(event).x;
+        scope.draggableColumnIndex = index;
+        scope.dragging = true;
+      };
+
+      scope.onDragStop = function (event, columns) {
+        scope.draggableColumnIndex = undefined;
+
+        if (scope.dragging)
+          onTableStateChange(angular.copy(columns));
+
+        scope.dragging = false;
+      };
+
+      scope.onMove = function (event, columns) {
+        if (!scope.dragging) return;
+
+        var index = angular.copy(scope.draggableColumnIndex);
+        var rightColumnSize = columns[index].size;
+        var leftColumnSize = columns[index - 1].size;
+        var minimumSize = getMinimumColumnSizeInPixel();
+        var offset = normalizeTableOffset(event);
+        var actualPosition = normalizeMousePosition(event).x;
+
+        if (actualPosition > scope.initialPosition)
+          scope.direction = true; // to right
+        if (actualPosition < scope.initialPosition)
+          scope.direction = false; // to left
+
+        var pixels = calculateResizeDistance(scope.initialPosition, actualPosition, offset.left);
+
+        if (((rightColumnSize + pixels) < minimumSize) || ((leftColumnSize - pixels) < minimumSize))
+          pixels = 0;
+
+        move(pixels, index);
+      };
+
+      var calculateResizeDistance = function (initialPosition, actualPosition, offset) {
+        scope.direction = true;
+
+        if (actualPosition < initialPosition) scope.direction = false;
+
+        var a = Math.abs(parseInt(initialPosition - offset));
+        var b = Math.abs(parseInt(actualPosition - offset));
+
+        scope.initialPosition = actualPosition;
+
+        return (a - b);
+      };
+
+      var move = function (pixels, index) {
+        scope.visibleColumns[index].size += pixels;
+        scope.visibleColumns[index - 1].size -= pixels;
+      };
+
+      /*
        * Order by
        */
 
@@ -388,7 +438,7 @@ angular.module('veasyTable', [
         }
       };
 
-      /**
+      /*
        * Column Filter
        */
 
@@ -406,20 +456,65 @@ angular.module('veasyTable', [
 
         modal.result.then(function (columns) {
           loadTable(columns, scope.config.resizable.minimumSize);
-          // scope.onApplyColumnFilter(angular.copy(columns));
+          onApplyColumnFilter(angular.copy(columns));
         });
       };
 
-      scope.dragControlListeners = {
-        accept: function (sourceItemHandleScope, destSortableScope) { return true; },
-        itemMoved: function (event) {},
-        orderChanged: function(event) {},
-        containment: '#board'
+      /*
+       * Checkbox
+       */
+
+      scope.getIndex = function (list, row) {
+        return list.indexOf(row);
+      };
+
+      scope.onCheckRow = function (index, row) {
+        // var index = list.indexOf(row);
+        var checked = scope.cbs[index];
+
+        if (exists(scope.selectedItems, row)) {
+          if (checked) {
+            scope.cbs[index] = false;
+            scope.selectedItems.splice(scope.selectedItems.indexOf(row), 1);
+          } else {
+            scope.selectedItems.splice(scope.selectedItems.indexOf(row), 1);
+          }
+        } else {
+          if (checked) {
+            scope.selectedItems.push(row);
+          }
+        }
+      };
+
+      scope.checkOrUncheckAllRows = function (list, isChecked) {
+        scope.selectedItems = [];
+
+        angular.forEach(scope.cbs, function (value, index) {
+          scope.cbs[index] = angular.copy(isChecked);
+        });
+
+        if (isChecked) {
+          angular.forEach(list, function (group, groupIndex) {
+            angular.forEach(group, function (item, index) {
+              scope.selectedItems.push(item);
+            });
+          });
+        }
+      };
+
+      var validateSelectedCheckboxes = function (list) {
+        angular.forEach(scope.selectedItems, function (item, index) {
+          scope.cbs[scope.getIndex(list, item)] = true;
+        });
       };
 
       /*
        * Utils
        */
+
+      var exists = function (list, element) {
+        return (list.indexOf(element) >= 0);
+      };
 
       var getTableSize = function () {
         var tableSize = angular.copy(scope.tableSize);
@@ -448,17 +543,21 @@ angular.module('veasyTable', [
         return { x: pageX, y: pageY };
       };
 
-      var getColumnMinimumSizeInPixels = function () {
+      var getMinimumColumnSizeInPixel = function () {
         var tableSize = angular.copy(scope.tableSize);
         return ((scope.config.resizable.minimumSize * tableSize) / 100);
       };
+
+      scope.getCheckboxSizeInPixel = function () {
+        return scope.config.checkbox.size + 'px';
+      }
 
       var defineColspan = function (colspan) {
         if (scope.config.checkbox.enable)
           colspan += 1;
 
         scope.colspan = colspan;
-      }
+      };
 
       init();
 

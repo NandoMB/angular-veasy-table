@@ -1,58 +1,47 @@
 <div class="veasyt-content">
-
   <!-- Top Row -->
   <div class="row">
 
     <!-- Filter -->
     <div class="form-group col-md-4 col-sm-4">
-      <input ng-show="config.filter.enable" type="text" name="query" class="pull-left form-control input-sm" placeholder="{{config.i18n.filter.by}}" ng-model="query" ng-change="changeQuery(condition, query)">
+      <input ng-if="config.filter.enable" type="text" name="query" class="pull-left form-control input-sm" placeholder="{{config.i18n.filter.by}}" ng-model="query" ng-change="changeQuery(condition, query)">
     </div>
-    <!-- /Filter -->
-
-
-
     <div class="form-group col-md-8 col-sm-8">
-
       <!-- Conditional Filter -->
-      <div ng-show="config.filter.enable && config.filter.conditional" class="btn-group">
-        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND', query)" btn-radio="'AND'">{{config.i18n.filter.and}}</label>
-        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR', query)" btn-radio="'OR'">{{config.i18n.filter.or}}</label>
+      <div ng-if="config.filter.enable && config.filter.conditional" class="btn-group">
+        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'AND'}" ng-model="condition" ng-click="changeCondition('AND', query)" btn-radio="'AND'">
+          {{config.i18n.filter.and}}
+        </label>
+        <label class="btn btn-default input-sm" style="font-size: 12px;" ng-class="{'active': condition === 'OR'}" ng-model="condition" ng-click="changeCondition('OR', query)" btn-radio="'OR'">
+          {{config.i18n.filter.or}}
+        </label>
       </div>
-      <!-- /Conditional Filter -->
-
       <!-- Searching Spin -->
       <div class="veasyt-spin">
-        <i ng-show="searching" class="fa fa-spin fa-refresh"></i>
+        <i ng-if="searching" class="fa fa-spin fa-refresh"></i>
       </div>
-      <!-- /Searching Spin -->
-
       <!-- Column Filter -->
-      <button ng-show="config.columnFilter.enable" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter(config.columnFilter.modalSize)"><i class="fa fa-filter"></i></button>
-      <!-- /Column Filter -->
-
+      <button ng-if="config.columnFilter.enable" class="btn btn-default pull-right" style="font-size: 12px;margin-left: 5px;height: 30px;" ng-click="openColumnFilter(config.columnFilter.modalSize)">
+        <i class="fa fa-filter"></i>
+      </button>
       <!-- Items by Page -->
-      <input ng-show="config.pagination.enable" type="number" min="1" max="100" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 65px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search(condition, query)">
-      <div class="pull-right" style="color: #6B6B6B;margin: 7px 5px 0 0;font-size: small;">
+      <input ng-if="config.pagination.enable" type="number" min="1" max="100" name="itemsPerPage" class="form-control input-sm pull-right" style="width: 65px;display: inline-block;" placeholder="Items" ng-model="config.pagination.itemsPerPage" ng-change="search(condition, query)">
+      <div ng-if="config.pagination.enable" class="pull-right text-muted" style="margin: 7px 5px 0 0;font-size: small;">
         <span>{{config.i18n.pagination.itemsByPage}}: </span>
       </div>
-      <!-- /Items by Page -->
-
     </div>
   </div>
-  <!-- /Top Row -->
-
-
 
   <!-- Table -->
   <div class="row">
     <div class="col-md-12">
-      <table id="{{config.id}}" class="table table-striped table-hover table-condensed fix-table no-select" style="margin-bottom: 0 !important;border-top: 1px solid #DDD;" ng-mousemove="onMove($event, visibleColumns)" ng-mouseup="onDragStop($event)">
+      <table id="{{config.id}}" class="table table-striped table-hover table-condensed fix-table no-select" style="margin-bottom: 0 !important;border-top: 1px solid #DDD;" ng-mousemove="onMove($event, visibleColumns)" ng-mouseup="onDragStop($event, visibleColumns)">
         <thead ng-if="!isLoading" class="no-select">
           <tr>
-            <th ng-if="config.checkbox.enable" ng-style="{ width: config.checkbox.size + 'px' }">
+            <th ng-if="config.checkbox.enable" ng-style="{ width: getCheckboxSizeInPixel() }">
               <div class="checkbox" style="margin-top: 0;margin-bottom: 0;">
                 <label style="margin-bottom: -5px;">
-                  <input type="checkbox" ng-model="cb" ng-click="checkAllRows(cb)">
+                  <input type="checkbox" ng-model="cb" ng-click="checkOrUncheckAllRows(paginatedList, cb)">
                 </label>
               </div>
             </th>
@@ -79,7 +68,7 @@
             <td ng-show="config.checkbox.enable" class="truncate" style="vertical-align: middle;">
               <div>
                 <label>
-                  <input type="checkbox" style="margin-top: 7px;" ng-model="cbs[getIndex(row)]" ng-init="cbs[getIndex(row)] = false" ng-click="checkRow(row)">
+                  <input type="checkbox" style="margin-top: 7px;" ng-model="cbs[getIndex(list, row)]" ng-click="onCheckRow(getIndex(list, row), row)">
                 </label>
               </div>
             </td>
@@ -110,7 +99,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-md-3 veasyt-total">
+              <div class="col-md-3 text-muted veasyt-total">
                 <span>{{config.i18n.pagination.totalItems}}: {{totalOfItems}}</span>
               </div>
             </div>
@@ -119,7 +108,7 @@
         <tfoot ng-hide="config.pagination.enable || isLoading">
           <td colspan="{{colspan}}">
             <div class="row">
-              <div class="col-md-3 col-md-offset-9 veasyt-total veasyt-footer2">
+              <div class="col-md-3 col-md-offset-9 text-muted veasyt-total veasyt-footer2">
                 <span>{{config.i18n.pagination.totalItems}}: {{list.length}}</span>
               </div>
             </div>
