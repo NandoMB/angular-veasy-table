@@ -1,12 +1,13 @@
 # [angular-veasy-table](http://nandomb.github.io/angular-veasy-table)
 
-AngularJS directive to create quickly data tables without giving up the beauty and functionality.
+Native AngularJS directive to create quickly data tables without giving up the beauty and functionality.
 <br/>
 
 ![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png)
 ![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png)
 
 ### Features:
+* Native AngularJS directive
 * Selecting rows using checkbox
 * Order by specific column
 * Sort columns
