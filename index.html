@@ -37,7 +37,7 @@
 <li>Order by specific column</li>
 <li>Sort columns</li>
 <li>Data paging (client-side)</li>
-<li>Global data filter (filter all columns)</li>
+<li>Global data filter (filter all visible columns)</li>
 <li>Possibility of changing the filter condition (AND, OR)</li>
 <li>Resize columns</li>
 <li>Show and hide columns</li>
@@ -46,6 +46,8 @@
 <li>Translate labels</li>
 <li>Select row event</li>
 <li>Auto open column filter modal</li>
+<li>You can save the state of the table configuration (state of columns)</li>
+<li>Auto resize (proportionally, keeping percentual size of columns) if window size is changed</li>
 </ul>
 
 <h3>
@@ -76,15 +78,15 @@
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
 
 <ul>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/">Checkbox</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/">Pagination</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/">Data Filter</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/">Column Filter</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/">Sort</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/">Resizable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/">Events</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/">i18n</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/">All Features</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/">Checkbox Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/">Pagination Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/">Data Filter Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/">Column Filter Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/">Sort Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/">Resizable Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/">Events Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/">i18n Enable</a></li>
+<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/">All Features Enable</a></li>
 <li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_10_hiding_table/">Hiding Table</a></li>
 </ul>
 
@@ -189,7 +191,7 @@ $scope.config <span class="pl-k">=</span> {
 
 <div class="highlight highlight-js"><pre>filter<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,      <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  conditional<span class="pl-k">:</span> <span class="pl-c1">true</span>  <span class="pl-c">// Conditional filter 'AND', 'OR'. (Default is false)</span>
+  conditional<span class="pl-k">:</span> <span class="pl-c1">true</span>  <span class="pl-c">// Conditional filter 'AND', 'OR'. (Default is AND)</span>
   delay<span class="pl-k">:</span> <span class="pl-c1">500</span>         <span class="pl-c">// Delay in milliseconds. (Default is 500ms)</span>
 }</pre></div>
 
@@ -199,13 +201,13 @@ $scope.config <span class="pl-k">=</span> {
 <div class="highlight highlight-js"><pre>columnFilter<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
   autoOpen<span class="pl-k">:</span> <span class="pl-c1">true</span>,    <span class="pl-c">// Open automatically column filter modal, if not have visible columns. (Default is false)</span>
-  modalSize<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm<span class="pl-pds">'</span></span>   <span class="pl-c">// The size of modal can be setted: 'sm, md or lg' (Default is 'sm')</span>
+  modalSize<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm<span class="pl-pds">'</span></span>   <span class="pl-c">// The size of modal can be setted: 'sm, md or lg' (Default is 'md')</span>
 }</pre></div>
 
 <h5>
 <a id="enable-column-sort" class="anchor" href="#enable-column-sort" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable column sort:</h5>
 
-<div class="highlight highlight-js"><pre>ordenation<span class="pl-k">:</span> {
+<div class="highlight highlight-js"><pre>sort<span class="pl-k">:</span> {
   enable<span class="pl-k">:</span> <span class="pl-c1">true</span>      <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
 }</pre></div>
 
@@ -223,6 +225,7 @@ $scope.config <span class="pl-k">=</span> {
 <div class="highlight highlight-js"><pre>events<span class="pl-k">:</span> {
   <span class="pl-en">onClickRow</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">row</span>) {} <span class="pl-c">// This event is called when an row is clicked</span>
   <span class="pl-en">onApplyColumnFilter</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">columns</span>) {} <span class="pl-c">// This event is called when 'apply column' button (in modal) is clicked</span>
+  <span class="pl-en">onTableStateChange</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">columns</span>) {} <span class="pl-c">// This event is called when state of columns (visibility, size, ...) is changed</span>
 }</pre></div>
 
 <h5>
@@ -248,9 +251,10 @@ $scope.config <span class="pl-k">=</span> {
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>The MIT License</p>
+<p>The MIT License (MIT)</p>
 
-<p>Copyright (c) 2015 <a href="https://github.com/NandoMB">NandoMB</a>. <a href="https://github.com/NandoMB/angular-veasy-table">https://github.com/NandoMB/angular-veasy-table</a></p>
+<p>Copyright (c) 2015 Fernando Machado Bernardino
+<a href="https://github.com/NandoMB">NandoMB</a>. <a href="https://github.com/NandoMB/angular-veasy-table">https://github.com/NandoMB/angular-veasy-table</a></p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -259,16 +263,16 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:</p>
 
-<p>The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
 
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</p>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/NandoMB/angular-veasy-table">VEasy Table</a> is maintained by <a href="https://github.com/NandoMB">NandoMB</a>.</span>
