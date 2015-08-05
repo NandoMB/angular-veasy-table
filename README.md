@@ -11,7 +11,7 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * Order by specific column
 * Sort columns
 * Data paging (client-side)
-* Global data filter (filter all columns)
+* Global data filter (filter all visible columns)
 * Possibility of changing the filter condition (AND, OR)
 * Resize columns
 * Show and hide columns
@@ -20,6 +20,9 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * Translate labels
 * Select row event
 * Auto open column filter modal
+* You can save the state of the table configuration (state of columns)
+* Auto resize (proportionally, keeping percentual size of columns) if window size is changed
+
 
 ### Todo:
 * Add dynamic '$filter' in columns data
@@ -34,15 +37,15 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 
 ### Examples
-* [Checkbox](http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/)
-* [Pagination](http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/)
-* [Data Filter](http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/)
-* [Column Filter](http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/)
-* [Sort](http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/)
-* [Resizable](http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/)
-* [Events](http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/)
-* [i18n](http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/)
-* [All Features](http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/)
+* [Checkbox Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/)
+* [Pagination Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/)
+* [Data Filter Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/)
+* [Column Filter Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/)
+* [Sort Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/)
+* [Resizable Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/)
+* [Events Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/)
+* [i18n Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/)
+* [All Features Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/)
 * [Hiding Table](http://nandomb.github.io/angular-veasy-table/demo/demo_10_hiding_table/)
 
 ### Instalation
@@ -124,7 +127,7 @@ pagination: {
 ```js
 filter: {
   enable: true,      // Enable = true, Disable = false. (Default is false)
-  conditional: true  // Conditional filter 'AND', 'OR'. (Default is false)
+  conditional: true  // Conditional filter 'AND', 'OR'. (Default is AND)
   delay: 500         // Delay in milliseconds. (Default is 500ms)
 }
 ```
@@ -134,13 +137,13 @@ filter: {
 columnFilter: {
   enable: true,     // Enable = true, Disable = false. (Default is false)
   autoOpen: true,    // Open automatically column filter modal, if not have visible columns. (Default is false)
-  modalSize: 'sm'   // The size of modal can be setted: 'sm, md or lg' (Default is 'sm')
+  modalSize: 'sm'   // The size of modal can be setted: 'sm, md or lg' (Default is 'md')
 }
 ```
 
 ##### Enable column sort:
 ```js
-ordenation: {
+sort: {
   enable: true      // Enable = true, Disable = false. (Default is false)
 }
 ```
@@ -158,6 +161,7 @@ resizable: {
 events: {
   onClickRow: function (row) {} // This event is called when an row is clicked
   onApplyColumnFilter: function (columns) {} // This event is called when 'apply column' button (in modal) is clicked
+  onTableStateChange: function (columns) {} // This event is called when state of columns (visibility, size, ...) is changed
 }
 ```
 
@@ -182,9 +186,10 @@ translate: {
 ```
 
 ## License
-The MIT License
+The MIT License (MIT)
 
-Copyright (c) 2015 [NandoMB](https://github.com/NandoMB). https://github.com/NandoMB/angular-veasy-table
+Copyright (c) 2015 Fernando Machado Bernardino
+[NandoMB](https://github.com/NandoMB). https://github.com/NandoMB/angular-veasy-table
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -193,13 +198,13 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
