@@ -18,40 +18,33 @@ angular.module('app', [
         { header: 'Email',      value: 'email',       size: 0, show: false },
         { header: 'Country',    value: 'country',     size: 0, show: false },
         { header: 'IP',         value: 'ip_address',  size: 15, show: true }
-      ]
-      ,
+      ],
       checkbox: {
         enable: true,
         size: 20
-      }
-      ,
+      },
       pagination: {
         enable: true,
         currentPage: 0,
         itemsPerPage: 10,
-      }
-      ,
+      },
       filter: {
         enable: true,
         conditional: true,
         delay: 500
-      }
-      ,
+      },
       columnFilter: {
         enable: true,
         autoOpen: true,
         modalSize: 'md'
-      }
-      ,
+      },
       sort: {
         enable: true
-      }
-      ,
+      },
       resizable: {
         enable: true,
         minimumSize: 5
-      }
-      ,
+      },
       events: {
         onClickRow: function (row) {
           alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
@@ -70,23 +63,6 @@ angular.module('app', [
           console.log(JSON.stringify(columns, null, 2));
           console.log('---------------------------------');
           console.log('');
-        }
-      }
-      ,
-      i18n: {
-        filter: {
-          by: 'Filtrar por...',
-          and: 'E',
-          or: 'OU'
-        },
-        pagination: {
-          itemsByPage: 'Itens por Página',
-          totalItems: 'Total de Itens'
-        },
-        columnFilter: {
-          title: 'Quais colunas você deseja exibir?',
-          okButton: 'Ok',
-          cancelButton: 'Cancelar'
         }
       }
     };
