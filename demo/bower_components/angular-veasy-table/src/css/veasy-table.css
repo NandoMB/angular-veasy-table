@@ -8,9 +8,16 @@ input, button, textarea, div {
 
 .veasyt-total {
   text-align: right;
-  color: #6B6B6B;
-  margin: 30px 0;
+  margin-top: 12px;
   font-size: small;
+}
+
+.veasyt-footer {
+  margin: 5px 0px 12px 0px;
+}
+
+.veasyt-footer2 {
+  margin-bottom: 10px;
 }
 
 .veasyt-spin {
@@ -96,7 +103,6 @@ input, button, textarea, div {
 }
 
 .veasyt-sortable-item {
-  background-color: #FAFAFA;
-  border: 1px solid rgb(239, 239, 239);
+  border: 1px solid #F4F4F4;
   margin-bottom: 1px;
 }

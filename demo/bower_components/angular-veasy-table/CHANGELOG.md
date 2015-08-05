@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 1.5.0
+
+* This directive was fully refactored.
+* Performace was improved.
+* Fixed checkbox bugs.
+* Fixed filter column modal.
+* Fixed resizable columns.
+* Now on window resize, the veasy-table resize keeping percentual size.
+
+## Version 1.4.5
+
+* Now, the filter is matched with only visible data.
+
+## Version 1.4.4
+
+* onApplyColumnFilter, now convert the size from pixel to percentage.
+
 ## Version 1.4.0
 
 * Now you can set column size on load VEasyTable.
