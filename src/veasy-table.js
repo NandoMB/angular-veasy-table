@@ -135,13 +135,13 @@ angular.module('veasyTable', [
       var convertColumnSize = {
         toPixel: function (columns, tableSize) {
           angular.forEach(columns, function (column) {
-            column.size = (column.size * 100) / tableSize;
+            column.size = (column.size * tableSize) / 100;
           });
           return columns;
         },
         toPercentage: function (columns, tableSize) {
           angular.forEach(columns, function (column) {
-            column.size = (column.size * tableSize) / 100;
+            column.size = (column.size * 100) / tableSize;
           });
           return columns;
         }
