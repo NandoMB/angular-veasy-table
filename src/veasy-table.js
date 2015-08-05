@@ -40,6 +40,7 @@ angular.module('veasyTable', [
         }, function (newTableSize) {
           if (newTableSize > scope.minimumTableSize) {
             scope.tableSize = newTableSize;
+            loadTable(scope.config.columns, scope.config.resizable.minimumSize);
           }
         });
 
