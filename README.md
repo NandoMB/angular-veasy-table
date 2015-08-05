@@ -34,7 +34,16 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 
 
 ### Examples
-* [Wit All Features Enabled](http://nandomb.github.io/angular-veasy-table/demo/)
+* [Checkbox](http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/)
+* [Pagination](http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/)
+* [Data Filter](http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/)
+* [Column Filter](http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/)
+* [Sort](http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/)
+* [Resizable](http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/)
+* [Events](http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/)
+* [i18n](http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/)
+* [All Features](http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/)
+* [Hiding Table](http://nandomb.github.io/angular-veasy-table/demo/demo_10_hiding_table/)
 
 ### Instalation
 ```sh
