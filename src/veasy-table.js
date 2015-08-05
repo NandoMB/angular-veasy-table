@@ -193,7 +193,7 @@ angular.module('veasyTable', [
           column.size = (tableSize / columns.length);
         });
 
-        scope.config.events.onApplyColumnFilter(convertColumnSize.toPercentage(columns));
+        scope.config.events.onApplyColumnFilter(convertColumnSize.toPercentage(columns, tableSize));
       };
 
       var onTableStateChange = function (columns) {
