@@ -40,6 +40,14 @@ angular.module('veasyTable', [
         }, function (newTableSize) {
           if (newTableSize > scope.minimumTableSize) {
             scope.tableSize = newTableSize;
+
+            if (scope.resizing)
+              return;
+
+            $timeout(function() {
+              scope.resizing = false;
+              loadTable(angular.copy(scope.config.columns), angular.copy(scope.config.resizable.minimumSize));
+            }, 0);
           }
         });
 
@@ -59,9 +67,12 @@ angular.module('veasyTable', [
               scope.currentPage = scope.config.pagination.currentPage;
             }
 
-            loadData(newList);
             scope.isLoading = false;
-            loadTable(angular.copy(scope.config.columns), angular.copy(scope.config.resizable.minimumSize));
+
+            loadData(newList);
+
+
+
           }
         });
       };
@@ -149,6 +160,7 @@ angular.module('veasyTable', [
 
       var onWindowResize = function () {
         $window.addEventListener('resize', function () {
+          scope.resizing = true;
           var tableSize = getTableSize();
           var aux = convertColumnSize.toPercentage(angular.copy(scope.visibleColumns), tableSize);
 
