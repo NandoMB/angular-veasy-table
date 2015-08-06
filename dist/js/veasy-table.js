@@ -40,15 +40,6 @@ angular.module('veasyTable', [
         }, function (newTableSize) {
           if (newTableSize > scope.minimumTableSize) {
             scope.tableSize = newTableSize;
-            loadTable(scope.config.columns, scope.config.resizable.minimumSize);
-          }
-        });
-
-        scope.$watch(function () {
-          return scope.config.columns;
-        }, function (newColumns) {
-          if (newColumns && newColumns.length > 0) {
-            loadTable(newColumns, scope.config.resizable.minimumSize);
           }
         });
 
@@ -70,6 +61,7 @@ angular.module('veasyTable', [
 
             loadData(newList);
             scope.isLoading = false;
+            loadTable(angular.copy(scope.config.columns), angular.copy(scope.config.resizable.minimumSize));
           }
         });
       };
@@ -157,18 +149,17 @@ angular.module('veasyTable', [
 
       var onWindowResize = function () {
         $window.addEventListener('resize', function () {
-          var backup = angular.copy(scope.visibleColumns);
           var tableSize = getTableSize();
-
-          backup = convertColumnSize.toPixel(backup, tableSize);
+          var aux = convertColumnSize.toPercentage(angular.copy(scope.visibleColumns), tableSize);
 
           resetAllColumnsSize(scope.visibleColumns);
+
           tableSize = getTableSize();
 
-          backup = convertColumnSize.toPercentage(backup, tableSize);
+          aux = convertColumnSize.toPixel(aux, tableSize);
 
           scope.$apply(function () {
-            scope.visibleColumns = backup;
+            scope.visibleColumns = aux;
           });
         });
       };
@@ -184,16 +175,16 @@ angular.module('veasyTable', [
         scope.config.events.onClickRow(row);
       };
 
-      var onApplyColumnFilter = function (columns) {
-        if (!scope.config.events.onApplyColumnFilter) return;
+      var onApplyColumnFilter = function (tableSize) {
+        $timeout(function() {
+          var array = angular.copy(scope.visibleColumns);
 
-        var tableSize = getTableSize();
+          angular.forEach(array, function (value, key) {
+            if (value.$$hashKey) delete value.$$hashKey;
+          });
 
-        angular.forEach(columns, function (column, index) {
-          column.size = (tableSize / columns.length);
-        });
-
-        scope.config.events.onApplyColumnFilter(convertColumnSize.toPercentage(columns, tableSize));
+          scope.config.events.onApplyColumnFilter(convertColumnSize.toPercentage(array, tableSize));
+        }, 0);
       };
 
       var onTableStateChange = function (columns) {
@@ -211,23 +202,41 @@ angular.module('veasyTable', [
        * Initial table configs
        */
 
+      var resetColumnsSize = function (array) {
+        angular.forEach(array, function (column, index) {
+          column.size = 0;
+        });
+
+        return angular.copy(array);
+      };
+
+      var loadData = function (list) {
+        scope.totalOfItems = list.length;
+        generatePages(list);
+      };
+
+      var reloadTable = function (columnsArray) {
+        scope.visibleColumns = [];
+
+        $timeout(function() {
+          defineTable(angular.copy(columnsArray), angular.copy(scope.config.resizable.minimumSize));
+        }, 0);
+      };
+
       var loadTable = function (columnsArray, minimumColumnSize) {
         if (scope.config.columnFilter.autoOpen && defineColumnsVisibility(columnsArray).length < 1)
           scope.openColumnFilter(scope.config.columnFilter.modalSize);
 
-        scope.visibleColumns = defineColumns(angular.copy(columnsArray), angular.copy(minimumColumnSize));
+        defineTable(columnsArray, minimumColumnSize);
+      };
+
+      var defineTable = function (columnsArray, minimumColumnSize) {
+        defineColumns(columnsArray, minimumColumnSize);
         defineColspan(scope.visibleColumns.length);
       };
 
-      var loadData = function (list) {
-        generatePages(list);
-        scope.totalOfItems = list.length;
-      };
-
       var defineColumns = function (columnsArray, minimumSize) {
-        var columns = defineColumnsVisibility(columnsArray);
-        columns = defineColumnsSize(columns, minimumSize);
-        return columns;
+        scope.visibleColumns = defineColumnsSize(defineColumnsVisibility(columnsArray), minimumSize);
       };
 
       var defineColumnsVisibility = function (columnsArray) {
@@ -272,14 +281,16 @@ angular.module('veasyTable', [
         angular.forEach(columnsArray, function (column) {
           column.size = Math.round(tableSize * column.size) / 100;
         });
-        return columnsArray;
+
+        return angular.copy(columnsArray);
       };
 
       var splitEqually = function (tableSize, columnsArray) {
         angular.forEach(columnsArray, function (column, index) {
           column.size = Math.round((tableSize / columnsArray.length) * 100) / 100;
         });
-        return columnsArray;
+
+        return angular.copy(columnsArray);
       };
 
       /*
@@ -525,8 +536,12 @@ angular.module('veasyTable', [
         });
 
         modal.result.then(function (columns) {
-          loadTable(columns, scope.config.resizable.minimumSize);
-          onApplyColumnFilter(angular.copy(columns));
+          var tableSize = getTableSize();
+
+          reloadTable(columns, tableSize);
+
+          if (scope.config.events.onApplyColumnFilter)
+            onApplyColumnFilter(tableSize);
         });
       };
 
@@ -642,8 +657,7 @@ angular.module('veasyTable', [
   }
 
   $scope.ok = function () {
-    var visibleColumns = getVisibleColumns($scope.columns);
-    $modalInstance.close(visibleColumns);
+    $modalInstance.close(getVisibleColumns($scope.columns));
   };
 
   $scope.cancel = function () {
@@ -670,4 +684,3 @@ angular.module('veasyTable', [
   init();
 
 }]);
-
