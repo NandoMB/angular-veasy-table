@@ -19,7 +19,7 @@ angular.module('app', [
         { header: 'Country',    value: 'country',     size: 0, show: false },
         { header: 'IP',         value: 'ip_address',  size: 15, show: true }
       ],
-      i18n: {
+      translate: {
         filter: {
           by: 'Filtrar por...',
           and: 'E',

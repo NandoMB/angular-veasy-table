@@ -117,18 +117,18 @@ angular.module('veasyTable', [
         if (!scope.config.events.onApplyColumnFilter) scope.config.events.onApplyColumnFilter = undefined;
         if (!scope.config.events.onTableStateChange) scope.config.events.onTableStateChange = undefined;
 
-        if (!scope.config.i18n) scope.config.i18n = {};
-        if (!scope.config.i18n.filter) scope.config.i18n.filter = {};
-        if (!scope.config.i18n.filter.by) scope.config.i18n.filter.by = 'Filter by...';
-        if (!scope.config.i18n.filter.and) scope.config.i18n.filter.and = 'AND';
-        if (!scope.config.i18n.filter.or) scope.config.i18n.filter.or = 'OR';
-        if (!scope.config.i18n.pagination) scope.config.i18n.pagination = {};
-        if (!scope.config.i18n.pagination.itemsByPage) scope.config.i18n.pagination.itemsByPage = 'Items by Page';
-        if (!scope.config.i18n.pagination.totalItems) scope.config.i18n.pagination.totalItems = 'Total of Items';
-        if (!scope.config.i18n.columnFilter) scope.config.i18n.columnFilter = {};
-        if (!scope.config.i18n.columnFilter.title) scope.config.i18n.columnFilter.title = 'Which columns you want to display?';
-        if (!scope.config.i18n.columnFilter.okButton) scope.config.i18n.columnFilter.okButton = 'Ok';
-        if (!scope.config.i18n.columnFilter.cancelButton) scope.config.i18n.columnFilter.cancelButton = 'Cancel';
+        if (!scope.config.translate) scope.config.translate = {};
+        if (!scope.config.translate.filter) scope.config.translate.filter = {};
+        if (!scope.config.translate.filter.by) scope.config.translate.filter.by = 'Filter by...';
+        if (!scope.config.translate.filter.and) scope.config.translate.filter.and = 'AND';
+        if (!scope.config.translate.filter.or) scope.config.translate.filter.or = 'OR';
+        if (!scope.config.translate.pagination) scope.config.translate.pagination = {};
+        if (!scope.config.translate.pagination.itemsByPage) scope.config.translate.pagination.itemsByPage = 'Items by Page';
+        if (!scope.config.translate.pagination.totalItems) scope.config.translate.pagination.totalItems = 'Total of Items';
+        if (!scope.config.translate.columnFilter) scope.config.translate.columnFilter = {};
+        if (!scope.config.translate.columnFilter.title) scope.config.translate.columnFilter.title = 'Which columns you want to display?';
+        if (!scope.config.translate.columnFilter.okButton) scope.config.translate.columnFilter.okButton = 'Ok';
+        if (!scope.config.translate.columnFilter.cancelButton) scope.config.translate.columnFilter.cancelButton = 'Cancel';
       };
 
       /*

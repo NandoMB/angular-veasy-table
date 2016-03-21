@@ -1,9 +1,16 @@
 # Changelog
 
+## Version 1.6.0
+
+* changed config object ‘i18n’ to ‘translate’.
+* updated ‘angular’ version to ‘~1.4.8’.
+* updated ‘bootstrap’ version to ‘~3.3.6’.
+* updated ‘angular-bootstrap’ version to ‘~1.2.4’.
+
 ## Version 1.5.0
 
 * This directive was fully refactored.
-* Performace was improved.
+* Performance was improved.
 * Fixed checkbox bugs.
 * Fixed filter column modal.
 * Fixed resizable columns.
