@@ -65,12 +65,12 @@ config               | This is an object used to configure your veasy-table
 ##### In your HTML
 ```html
 <head>
-  <link rel="stylesheet" href="./bower_components/angular-veasy-table/dist/veasy-table.min.css">
+  <link rel="stylesheet" href="./bower_components/angular-veasy-table/dist/css/veasy-table.min.css">
 </head>
 <body>
   <veasy-table list="items" selected-items="selectedItems" config="config"></veasy-table>
-  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table.min.js"></script>
-  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/js/veasy-table.min.js"></script>
+  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/js/veasy-table-tpls.min.js"></script>
 </body>
 ```
 
