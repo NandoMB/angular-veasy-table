@@ -3,7 +3,7 @@ angular.module('veasyTable', [
   'veasyTable.templates'
 ])
 
-.directive('veasyTable', ['$window', '$filter', '$templateCache', '$timeout', '$modal', function ($window, $filter, $templateCache, $timeout, $modal) {
+.directive('veasyTable', ['$window', '$filter', '$templateCache', '$timeout', '$uibModal', function ($window, $filter, $templateCache, $timeout, $uibModal) {
   return {
     restrict: 'EA',
     replace: true,
@@ -536,7 +536,7 @@ angular.module('veasyTable', [
        */
 
       scope.openColumnFilter = function (size) {
-        var modal = $modal.open({
+        var modal = $uibModal.open({
           templateUrl: 'veasy-table-modal.html',
           controller: 'ColumnFilterController',
           size: size,
