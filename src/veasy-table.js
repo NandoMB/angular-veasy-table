@@ -660,7 +660,7 @@ angular.module('veasyTable', [
   };
 }])
 
-.controller('ColumnFilterController', ['$scope', '$modalInstance', 'config', function ($scope, $modalInstance, config) {
+.controller('ColumnFilterController', ['$scope', '$uibModalInstance', 'config', function ($scope, $uibModalInstance, config) {
 
   var init = function () {
     $scope.config = config;
@@ -669,11 +669,11 @@ angular.module('veasyTable', [
   }
 
   $scope.ok = function () {
-    $modalInstance.close(getVisibleColumns($scope.columns));
+    $uibModalInstance.close(getVisibleColumns($scope.columns));
   };
 
   $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
   var getVisibleColumns = function (columns) {
