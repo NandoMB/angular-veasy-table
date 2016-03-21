@@ -30,10 +30,10 @@ Native AngularJS directive to create quickly data tables without giving up the b
 * Add column with action buttons (edit, remove, ...)
 
 ### Dependencies
-* [AngularJS](https://angularjs.org/) (requires AngularJS 1.3)
+* [AngularJS](https://angularjs.org/) (requires AngularJS 1.4.x)
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
-* [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.x)
-* [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 0.12.x)
+* [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.3.x)
+* [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 1.2.x)
 * [ng-sortable](https://github.com/a5hik/ng-sortable) (requires ng-sortable 1.2.x)
 
 
