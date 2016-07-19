@@ -14,7 +14,7 @@ angular.module('veasyTable', [
       config: '='
     },
     link: function (scope, element, attributes, controller) {
-      
+
       var init = function () {
         scope.isLoading = true;
         scope.tableSize = 0;
@@ -35,6 +35,13 @@ angular.module('veasyTable', [
         validateConfig();
         onWindowResize();
 
+
+        scope.$watch(function () {
+          return angular.element('body').width();
+        }, function (newBodyWidth) {
+          console.log('newBodyWidth: ' + newBodyWidth);
+        });
+        
         scope.$watch(function () {
           return angular.element('#' + scope.config.id).width();
         }, function (newTableSize) {

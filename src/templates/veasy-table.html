@@ -31,10 +31,10 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Table -->
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <table id="{{config.id}}" class="table table-striped table-hover table-condensed fix-table no-select" style="margin-bottom: 0 !important;border-top: 1px solid #DDD;" ng-mousemove="onMove($event, visibleColumns)" ng-mouseup="onDragStop($event, visibleColumns)">
         <thead ng-if="!isLoading" class="no-select">
           <tr>
@@ -80,7 +80,7 @@
         <tfoot ng-show="!isLoading && config.pagination.enable">
           <td colspan="{{colspan}}">
             <div class="row">
-              <div class="col-md-6 col-md-offset-3" style="text-align: center;">
+              <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-6 col-xs-offset-3" style="text-align: center;">
                 <ul class="pagination veasyt-footer input-sm">
                   <li ng-class="prevPageDisabled()">
                     <a href ng-click="setPage(0)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
@@ -99,8 +99,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-md-3 text-muted veasyt-total">
-                <span>{{config.translate.pagination.totalItems}}: {{totalOfItems}}</span>
+              <div class="col-md-3 col-sm-2 col-xs-3 text-muted veasyt-total">
+                <span style="word-wrap: break-word;">{{config.translate.pagination.totalItems}}: {{totalOfItems}}</span>
               </div>
             </div>
           </td>

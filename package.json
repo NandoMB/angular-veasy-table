@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "./dist/js/angular-veasy-table.js",
   "scripts": {
-    "start": "node_modules/http-server/bin/http-server -c-1 -a localhost -p 3000"
+    "start": "node_modules/http-server/bin/http-server -c-1 -a localhost -p 4000"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
