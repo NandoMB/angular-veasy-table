@@ -72,7 +72,7 @@
                 </label>
               </div>
             </td>
-            <td ng-repeat="column in visibleColumns | orderBy:predicate:reverse" ng-click="onClickRow(row)" style="vertical-align: middle;" class="use-ellipsis" ng-class="addCellResizeClass($index)">
+            <td ng-repeat="column in visibleColumns" ng-click="onClickRow(row)" style="vertical-align: middle;" class="use-ellipsis" ng-class="addCellResizeClass($index)">
               {{row[column.value]}}
             </td>
           </tr>
