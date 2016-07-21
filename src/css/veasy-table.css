@@ -27,7 +27,7 @@ input, button, textarea, div {
   margin-left: 15px;
 }
 
-.use-ellipsis {
+.veasyt-use-ellipsis {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
@@ -55,7 +55,7 @@ input, button, textarea, div {
   top: 0px;
 }
 
-.no-select {
+.veasyt-no-select {
   -webkit-touch-callout:none;
   -webkit-user-select:none;
   -khtml-user-select:none;
@@ -64,17 +64,17 @@ input, button, textarea, div {
   user-select:none;
 }
 
-.fix-table {
+.veasyt-fix-table {
   width: 100%;
   table-layout: fixed;
   cursor: default;
 }
 
-.clickable-row {
+.veasyt-clickable-row {
   cursor: pointer;
 }
 
-.default-row {
+.veasyt-default-row {
   cursor: default;
 }
 
