@@ -14,7 +14,7 @@ angular.module('veasyTable', [
       config: '='
     },
     link: function (scope, element, attributes, controller) {
-      
+
       var init = function () {
         scope.isLoading = true;
         scope.tableSize = 0;
@@ -36,14 +36,15 @@ angular.module('veasyTable', [
         onWindowResize();
 
         scope.$watch(function () {
-          return angular.element('#' + scope.config.id).width();
-        }, function (newTableSize) {
-          if (newTableSize > scope.minimumTableSize) {
-            scope.tableSize = newTableSize;
+          return angular.element('#' + scope.config.id).parent().width();
+        }, function (newSizeTableParent) {
+
+          if (newSizeTableParent > scope.minimumTableSize) {
+            scope.tableSize = newSizeTableParent;
 
             if (scope.resizing)
               return;
-
+              
             $timeout(function() {
               scope.resizing = false;
               loadTable(angular.copy(scope.config.columns), angular.copy(scope.config.resizable.minimumSize));
