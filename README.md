@@ -1,211 +1,380 @@
-# [angular-veasy-table](http://nandomb.github.io/angular-veasy-table)
-
-Native AngularJS directive to create quickly data tables without giving up the beauty and functionality.
-<br/>
-
-![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png)
-![alt tag](https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png)
-
-### Features:
-* Native AngularJS directive
-* Selecting rows using checkbox
-* Order by specific column
-* Sort columns
-* Data paging (client-side)
-* Global data filter (filter all visible columns)
-* Possibility of changing the filter condition (AND, OR)
-* Resize columns
-* Show and hide columns
-* Accepts asynchronous request
-* Dynamic items by page
-* Translate labels
-* Select row event
-* Auto open column filter modal
-* You can save the state of the table configuration (state of columns)
-* Auto resize (proportionally, keeping percentual size of columns) if window size is changed
+# CAUTION
+# This directive is not yet finished. Please, don't use it.
 
 
-### Todo:
-* Add dynamic '$filter' in columns data
-* Add column with action buttons (edit, remove, ...)
+## Dependencies
+* [angular](https://angularjs.org/) (^1.5.8)
+* [angular-sanitize](https://docs.angularjs.org/api/ngSanitize) (^1.5.8)
+* [bootstrap](http://getbootstrap.com/) (^3.3.7)
+* [font-awesome](http://fontawesome.io/icons/) (^4.6.3)
 
-### Dependencies
-* [AngularJS](https://angularjs.org/) (requires AngularJS 1.4.x)
-* [Font-Awesome](http://fortawesome.github.io/Font-Awesome/) (requires Font-Awesome 4.3)
-* [Bootstrap CSS](http://getbootstrap.com/) (requires Bootstrap 3.3.x)
-* [Angular Bootstrap](https://angular-ui.github.io/bootstrap/) (requires Bootstrap 1.2.x)
-* [ng-sortable](https://github.com/a5hik/ng-sortable) (requires ng-sortable 1.2.x)
-
-
-### Examples
-* [Checkbox Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/)
-* [Pagination Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/)
-* [Data Filter Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/)
-* [Column Filter Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/)
-* [Sort Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/)
-* [Resizable Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/)
-* [Events Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/)
-* [i18n Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/)
-* [All Features Enable](http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/)
-* [Hiding Table](http://nandomb.github.io/angular-veasy-table/demo/demo_10_hiding_table/)
-
-### Instalation
+## Instalation
 ```sh
 $ bower install angular-veasy-table --save
 ```
 
-## Configuration
+##### In your angular app
+```js
+angular.module('yourModule', ['veasy.table'])
 
-Attributes           | Description
----------------------|----------------
-list                 | This is a list of data
-selected-items       | This is a list of selected rows
-config               | This is an object used to configure your veasy-table
+  .controller('yourController', function () {
+    $scope.config = {
+      // This 'id' is not necessary. Use it only if you want to set a specific id for this component.
+      // If you not set a specific id, it will be randomly generated.
+      id: 'my-specific-id',
+
+      // Columns configuration
+      columns: [
+        {
+          // That's the label of your column.
+          header: 'Id',
+
+          // That's the field of your column, and it's used to get value
+          // from your result array.
+          value: 'id',
+
+          // It's used only if you want to hide this column in a specific screen size.
+          // The screen sizes are separated by spaces.
+          // Ex: hideOn: 'lg md sm xs'.
+          hideOn: 'xs',
+
+          // It's used only if you want to apply an angular filter to this column.
+          filter: {
+            type: 'number',
+            fractionSize: 0
+          }
+        },
+        { header: 'First Name', value: 'first_name' },
+        { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
+        { header: 'Email', value: 'email', hideOn: 'sm xs' },
+        { header: 'Gender', value: 'gender', hideOn: 'sm xs' },
+        { header: 'Money', value: 'money', hideOn: 'xs', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
+        { header: 'Date', value: 'date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
+      ]
+    };
+  });
+```
 
 ##### In your HTML
 ```html
 <head>
-  <link rel="stylesheet" href="./bower_components/angular-veasy-table/dist/css/veasy-table.min.css">
+  <link rel="stylesheet" href="bower_components/angular-veasy-table/dist/css/veasy-table.min.css" media="screen" charset="utf-8"/>
 </head>
 <body>
-  <veasy-table list="items" selected-items="selectedItems" config="config"></veasy-table>
-  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/js/veasy-table.min.js"></script>
-  <script type="text/javascript" src="./bower_components/angular-veasy-table/dist/js/veasy-table-tpls.min.js"></script>
+  ...
+  <veasy-table list="items" config="config"></veasy-table>
+  ...
+
+  <script src="bower_components/angular-veasy-table/dist/js/veasy-table-tpls.min.js" charset="utf-8"></script>
+  <script src="bower_components/angular-veasy-table/dist/js/veasy-table.min.js" charset="utf-8"></script>
 </body>
 ```
 
-##### In your angular app
-```js
-angular.module('myModule', ['veasyTable']);
-```
-
-##### In your controller
-PS: The array of columns used below ($scope.columns) need a specific configuration.
-```js
-$scope.columns = [
-  {
-    header: 'Id', // This string is displayed on table header name.
-    
-    value: 'id',  // This string is the name of property in your list declared on your html.
-    
-    show: false,  // This property, show or hide this column on your table.
-    
-    size: 20      // This property is used to define column size in percentage (%)
-                  // If property 'show' is defined 'false', this size is ignored
-  },
-  { header: 'First Name', value: 'first_name', show: true, size: 40 },
-  { header: 'Last Name', value: 'last_name', show: true, size: 40 }
-];
-
-$scope.config = {
-  id: 'my-table',
-  columns: $scope.columns
-};
-```
-
 ## Documentation
-If you need, you can add in config object the following properties:
-<br />
-##### Enable selection by checkbox:
+All of these configurations, you need put inside your config object, like '$scope.config'.
 
+##### Enable toggle columns
 ```js
-checkbox: {
-  enable: true,     // Enable = true, Disable = false. (Default is false)
-  size: 20          // Set checkbox column size in pixels. (Default is 20)
+toggleColumns: {
+  enable: true,         // Enable this feature. (Default is false).
+  position: 'begin',    // Use it if you want to put the 'toggle' icon at the begin of the table. Default is undefined.
+  icons: {              // Use it if you want to replace the default icons.
+    opened: 'fa fa-chevron-down',
+    closed: 'fa fa-chevron-right'
+  }
 }
 ```
-
-##### Enable pagination:
+##### Enable pagination
 ```js
 pagination: {
-  enable: true,     // Enable = true, Disable = false. (Default is false)
-  currentPage: 0,   // Load in current page. (Default is 0)
-  itemsPerPage: 5   // How many itens per page. Minimum is 1 and maximum is 100. (Default is 10)
+  enable: true,         // Enable this feature. (Default is false).
+  currentPage: 0,       // Load in current page. (Default is 0)
+  itemsPerPage: 10,     // how many items per page you would like to see. Minimum is 1 and maximum is 50. (Default is 10)
 }
 ```
-
-##### Enable data filter:
+##### Enable data filter
 ```js
 filter: {
-  enable: true,      // Enable = true, Disable = false. (Default is false)
-  conditional: true  // Conditional filter 'AND', 'OR'. (Default is AND)
-  delay: 500         // Delay in milliseconds. (Default is 500ms)
+  enable: true,         // Enable this feature. (Default is false).
+  conditional: true,    // Conditional filter 'AND' or 'OR'. (Default is AND)
+  delay: 300            // Delay in milliseconds. (Default is 300ms)
 }
 ```
-
-##### Enable column filter (show and hide columns):
+##### Enable column filter (show and hide columns)
 ```js
 columnFilter: {
-  enable: true,     // Enable = true, Disable = false. (Default is false)
-  autoOpen: true,    // Open automatically column filter modal, if not have visible columns. (Default is false)
-  modalSize: 'sm'   // The size of modal can be setted: 'sm, md or lg' (Default is 'md')
+  enable: true,         // Enable this feature. (Default is false).
+  modalOptions: {
+    size: 'md',         // The size of modal: 'sm', 'md' or 'lg'. (Default is 'md')
+    autoOpen: false,    // Open automatically column filter modal, if not have visible columns. (Default is false)
+    keyboard: true,     // Enable to use keyboard on filter modal. (Default is true)
+    backdrop: true      // Enable to use backdrop on filter modal. (Default is true)
+  }
 }
 ```
-
-##### Enable column sort:
+##### Enable checkboxes
+```js
+checkbox: {
+  enable: true,        // Enable this feature. (Default is false).
+}
+```
+##### Enable column sort
 ```js
 sort: {
-  enable: true      // Enable = true, Disable = false. (Default is false)
+  enable: true         // Enable this feature. (Default is false).
 }
 ```
-
-##### Enable column resize:
+##### Enable translate
 ```js
-resizable: {
-  enable: true,     // Enable = true, Disable = false. (Default is false)
-  minimumSize: 5   // Set minimum column size in percentage '%'. (Default is 5)
-}
-```
-
-##### Enable events:
-```js
-events: {
-  onClickRow: function (row) {} // This event is called when an row is clicked
-  onApplyColumnFilter: function (columns) {} // This event is called when 'apply column' button (in modal) is clicked
-  onTableStateChange: function (columns) {} // This event is called when state of columns (visibility, size, ...) is changed
-}
-```
-
-##### Enable translate:
-```js
-translate: {
+labels: {
   filter: {
-    by: 'Filtrar por...',                           // Label of filter input
-    and: 'E',                                       // Label of filter condition AND
-    or: 'OU'                                        // Label of filter condition OR
+    by: 'Filtrar por...',
+    all: 'Todas',
+    and: 'E',
+    or: 'OU'
   },
   pagination: {
-    itemsByPage: 'Itens por Página',                // Label of items by page
-    totalItems: 'Total de Itens'                    // Label of totel of items
+    itemsPerPage: 'Itens por Página',
+    totalItems: 'Total de Itens'
   },
-  columnFilter: {
-    title: 'Quais colunas você deseja exibir?',     // Label of column filter modal title
-    okButton: 'Ok',                                 // Label of column filter modal ok button
-    cancelButton: 'Cancelar'                        // Label of column filter modal cancel button
+  modal: {
+    title: 'Quais colunas você deseja exibir?',
+    okButton: 'Aplicar',
+    cancelButton: 'Cancelar'
   }
 }
 ```
 
-## License
-The MIT License (MIT)
+### Enable Events
+All of veasy-table events are use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on)
 
-Copyright (c) 2015 Fernando Machado Bernardino
-[NandoMB](https://github.com/NandoMB). https://github.com/NandoMB/angular-veasy-table
+##### Click
+```js
+$scope.$on('veasyTable:onClickRow', function (event, data) {
+  console.log('Some row was clicked', data);
+});
+```
+##### Column filter
+```js
+$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+  console.log('Some columns was applied', data);
+});
+```
+##### Pagination
+```js
+$scope.$on('veasyTable:onStartPagination', function (event) {
+  console.log('Pagination event was started');
+});
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+$scope.$on('veasyTable:onEndPagination', function (event) {
+  console.log('Pagination event was done');
+});
+```
+##### Search
+```js
+$scope.$on('veasyTable:onStartSearch', function (event) {
+  console.log('Search event was started');
+});
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+$scope.$on('veasyTable:onEndSearch', function (event) {
+  console.log('Search event was done');
+});
+```
+##### Sort
+```js
+$scope.$on('veasyTable:onStartSort', function (event) {
+  console.log('Sort event was started');
+});
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+$scope.$on('veasyTable:onEndSort', function (event) {
+  console.log('Sort event was done');
+});
+```
+
+### Enable angular [$filter](https://docs.angularjs.org/api/ng/filter) at columns?
+All of these configurations, you need put inside your target column, in your $scope.config object.
+
+###### [Currency](https://docs.angularjs.org/api/ng/filter/currency)
+```js
+filter: {
+  name: 'currency',
+  symbol: 'R$',
+  fractionSize: 0
+}
+```
+###### [Date](https://docs.angularjs.org/api/ng/filter/date)
+```js
+filter: {
+  name: 'date',
+  format: 'dd/MM/yyyy HH:mm:ss',
+  timezone: ''
+}
+```
+###### [Json](https://docs.angularjs.org/api/ng/filter/json)
+```js
+filter: {
+  name: 'json',
+  spacing: 2
+}
+```
+###### [Number](https://docs.angularjs.org/api/ng/filter/number)
+```js
+filter: {
+  name: 'number',
+  fractionSize: 2
+}
+```
+###### [LimitTo](https://docs.angularjs.org/api/ng/filter/limitTo)
+```js
+filter: {
+  name: 'limitTo',
+  limit: 10,
+  begin: 0
+}
+```
+###### [Lowercase](https://docs.angularjs.org/api/ng/filter/lowercase)
+```js
+filter: {
+  name: 'lowercase'
+}
+```
+###### [Uppercase](https://docs.angularjs.org/api/ng/filter/uppercase)
+```js
+filter: {
+  name: 'uppercase'
+}
+```
+###### Url
+```js
+filter: {
+  name: 'url',
+  text: '',
+  target: '_blank'
+}
+```
+
+---
+
+# Migrating from 1.x.x to 2.x.x version
+
+
+### In your HTML:
+Just remove the 'selected-items' property
+```html
+<!-- from -->
+<veasy-table config="config" list="resultList" selected-items="selectedItems"></veasy-table>
+
+<!-- to -->
+<veasy-table config="config" list="resultList"></veasy-table>
+```
+
+### In your Angular app:
+
+##### On columns config, just remove 'size' and 'show' properties.
+```js
+// FROM
+columns: [
+  {
+    header: 'Id',
+    value: 'id',
+    // TODO: REMOVE
+    // size: 5,
+    // show: true
+  }
+]
+
+// TO
+columns: [
+  {
+    header: 'Id',
+    value: 'id',
+    // Use something like this, if you would like to use responsive columns and/or angular filters
+    hideOn: 'lg md sm xs',
+    filter: { type: 'number', fractionSize: 0 }
+  }
+]
+```
+
+##### On checkbox config, just remove 'size' property.
+```js
+// FROM
+checkbox: {
+  enable: true
+  // TODO: REMOVE
+  // size: 20
+}
+
+// TO
+checkbox: {
+  enable: true
+}
+```
+
+##### On columnFilter config, just:
+##### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
+##### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
+```js
+// FROM
+columnFilter: {
+  enable: true,
+  // TODO: MOVE
+  // autoOpen: true,
+  // TODO: MOVE and RENAME
+  // modalSize: 'md'
+}
+
+// TO
+columnFilter: {
+  enable: true,
+  modalOptions: {
+    size: 'md',
+    autoOpen: false,
+    keyboard: true,
+    backdrop: true
+  }
+}
+```
+
+##### On resizable config, just remove.
+```js
+// TODO: REMOVE
+// resizable: {
+//   enable: true,
+//   minimumSize: 5
+// },
+```
+
+##### On events config, just remove, because now, all events use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on).
+```js
+// FROM
+// TODO: REMOVE
+// events: {
+//   onClickRow: function (row) {
+//     alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
+//     console.log(JSON.stringify(row, null, 2));
+//     console.log('---------------------------------');
+//     console.log('');
+//   },
+//   onApplyColumnFilter: function (columns) {
+//     alert('Applied Columns! More details in your console.');
+//     console.log(JSON.stringify(columns, null, 2));
+//     console.log('---------------------------------');
+//     console.log('');
+//   },
+//   onTableStateChange: function (columns) {
+//     alert('State changed! More details in your console.');
+//     console.log(JSON.stringify(columns, null, 2));
+//     console.log('---------------------------------');
+//     console.log('');
+//   }
+// }
+
+// TO
+$scope.$on('veasyTable:onClickRow', function (event, data) {
+  console.log('Some row was clicked', data);
+});
+
+$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+  console.log('Some columns was applied', data);
+});
+```
