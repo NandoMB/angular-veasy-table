@@ -18,14 +18,15 @@ angular.module('veasy.table')
     };
 
     var validateIdConfig = function(id) {
-      if (!id) return generateRandomId();
+      if (!id) id = generateRandomId();
+      return id;
     };
 
     var generateRandomId = function() {
       var number = Math.round(Math.random()*4 * 100000);
       var newId = 'veasy-table-' + number;
       var elements = angular.element('table#' + newId);
-      
+
       if (elements && elements.length > 0)
         generateRandomId();
 
