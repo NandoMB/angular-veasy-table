@@ -255,7 +255,7 @@ angular.module('veasy.table')
 
   .service('modalService', [ 'checkboxService', '$timeout', function (checkboxService, $timeout) {
 
-    var getmodalId = function (id) {
+    var getModalId = function (id) {
       return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
     };
 
@@ -355,7 +355,7 @@ angular.module('veasy.table')
     };
 
     return {
-      getmodalId: getmodalId,
+      getModalId: getModalId,
       initMasterCheckbox: initMasterCheckbox,
       defineMasterCheckboxState: defineMasterCheckboxState,
       updateColumnsVisibility: updateColumnsVisibility,
@@ -578,7 +578,7 @@ angular.module('veasy.table')
 
         var init = function () {
           scope.config = configService.validate(scope.config);
-          scope.vetModalId = modalService.getmodalId(scope.config.id);
+          scope.vetModalId = modalService.getModalId(scope.config.id);
           scope.filterColumnsList = searchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.condition = 'AND';
