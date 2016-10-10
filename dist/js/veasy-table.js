@@ -7,7 +7,7 @@ angular.module('veasy.table', [
 
 angular.module('veasy.table')
 
-  .filter('url', ['$sanitize', function ($sanitize) {
+  .filter('vtUrl', ['$sanitize', function ($sanitize) {
     return function (input, text, target) {
       // if (!text) {
       //   var matches = input.match(/\w+:\/\/([\w|\.]+)/);
@@ -21,7 +21,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('checkboxService', ['$timeout', function ($timeout) {
+  .service('vtCheckboxService', ['$timeout', function ($timeout) {
 
     var resetCheckboxesToInitialState = function (list) {
       var checkboxes = [];
@@ -77,7 +77,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-.service('columnService', [ function () {
+.service('vtColumnService', [ function () {
 
   var haveHiddenColumn = function(columns) {
     if (!columns) return;
@@ -146,7 +146,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('configService', [ function () {
+  .service('vtConfigService', [ function () {
 
     var validateConfigs = function (config) {
       if (!config) config = {};
@@ -253,7 +253,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('modalService', [ 'checkboxService', '$timeout', function (checkboxService, $timeout) {
+  .service('vtModalService', [ 'vtCheckboxService', '$timeout', function (vtCheckboxService, $timeout) {
 
     var getModalId = function (id) {
       return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
@@ -281,7 +281,7 @@ angular.module('veasy.table')
         else unchecked = true;
       });
 
-      return checkboxService.defineCheckboxState(selector, checked, unchecked);
+      return vtCheckboxService.defineCheckboxState(selector, checked, unchecked);
     };
 
     var getColumns = function (columns) {
@@ -368,7 +368,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('paginationService', [ function () {
+  .service('vtPaginationService', [ function () {
 
     var isFiniteNumber = function (index) {
       return !isNaN(index) && isFinite(index);
@@ -415,7 +415,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('screenService', ['$window', function($window) {
+  .service('vtScreenService', ['$window', function($window) {
 
     var getViewport = function(id) {
       var body = angular.element('div > #' + id).parent();
@@ -471,7 +471,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('searchService', ['$filter', function ($filter) {
+  .service('vtSearchService', ['$filter', function ($filter) {
 
     var defineFilterColumnsDropdown = function (columns, labels) {
       var array = [{ header: labels.filter.all, value: 'all' }];
@@ -554,7 +554,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .service('vetService', ['$window', function($window) {
+  .service('vtService', ['$window', function($window) {
 
 
 
@@ -565,7 +565,7 @@ angular.module('veasy.table')
 
 angular.module('veasy.table')
 
-  .directive('veasyTable', ['$templateCache', '$window', '$filter', '$timeout', 'screenService', 'paginationService', 'searchService', 'checkboxService', 'columnService', 'configService', 'modalService', function ($templateCache, $window, $filter, $timeout, screenService, paginationService, searchService, checkboxService, columnService, configService, modalService) {
+  .directive('veasyTable', ['$templateCache', '$window', '$filter', '$timeout', 'vtScreenService', 'vtPaginationService', 'vtSearchService', 'vtCheckboxService', 'vtColumnService', 'vtConfigService', 'vtModalService', function ($templateCache, $window, $filter, $timeout, vtScreenService, vtPaginationService, vtSearchService, vtCheckboxService, vtColumnService, vtConfigService, vtModalService) {
     return {
       restrict: 'E',
       replace: true,
@@ -577,9 +577,9 @@ angular.module('veasy.table')
       link: function (scope, element, attributes, controller) {
 
         var init = function () {
-          scope.config = configService.validate(scope.config);
-          scope.vetModalId = modalService.getModalId(scope.config.id);
-          scope.filterColumnsList = searchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
+          scope.config = vtConfigService.validate(scope.config);
+          scope.vetModalId = vtModalService.getModalId(scope.config.id);
+          scope.filterColumnsList = vtSearchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.condition = 'AND';
           scope.searching = false;
@@ -636,7 +636,7 @@ angular.module('veasy.table')
 
             scope.$apply(function () {
               $timeout(function () {
-                if (screenService.isBrokenLayout(scope.config.id)) scope.outOfBound = true;
+                if (vtScreenService.isBrokenLayout(scope.config.id)) scope.outOfBound = true;
 
                 updateVeasyTable();
                 updateAllHiddenRowsContent();
@@ -667,23 +667,23 @@ angular.module('veasy.table')
         };
 
         var updateVeasyTable = function () {
-          scope.toggleRowColspan = columnService.defineToggleRowColspan(scope.config.columns);
-          columnService.closeAllOpenedRows(scope.resultList);
+          scope.toggleRowColspan = vtColumnService.defineToggleRowColspan(scope.config.columns);
+          vtColumnService.closeAllOpenedRows(scope.resultList);
         };
         /** --------------------------------------------------------------------
          *                         Column Filter (Modal)
          * ------------------------------------------------------------------ */
 
         scope.openColumnFilterModal = function (columns) {
-          scope.modalColumns = modalService.getColumns(columns);
-          scope.modalCheckboxMaster = modalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
+          scope.modalColumns = vtModalService.getColumns(columns);
+          scope.modalCheckboxMaster = vtModalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
 
-          modalService.openModal(scope.vetModalId, scope.config.columnFilter.modalOptions);
+          vtModalService.openModal(scope.vetModalId, scope.config.columnFilter.modalOptions);
         };
 
         scope.checkWindowSize = function (column) {
           var selector = '#' + scope.vetModalId + ' input#cbMaster-' + column.value;
-          scope.modalCheckboxMaster[column.value] = modalService.defineMasterCheckboxState(selector, column);
+          scope.modalCheckboxMaster[column.value] = vtModalService.defineMasterCheckboxState(selector, column);
         };
 
         scope.checkWindowSizeMaster = function (column, masterValue) {
@@ -695,14 +695,14 @@ angular.module('veasy.table')
         scope.checkAllByScreenSize = function (size, modalColumns, value) {
           if (!scope.screenSize) scope.screenSize = {};
           scope.screenSize[size] = !value;
-          scope.modalCheckboxMaster = modalService.checkAllByScreenSize(size, modalColumns, scope.screenSize[size], scope.vetModalId);
+          scope.modalCheckboxMaster = vtModalService.checkAllByScreenSize(size, modalColumns, scope.screenSize[size], scope.vetModalId);
         };
 
         scope.onConfirmColumnFilterModal = function (data) {
-          scope.config.columns = modalService.updateColumnsVisibility(scope.config.columns, data);
+          scope.config.columns = vtModalService.updateColumnsVisibility(scope.config.columns, data);
           delete scope.modalColumns;
 
-          modalService.closeModal(scope.vetModalId);
+          vtModalService.closeModal(scope.vetModalId);
           scope.$emit('veasyTable:onApplyColumnFilter', angular.copy(scope.config.columns));
         };
 
@@ -735,12 +735,12 @@ angular.module('veasy.table')
         };
 
         var initCheckboxes = function (paginatedList) {
-          scope.checkboxes = checkboxService.reset(paginatedList);
+          scope.checkboxes = vtCheckboxService.reset(paginatedList);
         };
 
         var defineCheckboxMasterState = function (currentPage) {
           var selector = '#' + scope.config.id + ' input#checkbox-master';
-          scope.master.checkbox = checkboxService.defineCheckboxMasterState(selector, scope.checkboxes, currentPage);
+          scope.master.checkbox = vtCheckboxService.defineCheckboxMasterState(selector, scope.checkboxes, currentPage);
         };
 
         /** --------------------------------------------------------------------
@@ -804,7 +804,7 @@ angular.module('veasy.table')
           }
 
           scope.queryBusy = $timeout(function () {
-            scope.filteredList = searchService.search(terms || '', condition, column, scope.resultList);
+            scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.resultList);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
 
@@ -824,7 +824,7 @@ angular.module('veasy.table')
           if (filter.type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
           if (filter.type === 'date') return $filter('date')(value, filter.format, filter.timezone);
           if (filter.type === 'json') return $filter('json')(value, filter.spacing);
-          if (filter.type === 'url') return $filter('url')(value, filter.text, filter.target);
+          if (filter.type === 'url') return $filter('vtUrl')(value, filter.text, filter.target);
           if (filter.type === 'number') return $filter('number')(value, filter.fractionSize);
           if (filter.type === 'limitTo') return $filter('limitTo')(value, filter.limit, filter.begin);
           if (filter.type === 'lowercase') return $filter('lowercase')(value);
@@ -842,7 +842,7 @@ angular.module('veasy.table')
 
         scope.setPage = function (page) {
           scope.currentPage = page;
-          scope.pages = paginationService.pages(scope.paginatedList.length - 1, page, 5);
+          scope.pages = vtPaginationService.pages(scope.paginatedList.length - 1, page, 5);
 
           // $timeout(function () {
           scope.expanded = [];
@@ -877,7 +877,7 @@ angular.module('veasy.table')
             return;
           };
           scope.$emit('veasyTable:onStartPagination');
-          scope.paginatedList = paginationService.paginate(list, pageSize);
+          scope.paginatedList = vtPaginationService.paginate(list, pageSize);
           scope.setPage(initialPage);
           initCheckboxes(scope.paginatedList);
           scope.$emit('veasyTable:onEndPagination');
@@ -894,7 +894,7 @@ angular.module('veasy.table')
 
         var updateHiddenRowsContent = function (rowIndex, row) {
           initHiddenRowsContent();
-          scope.hiddenContent[scope.currentPage][rowIndex] = columnService.getHiddenContent(row, scope.config.columns);
+          scope.hiddenContent[scope.currentPage][rowIndex] = vtColumnService.getHiddenContent(row, scope.config.columns);
         };
 
         var updateAllHiddenRowsContent = function () {
@@ -946,7 +946,7 @@ angular.module('veasy.table')
         };
 
         scope.haveHiddenColumn = function (columns) {
-          return columnService.haveHiddenColumn(columns);
+          return vtColumnService.haveHiddenColumn(columns);
         };
 
         scope.getToggleIconClasses = function (config, openCondition, closeCondition) {
@@ -979,11 +979,11 @@ angular.module('veasy.table')
           var filteredColumns = scope.config.columns.filter(function (column) {
             return !column.toggle && !column.isHidden;
           }) || [];
-          return (screenService.veasyTable().width/filteredColumns.length) + 'px';
+          return (vtScreenService.veasyTable().width/filteredColumns.length) + 'px';
         };
 
         scope.responsiveHiddenContentStyle = function () {
-          var screenSize = screenService.screenSize();
+          var screenSize = vtScreenService.screenSize();
           if (screenSize === 'lg') return { 'max-width': '1060px' };
           if (screenSize === 'md') return { 'max-width': '860px' };
           if (screenSize === 'sm') return { 'max-width': '660px' };
@@ -992,7 +992,7 @@ angular.module('veasy.table')
         };
 
         scope.hideColumnOn = function (column, hideColumnOn) {
-          if (!screenService.isNeedToHide(hideColumnOn)) {
+          if (!vtScreenService.isNeedToHide(hideColumnOn)) {
             delete column.isHidden;
             return false;
           }

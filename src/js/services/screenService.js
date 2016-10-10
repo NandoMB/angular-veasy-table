@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('screenService', ['$window', function($window) {
+  .service('vtScreenService', ['$window', function($window) {
 
     var getViewport = function(id) {
       var body = angular.element('div > #' + id).parent();

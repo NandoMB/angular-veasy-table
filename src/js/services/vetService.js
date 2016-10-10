@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('vetService', ['$window', function($window) {
+  .service('vtService', ['$window', function($window) {
 
 
 

@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('modalService', [ 'checkboxService', '$timeout', function (checkboxService, $timeout) {
+  .service('vtModalService', [ 'vtCheckboxService', '$timeout', function (vtCheckboxService, $timeout) {
 
     var getModalId = function (id) {
       return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
@@ -28,7 +28,7 @@ angular.module('veasy.table')
         else unchecked = true;
       });
 
-      return checkboxService.defineCheckboxState(selector, checked, unchecked);
+      return vtCheckboxService.defineCheckboxState(selector, checked, unchecked);
     };
 
     var getColumns = function (columns) {

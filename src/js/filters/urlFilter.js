@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .filter('url', ['$sanitize', function ($sanitize) {
+  .filter('vtUrl', ['$sanitize', function ($sanitize) {
     return function (input, text, target) {
       // if (!text) {
       //   var matches = input.match(/\w+:\/\/([\w|\.]+)/);

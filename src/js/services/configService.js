@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('configService', [ function () {
+  .service('vtConfigService', [ function () {
 
     var validateConfigs = function (config) {
       if (!config) config = {};

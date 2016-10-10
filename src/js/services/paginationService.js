@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('paginationService', [ function () {
+  .service('vtPaginationService', [ function () {
 
     var isFiniteNumber = function (index) {
       return !isNaN(index) && isFinite(index);

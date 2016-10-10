@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('checkboxService', ['$timeout', function ($timeout) {
+  .service('vtCheckboxService', ['$timeout', function ($timeout) {
 
     var resetCheckboxesToInitialState = function (list) {
       var checkboxes = [];

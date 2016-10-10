@@ -1,6 +1,6 @@
 angular.module('veasy.table')
 
-  .service('searchService', ['$filter', function ($filter) {
+  .service('vtSearchService', ['$filter', function ($filter) {
 
     var defineFilterColumnsDropdown = function (columns, labels) {
       var array = [{ header: labels.filter.all, value: 'all' }];
