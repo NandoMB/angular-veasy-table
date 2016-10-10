@@ -13,7 +13,7 @@ angular.module('veasy.table')
 
         var init = function () {
           scope.config = configService.validate(scope.config);
-          scope.vetModalId = modalService.getmodalId(scope.config.id);
+          scope.vetModalId = modalService.getModalId(scope.config.id);
           scope.filterColumnsList = searchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.condition = 'AND';

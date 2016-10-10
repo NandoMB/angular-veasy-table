@@ -270,6 +270,15 @@ Just remove the 'selected-items' property
 
 ### In your Angular app:
 
+##### On your app dependencies, just replace 'veasyTable' to 'veasy.table'.
+```js
+// FROM
+angular.module('yourModule', [ 'veasyTable' ]);
+
+// TO
+angular.module('yourModule', [ 'veasy.table' ]);
+```
+
 ##### On columns config, just remove 'size' and 'show' properties.
 ```js
 // FROM
@@ -343,6 +352,48 @@ columnFilter: {
 //   minimumSize: 5
 // },
 ```
+
+##### On translation config, just: ??????????
+##### 1 - ...
+```js
+// FROM
+translate: {
+  filter: {
+    by: 'Filtrar por...',
+    and: 'E',
+    or: 'OU'
+  },
+  pagination: {
+    itemsByPage: 'Itens por Página',
+    totalItems: 'Total de Itens'
+  },
+  columnFilter: {
+    title: 'Quais colunas você deseja exibir?',
+    okButton: 'Ok',
+    cancelButton: 'Cancelar'
+  }
+}
+
+// TO
+labels: { // Renamed
+  filter: {
+    by: 'Filtrar por...',
+    all: 'Todas', // Added
+    and: 'E',
+    or: 'OU'
+  },
+  pagination: {
+    itemsPerPage: 'Itens por Página', // Renamed
+    totalItems: 'Total de Itens'
+  },
+  modal: { // Renamed
+    title: 'Quais colunas você deseja exibir?',
+    okButton: 'Aplicar',
+    cancelButton: 'Cancelar'
+  }
+}
+```
+
 
 ##### On events config, just remove, because now, all events use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on).
 ```js
