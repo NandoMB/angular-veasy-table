@@ -270,6 +270,15 @@ Just remove the 'selected-items' property
 
 ### In your Angular app:
 
+##### On your app dependencies, just replace 'veasyTable' to 'veasy.table'.
+```js
+// FROM
+angular.module('yourModule', [ 'veasyTable' ]);
+
+// TO
+angular.module('yourModule', [ 'veasy.table' ]);
+```
+
 ##### On columns config, just remove 'size' and 'show' properties.
 ```js
 // FROM

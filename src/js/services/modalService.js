@@ -2,7 +2,7 @@ angular.module('veasy.table')
 
   .service('modalService', [ 'checkboxService', '$timeout', function (checkboxService, $timeout) {
 
-    var getmodalId = function (id) {
+    var getModalId = function (id) {
       return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
     };
 
@@ -102,7 +102,7 @@ angular.module('veasy.table')
     };
 
     return {
-      getmodalId: getmodalId,
+      getModalId: getModalId,
       initMasterCheckbox: initMasterCheckbox,
       defineMasterCheckboxState: defineMasterCheckboxState,
       updateColumnsVisibility: updateColumnsVisibility,
