@@ -621,14 +621,12 @@ angular.module('veasy.table')
             scope.resultList = angular.copy(result);
             scope.filteredList = angular.copy(result);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
+            dispatchVtEvent('resize');
           });
 
           scope.$watch('config.columns', function (result) {
             if (!result) return;
-
-            $timeout(function () {
-              $window.dispatchEvent(new Event('resize'));
-            }, 0);
+            dispatchVtEvent('resize');
           }, true);
 
           $window.addEventListener('resize', function () {
@@ -650,6 +648,12 @@ angular.module('veasy.table')
           });
         };
 
+        var dispatchVtEvent = function (eventName) {
+          $timeout(function () {
+            $window.dispatchEvent(new Event(eventName));
+          }, 0);
+        };
+        
         scope.getTBodyStyle = function () {
           var element = angular.element('table#' + scope.config.id);
           var tfootHeight = angular.element('table#' + scope.config.id + ' > tfoot').height();
