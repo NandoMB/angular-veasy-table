@@ -87,7 +87,7 @@ angular.module('veasy.table')
             $window.dispatchEvent(new Event(eventName));
           }, 0);
         };
-        
+
         scope.getTBodyStyle = function () {
           var element = angular.element('table#' + scope.config.id);
           var tfootHeight = angular.element('table#' + scope.config.id + ' > tfoot').height();
@@ -234,11 +234,11 @@ angular.module('veasy.table')
 
         scope.search = function (terms, condition, column) {
           if (!condition || !column) return;
-          scope.searching = true;
 
           if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
           } else {
+            scope.searching = true;
             scope.$emit('veasyTable:onStartSearch');
           }
 
@@ -246,7 +246,6 @@ angular.module('veasy.table')
             scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.resultList);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
-
             scope.$emit('veasyTable:onEndSearch');
           }, scope.config.filter.delay);
         };

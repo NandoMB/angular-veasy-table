@@ -475,74 +475,68 @@ angular.module('veasy.table')
   .service('vtSearchService', ['$filter', function ($filter) {
 
     var defineFilterColumnsDropdown = function (columns, labels) {
-      var array = [{ header: labels.filter.all, value: 'all' }];
+      var array = [];
+      var filters = {};
 
       columns.forEach(function (column, index) {
-        if (!column.toggle)
+        if (!column.toggle) {
           array.push(column);
+          filters[column.value] = column.filter;
+        }
       });
+
+      array.unshift({ header: labels.filter.all, value: 'all', filters: filters });
 
       return array;
     };
 
     var search = function (terms, condition, column, list) {
-      return $filter('filter')(list, function (item) {
-        var value = angular.lowercase(transformElementToLowerCaseString(column.value, item));
-        var splittedTerms = angular.lowercase(terms).split(' ');
+      var splittedTerms = terms.split(' ');
 
+      return $filter('filter')(list, function (row) {
         if (condition === 'AND')
-          return searchWithANDCondition(splittedTerms, value, column);
-
+          return searchWithANDCondition(splittedTerms, transformValue(column, row));
         if (condition === 'OR')
-          return searchWithORCondition(splittedTerms, value, column);
+          return searchWithORCondition(splittedTerms, transformValue(column, row));
       });
     };
 
-    var searchWithANDCondition = function (terms, value, column) {
+    var searchWithANDCondition = function (terms, value) {
       return terms.every(function (term) {
-        return compare(term, value, column);
-      });
-    };
-
-    var searchWithORCondition = function (terms, value, column) {
-      return terms.some(function (term) {
-        return compare(term, value, column);
-      });
-    };
-
-    var compare = function (term, value, column) {
-      var type = column.filter ? column.filter.type : '';
-
-      if(type === 'date') return compareTo.date(term, value, column.filter);
-      if(type === 'currency') return compareTo.number(term, value);
-      if(type === 'number') return compareTo.number(term, value);
-      // if(type === 'json') return; // TODO: Implementar
-
-      return compareTo.string(term, value);
-    };
-
-    var compareTo = {
-      string: function (term, value) {
-        return value.indexOf(term) !== -1;
-      },
-      number: function (term, value) {
         return value.toString().indexOf(term) !== -1;
-      },
-      date: function (term, value, filter) {
-        var filteredValue = $filter('date')(value, filter.format, filter.timezone);
-        return filteredValue.indexOf(term) !== -1;
-      }
+      });
     };
 
-    // FIXME: Melhorar
-    var transformElementToLowerCaseString = function (column, item) {
-      if (item.$$hashKey) delete item.$$hashKey;
-      if (column !== 'all') return item[column] || '';
+    var searchWithORCondition = function (terms, value) {
+      return terms.some(function (term) {
+        return value.toString().indexOf(term) !== -1;
+      });
+    };
 
+    var applyFilter = function (value, filter) {
+      var type = filter ? filter.type : '';
+      if (type === 'date') return $filter('date')(value, filter.format, filter.timezone);
+      if (type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
+      if (type === 'number') return $filter('number')(value, filter.fractionSize);
+      return value;
+    };
+
+    var transformValue = function (column, row) {
+      if (row.$$hashKey) delete row.$$hashKey;
+
+      if (column.value === 'all')
+        return transformAllColumnsValue(column, row);
+
+      return applyFilter(row[column.value] || '', column.filter);
+    };
+
+    var transformAllColumnsValue = function (column, row) {
       var str = '';
-      for (var prop in item) {
-        str += item[prop] + ' ';
+
+      for (var prop in row) {
+        str += (applyFilter(row[prop] || '', column.filters[prop]) + ' ');
       }
+
       return str;
     };
 
@@ -653,7 +647,7 @@ angular.module('veasy.table')
             $window.dispatchEvent(new Event(eventName));
           }, 0);
         };
-        
+
         scope.getTBodyStyle = function () {
           var element = angular.element('table#' + scope.config.id);
           var tfootHeight = angular.element('table#' + scope.config.id + ' > tfoot').height();
@@ -800,11 +794,11 @@ angular.module('veasy.table')
 
         scope.search = function (terms, condition, column) {
           if (!condition || !column) return;
-          scope.searching = true;
 
           if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
           } else {
+            scope.searching = true;
             scope.$emit('veasyTable:onStartSearch');
           }
 
@@ -812,7 +806,6 @@ angular.module('veasy.table')
             scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.resultList);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
-
             scope.$emit('veasyTable:onEndSearch');
           }, scope.config.filter.delay);
         };
