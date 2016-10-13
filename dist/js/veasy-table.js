@@ -650,12 +650,11 @@ angular.module('veasy.table')
 
         scope.getTBodyStyle = function () {
           var element = angular.element('table#' + scope.config.id);
-          var tfootHeight = angular.element('table#' + scope.config.id + ' > tfoot').height();
           var obj = {};
 
           if (element) {
             obj['width'] = element.width() ? element.width() + 'px' : '0px';
-            obj['height'] = element.height() ? element.height() - tfootHeight + 1 + 'px' : '0px';
+            obj['height'] = element.height() ? element.height() + 'px' : '0px';
             if (element.position()) {
               obj['top'] = element.position().top ? element.position().top + 'px' : '0px';
               obj['left'] = element.position().left ? element.position().left + 'px' : '0px';
@@ -795,12 +794,11 @@ angular.module('veasy.table')
         scope.search = function (terms, condition, column) {
           if (!condition || !column) return;
 
-          if (scope.queryBusy) {
+          if (scope.queryBusy)
             $timeout.cancel(scope.queryBusy);
-          } else {
-            scope.searching = true;
-            scope.$emit('veasyTable:onStartSearch');
-          }
+
+          scope.searching = true;
+          scope.$emit('veasyTable:onStartSearch');
 
           scope.queryBusy = $timeout(function () {
             scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.resultList);

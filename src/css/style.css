@@ -71,7 +71,7 @@ button {
 
 .vt-updating-backdrop {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #fff;
 }
 
 .vt-updating-backdrop > .vt-updating-icon-wrapper {
