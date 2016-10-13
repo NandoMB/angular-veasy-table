@@ -20,8 +20,8 @@
           <button type="button" class="btn btn-default btn-sm" ng-class="{'active': condition === 'AND'}" btn-radio="'AND'" ng-model="condition" ng-click="changeSearchCondition(terms, 'AND', selectedColumn)">{{config.labels.filter.and}}</button>
           <button type="button" class="btn btn-default btn-sm" ng-class="{'active': condition === 'OR'}" btn-radio="'OR'" ng-model="condition" ng-click="changeSearchCondition(terms, 'OR', selectedColumn)">{{config.labels.filter.or}}</button>
         </div>
-        <div class="vt-spin">
-          <i ng-show="searching" class="fa fa-refresh fa-spin"></i>
+        <div class="vt-spin" ng-show="searching">
+          <i class="fa fa-refresh fa-spin"></i>
         </div>
       </div>
     </div>

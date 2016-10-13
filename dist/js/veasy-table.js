@@ -427,11 +427,12 @@ angular.module('veasy.table')
     var getVeasyTable = function(id) {
       var vp = getViewport(id);
       var table = angular.element('table#' + id);
-      var offset = {
-        top: table.offset().top,
-        left: table.offset().left
-      }
-      return { width: table.width(), height: table.height(), offset: offset };
+      var tableOffset = table.offset();
+
+      if (tableOffset)
+        return { width: table.width(), height: table.height(), offset: { top: table.offset().top, left: table.offset().left } };
+
+      return { width: table.width(), height: table.height() };
     };
 
     var isBrokenLayout = function(id) {
