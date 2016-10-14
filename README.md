@@ -1,6 +1,5 @@
-# CAUTION
-# This directive is not yet finished. Please, don't use it.
-
+# angular-veasy-table
+AngularJS directive to create quickly data tables without giving up the beauty and functionality.
 
 ## Dependencies
 * [angular](https://angularjs.org/) (^1.5.8)
@@ -89,7 +88,7 @@ toggleColumns: {
 pagination: {
   enable: true,         // Enable this feature. (Default is false).
   currentPage: 0,       // Load in current page. (Default is 0)
-  itemsPerPage: 10,     // how many items per page you would like to see. Minimum is 1 and maximum is 50. (Default is 10)
+  itemsPerPage: 10,     // How many items per page you want to see. Minimum is 1 and maximum is 50. (Default is 10)
 }
 ```
 ##### Enable data filter
@@ -297,7 +296,7 @@ columns: [
   {
     header: 'Id',
     value: 'id',
-    // Use something like this, if you would like to use responsive columns and/or angular filters
+    // Use something like this, if you want to use responsive columns and/or angular filters
     hideOn: 'lg md sm xs',
     filter: { type: 'number', fractionSize: 0 }
   }
@@ -353,8 +352,11 @@ columnFilter: {
 // },
 ```
 
-##### On translation config, just: ??????????
-##### 1 - ...
+##### On translation config, just:
+##### 1 - Rename 'translate' property to 'labels'.
+##### 2 - Add 'all' property inside 'filter' object.
+##### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
+##### 4 - Rename 'columnFilter' property to 'modal'.
 ```js
 // FROM
 translate: {
@@ -375,18 +377,18 @@ translate: {
 }
 
 // TO
-labels: { // Renamed
+labels: {
   filter: {
     by: 'Filtrar por...',
-    all: 'Todas', // Added
+    all: 'Todas',
     and: 'E',
     or: 'OU'
   },
   pagination: {
-    itemsPerPage: 'Itens por Página', // Renamed
+    itemsPerPage: 'Itens por Página',
     totalItems: 'Total de Itens'
   },
-  modal: { // Renamed
+  modal: {
     title: 'Quais colunas você deseja exibir?',
     okButton: 'Aplicar',
     cancelButton: 'Cancelar'
