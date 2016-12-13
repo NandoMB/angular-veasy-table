@@ -20,260 +20,491 @@
 
     <section class="main-content">
       <h1>
-<a id="angular-veasy-table" class="anchor" href="#angular-veasy-table" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://nandomb.github.io/angular-veasy-table">angular-veasy-table</a>
-</h1>
+<a id="angular-veasy-table" class="anchor" href="#angular-veasy-table" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>angular-veasy-table</h1>
 
-<p>Native AngularJS directive to create quickly data tables without giving up the beauty and functionality.
-<br></p>
-
-<p><img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0.png" alt="alt tag">
-<img src="https://raw.githubusercontent.com/NandoMB/angular-veasy-table/gh-pages/images/v1.4.0_modal.png" alt="alt tag"></p>
-
-<h3>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features:</h3>
-
-<ul>
-<li>Native AngularJS directive</li>
-<li>Selecting rows using checkbox</li>
-<li>Order by specific column</li>
-<li>Sort columns</li>
-<li>Data paging (client-side)</li>
-<li>Global data filter (filter all visible columns)</li>
-<li>Possibility of changing the filter condition (AND, OR)</li>
-<li>Resize columns</li>
-<li>Show and hide columns</li>
-<li>Accepts asynchronous request</li>
-<li>Dynamic items by page</li>
-<li>Translate labels</li>
-<li>Select row event</li>
-<li>Auto open column filter modal</li>
-<li>You can save the state of the table configuration (state of columns)</li>
-<li>Auto resize (proportionally, keeping percentual size of columns) if window size is changed</li>
-</ul>
-
-<h3>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Todo:</h3>
-
-<ul>
-<li>Add dynamic '$filter' in columns data</li>
-<li>Add column with action buttons (edit, remove, ...)</li>
-</ul>
-
-<h3>
-<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://angularjs.org/">AngularJS</a> (requires AngularJS 1.3)</li>
-<li>
-<a href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a> (requires Font-Awesome 4.3)</li>
-<li>
-<a href="http://getbootstrap.com/">Bootstrap CSS</a> (requires Bootstrap 3.x)</li>
-<li>
-<a href="https://angular-ui.github.io/bootstrap/">Angular Bootstrap</a> (requires Bootstrap 0.12.x)</li>
-<li>
-<a href="https://github.com/a5hik/ng-sortable">ng-sortable</a> (requires ng-sortable 1.2.x)</li>
-</ul>
-
-<h3>
-<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
-
-<ul>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_1_checkbox/">Checkbox Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_2_pagination/">Pagination Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_3_filter/">Data Filter Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_4_columnFilter/">Column Filter Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_5_sort/">Sort Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_6_resizable/">Resizable Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_7_events/">Events Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_8_i18n/">i18n Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_9_all_features/">All Features Enable</a></li>
-<li><a href="http://nandomb.github.io/angular-veasy-table/demo/demo_10_hiding_table/">Hiding Table</a></li>
-</ul>
-
-<h3>
-<a id="instalation" class="anchor" href="#instalation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instalation</h3>
-
-<div class="highlight highlight-sh"><pre>$ bower install angular-veasy-table --save</pre></div>
+<p>AngularJS directive to create quickly data tables without giving up the beauty and functionality.</p>
 
 <h2>
-<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
 
-<table>
-<thead>
-<tr>
-<th>Attributes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>list</td>
-<td>This is a list of data</td>
-</tr>
-<tr>
-<td>selected-items</td>
-<td>This is a list of selected rows</td>
-</tr>
-<tr>
-<td>config</td>
-<td>This is an object used to configure your veasy-table</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>
+<a href="https://angularjs.org/">angular</a> (^1.5.8)</li>
+<li>
+<a href="https://docs.angularjs.org/api/ngSanitize">angular-sanitize</a> (^1.5.8)</li>
+<li>
+<a href="http://getbootstrap.com/">bootstrap</a> (^3.3.7)</li>
+<li>
+<a href="http://fontawesome.io/icons/">font-awesome</a> (^4.6.3)</li>
+</ul>
+
+<h2>
+<a id="instalation" class="anchor" href="#instalation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instalation</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ bower install angular-veasy-table --save</pre></div>
 
 <h5>
-<a id="in-your-html" class="anchor" href="#in-your-html" aria-hidden="true"><span class="octicon octicon-link"></span></a>In your HTML</h5>
+<a id="in-your-angular-app" class="anchor" href="#in-your-angular-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In your angular app</h5>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">head</span>&gt;
-  &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>./bower_components/angular-veasy-table/dist/veasy-table.min.css<span class="pl-pds">"</span></span>&gt;
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>yourModule<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>veasy.table<span class="pl-pds">'</span></span>])
+
+  .<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>yourController<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+    <span class="pl-smi">$scope</span>.<span class="pl-smi">config</span> <span class="pl-k">=</span> {
+      <span class="pl-c">// This 'id' is not necessary. Use it only if you want to set a specific id for this component.</span>
+      <span class="pl-c">// If you not set a specific id, it will be randomly generated.</span>
+      id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>my-specific-id<span class="pl-pds">'</span></span>,
+
+      <span class="pl-c">// Columns configuration</span>
+      columns<span class="pl-k">:</span> [
+        {
+          <span class="pl-c">// That's the label of your column.</span>
+          header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Id<span class="pl-pds">'</span></span>,
+
+          <span class="pl-c">// That's the field of your column, and it's used to get value</span>
+          <span class="pl-c">// from your result array.</span>
+          value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
+
+          <span class="pl-c">// It's used only if you want to hide this column in a specific screen size.</span>
+          <span class="pl-c">// The screen sizes are separated by spaces.</span>
+          <span class="pl-c">// Ex: hideOn: 'lg md sm xs'.</span>
+          hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>xs<span class="pl-pds">'</span></span>,
+
+          <span class="pl-c">// It's used only if you want to apply an angular filter to this column.</span>
+          filter<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>number<span class="pl-pds">'</span></span>,
+            fractionSize<span class="pl-k">:</span> <span class="pl-c1">0</span>
+          }
+        },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>First Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>first_name<span class="pl-pds">'</span></span> },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Last Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>last_name<span class="pl-pds">'</span></span>, hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>xs<span class="pl-pds">'</span></span> },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Email<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>email<span class="pl-pds">'</span></span>, hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm xs<span class="pl-pds">'</span></span> },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Gender<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gender<span class="pl-pds">'</span></span>, hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm xs<span class="pl-pds">'</span></span> },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Money<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>money<span class="pl-pds">'</span></span>, hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>xs<span class="pl-pds">'</span></span>, filter<span class="pl-k">:</span> { type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>currency<span class="pl-pds">'</span></span>, symbol<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>R$<span class="pl-pds">'</span></span>, fractionSize<span class="pl-k">:</span> <span class="pl-c1">2</span> } },
+        { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Date<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>date<span class="pl-pds">'</span></span>, hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>lg md sm xs<span class="pl-pds">'</span></span>, filter<span class="pl-k">:</span> { type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>date<span class="pl-pds">'</span></span>, format<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dd/MM/yyyy HH:mm:ss<span class="pl-pds">'</span></span> } }
+      ]
+    };
+  });</pre></div>
+
+<h5>
+<a id="in-your-html" class="anchor" href="#in-your-html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In your HTML</h5>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-veasy-table/dist/css/veasy-table.min.css<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>screen<span class="pl-pds">"</span></span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>/&gt;
 &lt;/<span class="pl-ent">head</span>&gt;
 &lt;<span class="pl-ent">body</span>&gt;
-  &lt;<span class="pl-ent">veasy</span><span class="pl-e">-table</span> <span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>items<span class="pl-pds">"</span></span> <span class="pl-e">selected-items</span>=<span class="pl-s"><span class="pl-pds">"</span>selectedItems<span class="pl-pds">"</span></span> <span class="pl-e">config</span>=<span class="pl-s"><span class="pl-pds">"</span>config<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">veasy</span><span class="pl-e">-table</span>&gt;
-<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>./bower_components/angular-veasy-table/dist/veasy-table.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>./bower_components/angular-veasy-table/dist/veasy-table-tpls.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+  ...
+  &lt;<span class="pl-ent">veasy</span><span class="pl-e">-table</span> <span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>items<span class="pl-pds">"</span></span> <span class="pl-e">config</span>=<span class="pl-s"><span class="pl-pds">"</span>config<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">veasy</span><span class="pl-e">-table</span>&gt;
+  ...
+
+<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-veasy-table/dist/js/veasy-table-tpls.min.js<span class="pl-pds">"</span></span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-veasy-table/dist/js/veasy-table.min.js<span class="pl-pds">"</span></span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
 &lt;/<span class="pl-ent">body</span>&gt;</pre></div>
 
-<h5>
-<a id="in-your-angular-app" class="anchor" href="#in-your-angular-app" aria-hidden="true"><span class="octicon octicon-link"></span></a>In your angular app</h5>
-
-<div class="highlight highlight-js"><pre>angular.module(<span class="pl-s"><span class="pl-pds">'</span>myModule<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>veasyTable<span class="pl-pds">'</span></span>]);</pre></div>
-
-<h5>
-<a id="in-your-controller" class="anchor" href="#in-your-controller" aria-hidden="true"><span class="octicon octicon-link"></span></a>In your controller</h5>
-
-<p>PS: The array of columns used below ($scope.columns) need a specific configuration.</p>
-
-<div class="highlight highlight-js"><pre>$scope.columns <span class="pl-k">=</span> [
-  {
-    header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Id<span class="pl-pds">'</span></span>, <span class="pl-c">// This string is displayed on table header name.</span>
-
-    value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,  <span class="pl-c">// This string is the name of property in your list declared on your html.</span>
-
-    show<span class="pl-k">:</span> <span class="pl-c1">false</span>,  <span class="pl-c">// This property, show or hide this column on your table.</span>
-
-    size<span class="pl-k">:</span> <span class="pl-c1">20</span>      <span class="pl-c">// This property is used to define column size in percentage (%)</span>
-                  <span class="pl-c">// If property 'show' is defined 'false', this size is ignored</span>
-  },
-  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>First Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>first_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span>, size<span class="pl-k">:</span> <span class="pl-c1">40</span> },
-  { header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Last Name<span class="pl-pds">'</span></span>, value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>last_name<span class="pl-pds">'</span></span>, show<span class="pl-k">:</span> <span class="pl-c1">true</span>, size<span class="pl-k">:</span> <span class="pl-c1">40</span> }
-];
-
-$scope.config <span class="pl-k">=</span> {
-  id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>my-table<span class="pl-pds">'</span></span>,
-  columns<span class="pl-k">:</span> $scope.columns
-};</pre></div>
-
 <h2>
-<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h2>
 
-<p>If you need, you can add in config object the following properties:
-<br></p>
-
-<h5>
-<a id="enable-selection-by-checkbox" class="anchor" href="#enable-selection-by-checkbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable selection by checkbox:</h5>
-
-<div class="highlight highlight-js"><pre>checkbox<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  size<span class="pl-k">:</span> <span class="pl-c1">20</span>          <span class="pl-c">// Set checkbox column size in pixels. (Default is 20)</span>
-}</pre></div>
+<p>All of these configurations, you need put inside your config object, like '$scope.config'.</p>
 
 <h5>
-<a id="enable-pagination" class="anchor" href="#enable-pagination" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable pagination:</h5>
+<a id="enable-toggle-columns" class="anchor" href="#enable-toggle-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable toggle columns</h5>
 
-<div class="highlight highlight-js"><pre>pagination<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  currentPage<span class="pl-k">:</span> <span class="pl-c1">0</span>,   <span class="pl-c">// Load in current page. (Default is 0)</span>
-  itemsPerPage<span class="pl-k">:</span> <span class="pl-c1">5</span>   <span class="pl-c">// How many itens per page. Minimum is 1 and maximum is 100. (Default is 10)</span>
-}</pre></div>
-
-<h5>
-<a id="enable-data-filter" class="anchor" href="#enable-data-filter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable data filter:</h5>
-
-<div class="highlight highlight-js"><pre>filter<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,      <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  conditional<span class="pl-k">:</span> <span class="pl-c1">true</span>  <span class="pl-c">// Conditional filter 'AND', 'OR'. (Default is AND)</span>
-  delay<span class="pl-k">:</span> <span class="pl-c1">500</span>         <span class="pl-c">// Delay in milliseconds. (Default is 500ms)</span>
-}</pre></div>
-
-<h5>
-<a id="enable-column-filter-show-and-hide-columns" class="anchor" href="#enable-column-filter-show-and-hide-columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable column filter (show and hide columns):</h5>
-
-<div class="highlight highlight-js"><pre>columnFilter<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  autoOpen<span class="pl-k">:</span> <span class="pl-c1">true</span>,    <span class="pl-c">// Open automatically column filter modal, if not have visible columns. (Default is false)</span>
-  modalSize<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>sm<span class="pl-pds">'</span></span>   <span class="pl-c">// The size of modal can be setted: 'sm, md or lg' (Default is 'md')</span>
-}</pre></div>
-
-<h5>
-<a id="enable-column-sort" class="anchor" href="#enable-column-sort" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable column sort:</h5>
-
-<div class="highlight highlight-js"><pre>sort<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>      <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-}</pre></div>
-
-<h5>
-<a id="enable-column-resize" class="anchor" href="#enable-column-resize" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable column resize:</h5>
-
-<div class="highlight highlight-js"><pre>resizable<span class="pl-k">:</span> {
-  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable = true, Disable = false. (Default is false)</span>
-  minimumSize<span class="pl-k">:</span> <span class="pl-c1">5</span>   <span class="pl-c">// Set minimum column size in percentage '%'. (Default is 5)</span>
-}</pre></div>
-
-<h5>
-<a id="enable-events" class="anchor" href="#enable-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable events:</h5>
-
-<div class="highlight highlight-js"><pre>events<span class="pl-k">:</span> {
-  <span class="pl-en">onClickRow</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">row</span>) {} <span class="pl-c">// This event is called when an row is clicked</span>
-  <span class="pl-en">onApplyColumnFilter</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">columns</span>) {} <span class="pl-c">// This event is called when 'apply column' button (in modal) is clicked</span>
-  <span class="pl-en">onTableStateChange</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">columns</span>) {} <span class="pl-c">// This event is called when state of columns (visibility, size, ...) is changed</span>
-}</pre></div>
-
-<h5>
-<a id="enable-translate" class="anchor" href="#enable-translate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enable translate:</h5>
-
-<div class="highlight highlight-js"><pre>translate<span class="pl-k">:</span> {
-  filter<span class="pl-k">:</span> {
-    by<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Filtrar por...<span class="pl-pds">'</span></span>,                           <span class="pl-c">// Label of filter input</span>
-    and<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,                                       <span class="pl-c">// Label of filter condition AND</span>
-    or<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>OU<span class="pl-pds">'</span></span>                                        <span class="pl-c">// Label of filter condition OR</span>
-  },
-  pagination<span class="pl-k">:</span> {
-    itemsByPage<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Itens por Página<span class="pl-pds">'</span></span>,                <span class="pl-c">// Label of items by page</span>
-    totalItems<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Total de Itens<span class="pl-pds">'</span></span>                    <span class="pl-c">// Label of totel of items</span>
-  },
-  columnFilter<span class="pl-k">:</span> {
-    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Quais colunas você deseja exibir?<span class="pl-pds">'</span></span>,     <span class="pl-c">// Label of column filter modal title</span>
-    okButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>,                                 <span class="pl-c">// Label of column filter modal ok button</span>
-    cancelButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Cancelar<span class="pl-pds">'</span></span>                        <span class="pl-c">// Label of column filter modal cancel button</span>
+<div class="highlight highlight-source-js"><pre>toggleColumns<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,         <span class="pl-c">// Enable this feature. (Default is false).</span>
+  position<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>begin<span class="pl-pds">'</span></span>,    <span class="pl-c">// Use it if you want to put the 'toggle' icon at the begin of the table. Default is undefined.</span>
+  icons<span class="pl-k">:</span> {              <span class="pl-c">// Use it if you want to replace the default icons.</span>
+    opened<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>fa fa-chevron-down<span class="pl-pds">'</span></span>,
+    closed<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>fa fa-chevron-right<span class="pl-pds">'</span></span>
   }
 }</pre></div>
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<h5>
+<a id="enable-pagination" class="anchor" href="#enable-pagination" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable pagination</h5>
 
-<p>The MIT License (MIT)</p>
+<div class="highlight highlight-source-js"><pre>pagination<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,         <span class="pl-c">// Enable this feature. (Default is false).</span>
+  currentPage<span class="pl-k">:</span> <span class="pl-c1">0</span>,       <span class="pl-c">// Load in current page. (Default is 0)</span>
+  itemsPerPage<span class="pl-k">:</span> <span class="pl-c1">10</span>,     <span class="pl-c">// How many items per page you want to see. Minimum is 1 and maximum is 50. (Default is 10)</span>
+}</pre></div>
 
-<p>Copyright (c) 2015 Fernando Machado Bernardino
-<a href="https://github.com/NandoMB">NandoMB</a>. <a href="https://github.com/NandoMB/angular-veasy-table">https://github.com/NandoMB/angular-veasy-table</a></p>
+<h5>
+<a id="enable-data-filter" class="anchor" href="#enable-data-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable data filter</h5>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,         <span class="pl-c">// Enable this feature. (Default is false).</span>
+  conditional<span class="pl-k">:</span> <span class="pl-c1">true</span>,    <span class="pl-c">// Conditional filter 'AND' or 'OR'. (Default is AND)</span>
+  delay<span class="pl-k">:</span> <span class="pl-c1">300</span>            <span class="pl-c">// Delay in milliseconds. (Default is 300ms)</span>
+}</pre></div>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
+<h5>
+<a id="enable-column-filter-show-and-hide-columns" class="anchor" href="#enable-column-filter-show-and-hide-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable column filter (show and hide columns)</h5>
 
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+<div class="highlight highlight-source-js"><pre>columnFilter<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,         <span class="pl-c">// Enable this feature. (Default is false).</span>
+  modalOptions<span class="pl-k">:</span> {
+    size<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>md<span class="pl-pds">'</span></span>,         <span class="pl-c">// The size of modal: 'sm', 'md' or 'lg'. (Default is 'md')</span>
+    autoOpen<span class="pl-k">:</span> <span class="pl-c1">false</span>,    <span class="pl-c">// Open automatically column filter modal, if not have visible columns. (Default is false)</span>
+    keyboard<span class="pl-k">:</span> <span class="pl-c1">true</span>,     <span class="pl-c">// Enable to use keyboard on filter modal. (Default is true)</span>
+    backdrop<span class="pl-k">:</span> <span class="pl-c1">true</span>      <span class="pl-c">// Enable to use backdrop on filter modal. (Default is true)</span>
+  }
+}</pre></div>
+
+<h5>
+<a id="enable-checkboxes" class="anchor" href="#enable-checkboxes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable checkboxes</h5>
+
+<div class="highlight highlight-source-js"><pre>checkbox<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,        <span class="pl-c">// Enable this feature. (Default is false).</span>
+}</pre></div>
+
+<h5>
+<a id="enable-column-sort" class="anchor" href="#enable-column-sort" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable column sort</h5>
+
+<div class="highlight highlight-source-js"><pre>sort<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>         <span class="pl-c">// Enable this feature. (Default is false).</span>
+}</pre></div>
+
+<h5>
+<a id="enable-translate" class="anchor" href="#enable-translate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable translate</h5>
+
+<div class="highlight highlight-source-js"><pre>labels<span class="pl-k">:</span> {
+  filter<span class="pl-k">:</span> {
+    by<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Filtrar por...<span class="pl-pds">'</span></span>,
+    all<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Todas<span class="pl-pds">'</span></span>,
+    and<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
+    or<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>OU<span class="pl-pds">'</span></span>
+  },
+  pagination<span class="pl-k">:</span> {
+    itemsPerPage<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Itens por Página<span class="pl-pds">'</span></span>,
+    totalItems<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Total de Itens<span class="pl-pds">'</span></span>
+  },
+  modal<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Quais colunas você deseja exibir?<span class="pl-pds">'</span></span>,
+    okButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Aplicar<span class="pl-pds">'</span></span>,
+    cancelButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Cancelar<span class="pl-pds">'</span></span>
+  }
+}</pre></div>
+
+<h3>
+<a id="enable-events" class="anchor" href="#enable-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable Events</h3>
+
+<p>All of veasy-table events are use <a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope#%24emit">$emit</a>, and to listen these events you need to use <a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope#%24on">$on</a></p>
+
+<h5>
+<a id="click" class="anchor" href="#click" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Click</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onClickRow<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>, <span class="pl-smi">data</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Some row was clicked<span class="pl-pds">'</span></span>, data);
+});</pre></div>
+
+<h5>
+<a id="column-filter" class="anchor" href="#column-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Column filter</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onApplyColumnFilter<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>, <span class="pl-smi">data</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Some columns was applied<span class="pl-pds">'</span></span>, data);
+});</pre></div>
+
+<h5>
+<a id="pagination" class="anchor" href="#pagination" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pagination</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onStartPagination<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Pagination event was started<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onEndPagination<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Pagination event was done<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h5>
+<a id="search" class="anchor" href="#search" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Search</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onStartSearch<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Search event was started<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onEndSearch<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Search event was done<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h5>
+<a id="sort" class="anchor" href="#sort" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sort</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onStartSort<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Sort event was started<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onEndSort<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Sort event was done<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h3>
+<a id="enable-angular-filter-at-columns" class="anchor" href="#enable-angular-filter-at-columns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enable angular <a href="https://docs.angularjs.org/api/ng/filter">$filter</a> at columns?</h3>
+
+<p>All of these configurations, you need put inside your target column, in your $scope.config object.</p>
+
+<h6>
+<a id="currency" class="anchor" href="#currency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/currency">Currency</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>currency<span class="pl-pds">'</span></span>,
+  symbol<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>R$<span class="pl-pds">'</span></span>,
+  fractionSize<span class="pl-k">:</span> <span class="pl-c1">0</span>
+}</pre></div>
+
+<h6>
+<a id="date" class="anchor" href="#date" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/date">Date</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>date<span class="pl-pds">'</span></span>,
+  format<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>dd/MM/yyyy HH:mm:ss<span class="pl-pds">'</span></span>,
+  timezone<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+}</pre></div>
+
+<h6>
+<a id="json" class="anchor" href="#json" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/json">Json</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>,
+  spacing<span class="pl-k">:</span> <span class="pl-c1">2</span>
+}</pre></div>
+
+<h6>
+<a id="number" class="anchor" href="#number" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/number">Number</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>number<span class="pl-pds">'</span></span>,
+  fractionSize<span class="pl-k">:</span> <span class="pl-c1">2</span>
+}</pre></div>
+
+<h6>
+<a id="limitto" class="anchor" href="#limitto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/limitTo">LimitTo</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>limitTo<span class="pl-pds">'</span></span>,
+  limit<span class="pl-k">:</span> <span class="pl-c1">10</span>,
+  begin<span class="pl-k">:</span> <span class="pl-c1">0</span>
+}</pre></div>
+
+<h6>
+<a id="lowercase" class="anchor" href="#lowercase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/lowercase">Lowercase</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>lowercase<span class="pl-pds">'</span></span>
+}</pre></div>
+
+<h6>
+<a id="uppercase" class="anchor" href="#uppercase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://docs.angularjs.org/api/ng/filter/uppercase">Uppercase</a>
+</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>uppercase<span class="pl-pds">'</span></span>
+}</pre></div>
+
+<h6>
+<a id="url" class="anchor" href="#url" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Url</h6>
+
+<div class="highlight highlight-source-js"><pre>filter<span class="pl-k">:</span> {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>url<span class="pl-pds">'</span></span>,
+  text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+  target<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>_blank<span class="pl-pds">'</span></span>
+}</pre></div>
+
+<hr>
+
+<h1>
+<a id="migrating-from-1xx-to-2xx-version" class="anchor" href="#migrating-from-1xx-to-2xx-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Migrating from 1.x.x to 2.x.x version</h1>
+
+<h3>
+<a id="in-your-html-1" class="anchor" href="#in-your-html-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In your HTML:</h3>
+
+<p>Just remove the 'selected-items' property</p>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- from --&gt;</span>
+&lt;<span class="pl-ent">veasy</span><span class="pl-e">-table</span> <span class="pl-e">config</span>=<span class="pl-s"><span class="pl-pds">"</span>config<span class="pl-pds">"</span></span> <span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>resultList<span class="pl-pds">"</span></span> <span class="pl-e">selected-items</span>=<span class="pl-s"><span class="pl-pds">"</span>selectedItems<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">veasy</span><span class="pl-e">-table</span>&gt;
+
+<span class="pl-c">&lt;!-- to --&gt;</span>
+&lt;<span class="pl-ent">veasy</span><span class="pl-e">-table</span> <span class="pl-e">config</span>=<span class="pl-s"><span class="pl-pds">"</span>config<span class="pl-pds">"</span></span> <span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>resultList<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">veasy</span><span class="pl-e">-table</span>&gt;</pre></div>
+
+<h3>
+<a id="in-your-angular-app-1" class="anchor" href="#in-your-angular-app-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In your Angular app:</h3>
+
+<h5>
+<a id="on-your-app-dependencies-just-replace-veasytable-to-veasytable" class="anchor" href="#on-your-app-dependencies-just-replace-veasytable-to-veasytable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On your app dependencies, just replace 'veasyTable' to 'veasy.table'.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>yourModule<span class="pl-pds">'</span></span>, [ <span class="pl-s"><span class="pl-pds">'</span>veasyTable<span class="pl-pds">'</span></span> ]);
+
+<span class="pl-c">// TO</span>
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>yourModule<span class="pl-pds">'</span></span>, [ <span class="pl-s"><span class="pl-pds">'</span>veasy.table<span class="pl-pds">'</span></span> ]);</pre></div>
+
+<h5>
+<a id="on-columns-config-just-remove-size-and-show-properties" class="anchor" href="#on-columns-config-just-remove-size-and-show-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On columns config, just remove 'size' and 'show' properties.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+columns<span class="pl-k">:</span> [
+  {
+    header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Id<span class="pl-pds">'</span></span>,
+    value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
+    <span class="pl-c">// TODO: REMOVE</span>
+    <span class="pl-c">// size: 5,</span>
+    <span class="pl-c">// show: true</span>
+  }
+]
+
+<span class="pl-c">// TO</span>
+columns<span class="pl-k">:</span> [
+  {
+    header<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Id<span class="pl-pds">'</span></span>,
+    value<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
+    <span class="pl-c">// Use something like this, if you want to use responsive columns and/or angular filters</span>
+    hideOn<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>lg md sm xs<span class="pl-pds">'</span></span>,
+    filter<span class="pl-k">:</span> { type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>number<span class="pl-pds">'</span></span>, fractionSize<span class="pl-k">:</span> <span class="pl-c1">0</span> }
+  }
+]</pre></div>
+
+<h5>
+<a id="on-checkbox-config-just-remove-size-property" class="anchor" href="#on-checkbox-config-just-remove-size-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On checkbox config, just remove 'size' property.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+checkbox<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  <span class="pl-c">// TODO: REMOVE</span>
+  <span class="pl-c">// size: 20</span>
+}
+
+<span class="pl-c">// TO</span>
+checkbox<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>
+}</pre></div>
+
+<h5>
+<a id="on-columnfilter-config-just" class="anchor" href="#on-columnfilter-config-just" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On columnFilter config, just:</h5>
+
+<h5>
+<a id="1---move-autoopen-property-to-inside-of-new-property-named-modaloptions" class="anchor" href="#1---move-autoopen-property-to-inside-of-new-property-named-modaloptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.</h5>
+
+<h5>
+<a id="2---move-modalsize-property-to-inside-of-new-property-named-modaloptions-and-rename-to-size" class="anchor" href="#2---move-modalsize-property-to-inside-of-new-property-named-modaloptions-and-rename-to-size" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+columnFilter<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+  <span class="pl-c">// TODO: MOVE</span>
+  <span class="pl-c">// autoOpen: true,</span>
+  <span class="pl-c">// TODO: MOVE and RENAME</span>
+  <span class="pl-c">// modalSize: 'md'</span>
+}
+
+<span class="pl-c">// TO</span>
+columnFilter<span class="pl-k">:</span> {
+  enable<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+  modalOptions<span class="pl-k">:</span> {
+    size<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>md<span class="pl-pds">'</span></span>,
+    autoOpen<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+    keyboard<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    backdrop<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  }
+}</pre></div>
+
+<h5>
+<a id="on-resizable-config-just-remove" class="anchor" href="#on-resizable-config-just-remove" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On resizable config, just remove.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// TODO: REMOVE</span>
+<span class="pl-c">// resizable: {</span>
+<span class="pl-c">//   enable: true,</span>
+<span class="pl-c">//   minimumSize: 5</span>
+<span class="pl-c">// },</span></pre></div>
+
+<h5>
+<a id="on-translation-config-just" class="anchor" href="#on-translation-config-just" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On translation config, just:</h5>
+
+<h5>
+<a id="1---rename-translate-property-to-labels" class="anchor" href="#1---rename-translate-property-to-labels" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - Rename 'translate' property to 'labels'.</h5>
+
+<h5>
+<a id="2---add-all-property-inside-filter-object" class="anchor" href="#2---add-all-property-inside-filter-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - Add 'all' property inside 'filter' object.</h5>
+
+<h5>
+<a id="3---rename-itemsbypage-property-inside-pagination-object-to-itemsperpage" class="anchor" href="#3---rename-itemsbypage-property-inside-pagination-object-to-itemsperpage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.</h5>
+
+<h5>
+<a id="4---rename-columnfilter-property-to-modal" class="anchor" href="#4---rename-columnfilter-property-to-modal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 - Rename 'columnFilter' property to 'modal'.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+translate<span class="pl-k">:</span> {
+  filter<span class="pl-k">:</span> {
+    by<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Filtrar por...<span class="pl-pds">'</span></span>,
+    and<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
+    or<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>OU<span class="pl-pds">'</span></span>
+  },
+  pagination<span class="pl-k">:</span> {
+    itemsByPage<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Itens por Página<span class="pl-pds">'</span></span>,
+    totalItems<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Total de Itens<span class="pl-pds">'</span></span>
+  },
+  columnFilter<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Quais colunas você deseja exibir?<span class="pl-pds">'</span></span>,
+    okButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>,
+    cancelButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Cancelar<span class="pl-pds">'</span></span>
+  }
+}
+
+<span class="pl-c">// TO</span>
+labels<span class="pl-k">:</span> {
+  filter<span class="pl-k">:</span> {
+    by<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Filtrar por...<span class="pl-pds">'</span></span>,
+    all<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Todas<span class="pl-pds">'</span></span>,
+    and<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
+    or<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>OU<span class="pl-pds">'</span></span>
+  },
+  pagination<span class="pl-k">:</span> {
+    itemsPerPage<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Itens por Página<span class="pl-pds">'</span></span>,
+    totalItems<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Total de Itens<span class="pl-pds">'</span></span>
+  },
+  modal<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Quais colunas você deseja exibir?<span class="pl-pds">'</span></span>,
+    okButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Aplicar<span class="pl-pds">'</span></span>,
+    cancelButton<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Cancelar<span class="pl-pds">'</span></span>
+  }
+}</pre></div>
+
+<h5>
+<a id="on-events-config-just-remove-because-now-all-events-use-emit-and-to-listen-these-events-you-need-to-use-on" class="anchor" href="#on-events-config-just-remove-because-now-all-events-use-emit-and-to-listen-these-events-you-need-to-use-on" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>On events config, just remove, because now, all events use <a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope#%24emit">$emit</a>, and to listen these events you need to use <a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope#%24on">$on</a>.</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// FROM</span>
+<span class="pl-c">// TODO: REMOVE</span>
+<span class="pl-c">// events: {</span>
+<span class="pl-c">//   onClickRow: function (row) {</span>
+<span class="pl-c">//     alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');</span>
+<span class="pl-c">//     console.log(JSON.stringify(row, null, 2));</span>
+<span class="pl-c">//     console.log('---------------------------------');</span>
+<span class="pl-c">//     console.log('');</span>
+<span class="pl-c">//   },</span>
+<span class="pl-c">//   onApplyColumnFilter: function (columns) {</span>
+<span class="pl-c">//     alert('Applied Columns! More details in your console.');</span>
+<span class="pl-c">//     console.log(JSON.stringify(columns, null, 2));</span>
+<span class="pl-c">//     console.log('---------------------------------');</span>
+<span class="pl-c">//     console.log('');</span>
+<span class="pl-c">//   },</span>
+<span class="pl-c">//   onTableStateChange: function (columns) {</span>
+<span class="pl-c">//     alert('State changed! More details in your console.');</span>
+<span class="pl-c">//     console.log(JSON.stringify(columns, null, 2));</span>
+<span class="pl-c">//     console.log('---------------------------------');</span>
+<span class="pl-c">//     console.log('');</span>
+<span class="pl-c">//   }</span>
+<span class="pl-c">// }</span>
+
+<span class="pl-c">// TO</span>
+<span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onClickRow<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>, <span class="pl-smi">data</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Some row was clicked<span class="pl-pds">'</span></span>, data);
+});
+
+<span class="pl-smi">$scope</span>.<span class="pl-en">$on</span>(<span class="pl-s"><span class="pl-pds">'</span>veasyTable:onApplyColumnFilter<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-c1">event</span>, <span class="pl-smi">data</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Some columns was applied<span class="pl-pds">'</span></span>, data);
+});</pre></div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/NandoMB/angular-veasy-table">Angular VEasy Table</a> is maintained by <a href="https://github.com/NandoMB">NandoMB</a>.</span>
