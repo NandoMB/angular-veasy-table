@@ -153,6 +153,12 @@ $scope.$on('veasyTable:onClickRow', function (event, data) {
   console.log('Some row was clicked', data);
 });
 ```
+##### Selected Items
+```js
+$scope.$on('veasyTable:selectedItems', function (event, data) {
+  console.log('Some items were selected', data);
+});
+```
 ##### Column filter
 ```js
 $scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
