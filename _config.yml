@@ -2,7 +2,7 @@ title: Angular VEasy Table
 description: Native AngularJS Data Table
 google_analytics: UA-56676681-2
 show_downloads: true
-theme: jekyll-theme-cayman
+theme: jekyll-theme-slate
 
 gems:
   - jekyll-mentions
