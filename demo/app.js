@@ -20,6 +20,7 @@ angular.module('myModule', ['veasy.table'])
       addSortListeners();
       addRowListeners();
       addColumnListeners();
+      addSelectionListeners();
     };
 
     var addPaginationListeners = function() {
@@ -58,6 +59,12 @@ angular.module('myModule', ['veasy.table'])
     var addColumnListeners = function() {
       $scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
         console.log('veasyTable:onApplyColumnFilter', data);
+      });
+    };
+
+    var addSelectionListeners = function() {
+      $scope.$on('veasyTable:selectedItems', function (event, data) {
+        console.log('veasyTable:selectedItems', data);
       });
     };
 
@@ -133,13 +140,15 @@ angular.module('myModule', ['veasy.table'])
         var deferred = $q.defer();
 
         $timeout(function() {
-          $http.get('../../mocks/MOCK_DATA_100.json').success(function(data) {
-            data.forEach(function(row) {
+          $http.get('../../mocks/MOCK_DATA_100.json').then(function(res) {
+            res.data.forEach(function(row) {
               row.date = new Date(row.date);
               row.money = parseFloat(row.money);
             });
 
-            deferred.resolve(data);
+            deferred.resolve(res.data);
+          }, function(err) {
+            deferred.reject(err);
           });
         }, 0);
 

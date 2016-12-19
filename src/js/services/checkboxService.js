@@ -13,6 +13,16 @@ angular.module('veasy.table')
       return checkboxes;
     };
 
+    var getSelectedItems = function(checkboxes, list) {
+      var selecteds = [];
+      angular.forEach(checkboxes, function(page, pageIndex) {
+        angular.forEach(page, function(checkbox, checkboxIndex) {
+          if (checkbox) selecteds.push(list[pageIndex][checkboxIndex]);
+        });
+      });
+      return selecteds;
+    };
+
     var defineCheckboxMasterState = function (selector, checkboxes, page) {
       var checked = false;
       var unchecked = false;
@@ -49,7 +59,8 @@ angular.module('veasy.table')
     return {
       reset: resetCheckboxesToInitialState,
       defineCheckboxMasterState: defineCheckboxMasterState,
-      defineCheckboxState: defineCheckboxState
+      defineCheckboxState: defineCheckboxState,
+      getSelectedItems: getSelectedItems
     };
 
   }]);

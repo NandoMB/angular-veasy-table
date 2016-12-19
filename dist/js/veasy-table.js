@@ -34,6 +34,16 @@ angular.module('veasy.table')
       return checkboxes;
     };
 
+    var getSelectedItems = function(checkboxes, list) {
+      var selecteds = [];
+      angular.forEach(checkboxes, function(page, pageIndex) {
+        angular.forEach(page, function(checkbox, checkboxIndex) {
+          if (checkbox) selecteds.push(list[pageIndex][checkboxIndex]);
+        });
+      });
+      return selecteds;
+    };
+
     var defineCheckboxMasterState = function (selector, checkboxes, page) {
       var checked = false;
       var unchecked = false;
@@ -70,7 +80,8 @@ angular.module('veasy.table')
     return {
       reset: resetCheckboxesToInitialState,
       defineCheckboxMasterState: defineCheckboxMasterState,
-      defineCheckboxState: defineCheckboxState
+      defineCheckboxState: defineCheckboxState,
+      getSelectedItems: getSelectedItems
     };
 
   }]);
@@ -568,7 +579,8 @@ angular.module('veasy.table')
       templateUrl: 'template.html',
       scope: {
         config: '=',
-        list: '='
+        list: '=',
+        selectedItems: '='
       },
       link: function (scope, element, attributes, controller) {
 
@@ -716,7 +728,7 @@ angular.module('veasy.table')
         };
 
         /** --------------------------------------------------------------------
-         *                            Checkboxes
+         *                      Checkboxes/Items Selections
          * ------------------------------------------------------------------ */
         scope.checkAllPageRows = function (currentPage, checkboxMaster) {
           if (!scope.checkboxes[currentPage]) scope.checkboxes[currentPage] = {};
@@ -724,6 +736,7 @@ angular.module('veasy.table')
           for (var i = 0; i < scope.checkboxes[currentPage].length; i++) {
             scope.checkboxes[currentPage][i] = checkboxMaster;
           }
+          defineSelectedItems();
         };
 
         scope.checkRow = function (event, currentPage, rowIndex) {
@@ -731,10 +744,17 @@ angular.module('veasy.table')
           if (!scope.checkboxes[currentPage]) scope.checkboxes[currentPage] = {};
           if (!scope.checkboxes[currentPage][rowIndex]) scope.checkboxes[currentPage][rowIndex] = !!scope.checkboxes[currentPage][rowIndex];
           defineCheckboxMasterState(currentPage);
+          defineSelectedItems();
+        };
+
+        var defineSelectedItems = function() {
+          scope.$emit('veasyTable:selectedItems', vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList))
+          // scope.selectedItems = vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList);
         };
 
         var initCheckboxes = function (paginatedList) {
           scope.checkboxes = vtCheckboxService.reset(paginatedList);
+          defineSelectedItems();
         };
 
         var defineCheckboxMasterState = function (currentPage) {
