@@ -33,7 +33,7 @@ angular.module('veasy.table')
 
     var getColumns = function (columns) {
       return columns.map(function (column) {
-        var sizeArray = column.hideOn.split(' ');
+        var sizeArray = column.hideOn ? column.hideOn.split(' ') : [];
 
         return {
           header: column.header,
