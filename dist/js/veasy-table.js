@@ -579,8 +579,7 @@ angular.module('veasy.table')
       templateUrl: 'template.html',
       scope: {
         config: '=',
-        list: '=',
-        selectedItems: '='
+        list: '='
       },
       link: function (scope, element, attributes, controller) {
 
@@ -736,7 +735,7 @@ angular.module('veasy.table')
           for (var i = 0; i < scope.checkboxes[currentPage].length; i++) {
             scope.checkboxes[currentPage][i] = checkboxMaster;
           }
-          defineSelectedItems();
+          sendSelectedItems();
         };
 
         scope.checkRow = function (event, currentPage, rowIndex) {
@@ -744,17 +743,17 @@ angular.module('veasy.table')
           if (!scope.checkboxes[currentPage]) scope.checkboxes[currentPage] = {};
           if (!scope.checkboxes[currentPage][rowIndex]) scope.checkboxes[currentPage][rowIndex] = !!scope.checkboxes[currentPage][rowIndex];
           defineCheckboxMasterState(currentPage);
-          defineSelectedItems();
+          sendSelectedItems();
         };
 
-        var defineSelectedItems = function() {
+        var sendSelectedItems = function() {
           scope.$emit('veasyTable:selectedItems', vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList))
           // scope.selectedItems = vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList);
         };
 
         var initCheckboxes = function (paginatedList) {
           scope.checkboxes = vtCheckboxService.reset(paginatedList);
-          defineSelectedItems();
+          sendSelectedItems();
         };
 
         var defineCheckboxMasterState = function (currentPage) {

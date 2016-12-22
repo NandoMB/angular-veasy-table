@@ -105,9 +105,9 @@
               <span ng-repeat="hiddenCol in hiddenContent[currentPage][rowIndex]" class="vt-hidden-column-content vt-ellipsis">
                 <div class="vt-ellipsis" ng-style="responsiveHiddenContentStyle()">
                   <strong>{{hiddenCol.header}}: </strong>
-                  <span ng-if="!hiddenCol.filter">{{hiddenCol.value}}</span>
-                  <span ng-if="hiddenCol.filter && !isUrl(hiddenCol)">{{applyFilter(hiddenCol.value, hiddenCol.filter)}}</span>
-                  <span ng-if="hiddenCol.filter && isUrl(hiddenCol)" ng-bind-html="applyFilter(hiddenCol.value, hiddenCol.filter)"></span>
+                  <span ng-if="!hiddenCol.filter" title="{{hiddenCol.value}}">{{hiddenCol.value}}</span>
+                  <span ng-if="hiddenCol.filter && !isUrl(hiddenCol)" title="{{applyFilter(hiddenCol.value, hiddenCol.filter)}}">{{applyFilter(hiddenCol.value, hiddenCol.filter)}}</span>
+                  <span ng-if="hiddenCol.filter && isUrl(hiddenCol)" title="{{applyFilter(hiddenCol.value, hiddenCol.filter)}}" ng-bind-html="applyFilter(hiddenCol.value, hiddenCol.filter)"></span>
                 </div>
               </span>
             </td>
