@@ -3,7 +3,7 @@ angular.module('veasy.table')
   .service('vtModalService', [ 'vtCheckboxService', '$timeout', function (vtCheckboxService, $timeout) {
 
     var getModalId = function (id) {
-      return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
+      return id + '-modal';
     };
 
     var initMasterCheckbox = function (modalId, modalColumns) {

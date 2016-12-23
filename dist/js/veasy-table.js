@@ -268,7 +268,7 @@ angular.module('veasy.table')
   .service('vtModalService', [ 'vtCheckboxService', '$timeout', function (vtCheckboxService, $timeout) {
 
     var getModalId = function (id) {
-      return id.replace(/veasy-table-/gi, 'veasy-table-modal-');
+      return id + '-modal';
     };
 
     var initMasterCheckbox = function (modalId, modalColumns) {
@@ -298,7 +298,7 @@ angular.module('veasy.table')
 
     var getColumns = function (columns) {
       return columns.map(function (column) {
-        var sizeArray = column.hideOn.split(' ');
+        var sizeArray = column.hideOn ? column.hideOn.split(' ') : [];
 
         return {
           header: column.header,
