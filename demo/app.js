@@ -80,7 +80,7 @@ angular.module('myModule', ['veasy.table'])
             { header: 'First Name', value: 'first_name', hideOn: '' },
             { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
             { header: 'Email', value: 'email', hideOn: 'sm xs' },
-            { header: 'Gender', value: 'gender', hideOn: 'sm xs' },
+            { header: 'Gender', value: 'gender', default: 'Not Informed', hideOn: 'sm xs' },
             { header: 'Money', value: 'money', hideOn: 'xs', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
             { header: 'Date', value: 'date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
           ],

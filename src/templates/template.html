@@ -82,14 +82,14 @@
               <div ng-if="!column.toggle && !column.contextMenu">
                 <!-- Column without filter -->
                 <div ng-if="!column.filter" class="vt-ellipsis">
-                  <span class="vt-ellipsis">{{row[column.value]}}</span>
+                  <span class="vt-ellipsis">{{row[column.value] || column.default}}</span>
                 </div>
                 <!-- Column with filter -->
                 <div ng-if="column.filter" class="vt-ellipsis">
                   <!-- Apply URL filter -->
-                  <span ng-if="isUrl(column)" ng-bind-html="applyFilter(row[column.value], column.filter)"></span>
+                  <span ng-if="isUrl(column)" ng-bind-html="applyFilter(row[column.value] || column.default, column.filter)"></span>
                   <!-- Apply OTHER filters -->
-                  <span ng-if="!isUrl(column)" class="vt-ellipsis">{{applyFilter(row[column.value], column.filter)}}</span>
+                  <span ng-if="!isUrl(column)" class="vt-ellipsis">{{applyFilter(row[column.value] || column.default, column.filter)}}</span>
                 </div>
               </div>
               <!-- Context Menu -->

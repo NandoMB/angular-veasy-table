@@ -32,6 +32,10 @@ angular.module('yourModule', ['veasy.table'])
           // from your result array.
           value: 'id',
 
+          // This property is used to define the default value to the column when necessary.
+          // The default value will be applied when the column value is: undefined, null, false or '' (empty string).
+          default: 'Not Informed',
+
           // It's used only if you want to hide this column in a specific screen size.
           // The screen sizes are separated by spaces.
           // Ex: hideOn: 'lg md sm xs'.
