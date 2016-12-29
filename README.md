@@ -7,6 +7,9 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * [bootstrap](http://getbootstrap.com/) (^3.3.7)
 * [font-awesome](http://fontawesome.io/icons/) (^4.6.3)
 
+## Images and [demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
+
+
 ## Instalation
 ```sh
 $ bower install angular-veasy-table --save

@@ -76,8 +76,8 @@ angular.module('myModule', ['veasy.table'])
       veasyTableConfig: function() {
         return {
           columns: [
-            { header: 'Id', value: 'id', hideOn: '', filter: { type: 'number', fractionSize: 0 } },
-            { header: 'First Name', value: 'first_name', hideOn: '' },
+            { header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
+            { header: 'First Name', value: 'first_name' },
             { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
             { header: 'Email', value: 'email', hideOn: 'sm xs' },
             { header: 'Gender', value: 'gender', default: 'Not Informed', hideOn: 'sm xs' },
