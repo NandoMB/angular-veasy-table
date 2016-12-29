@@ -155,6 +155,8 @@ angular.module('veasy.table')
          *                            User Events
          * ------------------------------------------------------------------ */
         scope.onClickRow = function(row) {
+          if (!scope.config.clickRow.enable) return;
+
           var copyRow = angular.copy(row);
           delete copyRow.$$hashKey;
 

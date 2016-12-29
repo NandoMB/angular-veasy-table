@@ -128,6 +128,12 @@ columnFilter: {
   }
 }
 ```
+##### Enable click row
+```js
+clickRow: {
+  enable: true         // Enable this feature. (Default is false).
+}
+```
 ##### Enable checkboxes
 ```js
 checkbox: {

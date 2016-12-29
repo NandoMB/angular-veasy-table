@@ -101,8 +101,11 @@ angular.module('myModule', ['veasy.table'])
               closed: 'fa fa-chevron-right'
             }
           },
+          clickRow: {
+            enable: true
+          },
           checkbox: {
-            enable: true,
+            enable: true
           },
           sort: {
             enable: true
@@ -110,7 +113,7 @@ angular.module('myModule', ['veasy.table'])
           pagination: {
             enable: true,
             currentPage: 0,
-            itemsPerPage: 10,
+            itemsPerPage: 10
           },
           filter: {
             enable: true,

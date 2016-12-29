@@ -67,7 +67,7 @@
         </thead>
         <tbody>
           <!-- Untoggable Row -->
-          <tr ng-repeat-start="(rowIndex, row) in paginatedList[currentPage]" ng-click="onClickRow(row)">
+          <tr ng-repeat-start="(rowIndex, row) in paginatedList[currentPage]" ng-click="onClickRow(row)" ng-style="{'cursor': config.clickRow.enable ? 'pointer' : 'default' }">
             <!-- Checkbox -->
             <td ng-if="config.checkbox.enable" class="vt-checkbox">
               <div>
