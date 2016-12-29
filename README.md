@@ -83,6 +83,23 @@ toggleColumns: {
   }
 }
 ```
+##### Enable context menu
+```js
+contextMenu: {
+  enable: true,                 // Enable this feature. (Default is false).
+  icon: 'fa fa-ellipsis-v',     // Use it to set an icon to your menu.
+  options: [
+    {
+      icon: 'fa fa-trash-o',    // Use it to set an icon to your menu item.
+      label: 'Delete',          // Use it to set a text to your menu item.
+      action: function(row) {   // Use it to set a action to your menu item. The first parameter aways will be the selected row.
+        ...
+        alert('Your row has been deleted!');
+      }
+    }
+  ]
+}
+```
 ##### Enable pagination
 ```js
 pagination: {
