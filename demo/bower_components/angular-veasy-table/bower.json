@@ -1,0 +1,33 @@
+{
+  "name": "angular-veasy-table",
+  "version": "2.1.0",
+  "authors": [
+    "Fernando Machado Bernardino <fernandombernardino@gmail.com> (https://github.com/NandoMB)"
+  ],
+  "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
+  "homepage": "http://nandomb.github.io/angular-veasy-table",
+  "license": "MIT",
+  "main": "./dist/js/veasy-table.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NandoMB/angular-veasy-table.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "angular",
+    "grid",
+    "table"
+  ],
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "font-awesome": "^4.6.3"
+  }
+}

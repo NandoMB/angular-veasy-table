@@ -1,0 +1,237 @@
+<div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+      <div class="form-group">
+        <div class="input-group" ng-if="config.filter.enable">
+          <input type="text" class="form-control input-sm" name="terms" ng-model="terms" ng-change="search(terms, condition, selectedColumn)" placeholder="{{config.labels.filter.by}}">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{selectedColumn.header}} <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li ng-repeat="column in filterColumnsList" ng-click="selectFilterColumn(terms, condition, column)"><a>{{column.header}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-4">
+      <div class="form-group">
+        <div class="btn-group" role="group" ng-if="config.filter.enable && config.filter.conditional">
+          <button type="button" class="btn btn-default btn-sm" ng-class="{'active': condition === 'AND'}" btn-radio="'AND'" ng-model="condition" ng-click="changeSearchCondition(terms, 'AND', selectedColumn)">{{config.labels.filter.and}}</button>
+          <button type="button" class="btn btn-default btn-sm" ng-class="{'active': condition === 'OR'}" btn-radio="'OR'" ng-model="condition" ng-click="changeSearchCondition(terms, 'OR', selectedColumn)">{{config.labels.filter.or}}</button>
+        </div>
+        <div class="vt-spin" ng-show="searching">
+          <i class="fa fa-refresh fa-spin"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8">
+      <div class="form-group">
+        <button ng-if="config.columnFilter.enable" class="btn btn-default btn-sm pull-right" ng-click="openColumnFilterModal(config.columns)">
+          <i class="fa fa-filter"></i>
+        </button>
+        <input ng-if="config.pagination.enable" type="number" min="1" max="50" class="form-control input-sm vt-ipp-input pull-right" ng-model="config.pagination.itemsPerPage" ng-change="changeItemsPerPage(config.pagination.itemsPerPage)">
+        <span ng-if="config.pagination.enable" class="vt-ipp-label text-muted pull-right">{{config.labels.pagination.itemsPerPage}}: </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div ng-show="updatingTableColumns" class="vt-updating-backdrop" ng-style="getTBodyStyle()">
+        <div class="text-center vt-updating-icon-wrapper" ng-style="{ 'line-height': getTBodyStyle().height }">
+          <i class="fa fa-refresh fa-spin"></i>
+        </div>
+      </div>
+      <table id="{{config.id}}" class="table table-hover veasy-table" ng-class="{ 'table-striped': haveHiddenColumn(config.columns) && config.toggleColumns }">
+        <thead>
+          <tr>
+            <!-- Checkbox -->
+            <th ng-if="config.checkbox.enable" class="vt-checkbox">
+              <div>
+                <label>
+                  <input id="checkbox-master" type="checkbox" ng-model="master.checkbox" ng-change="checkAllPageRows(currentPage, master.checkbox)">
+                </label>
+              </div>
+            </th>
+            <th ng-repeat-start="column in config.columns" ng-if="!column.toggle" ng-hide="hideColumnOn(column, column.hideOn)" ng-style="getColumnStyle(column)">
+              <span class="vt-ellipsis" ng-if="!column.contextMenu">
+                <i ng-if="config.sort.enable" ng-click="sort(column.value)" class="vt-sortable-icon fa" ng-class="defineSortableIcon(direction, column.value)"></i>
+                {{column.header}}
+              </span>
+              <!--Context menu-->
+              <span ng-if="column.contextMenu"></span>
+            </th>
+            <th ng-repeat-end="" ng-if="showToggleIcon(column)" ng-click="toggleAllRows()" class="vt-toggle-icon-master">
+              <i class="" ng-class="getToggleIconClasses(config, master.expanded, !master.expanded)"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Untoggable Row -->
+          <tr ng-repeat-start="(rowIndex, row) in paginatedList[currentPage]" ng-click="onClickRow(row)" ng-style="{'cursor': config.clickRow.enable ? 'pointer' : 'default' }">
+            <!-- Checkbox -->
+            <td ng-if="config.checkbox.enable" class="vt-checkbox">
+              <div>
+                <label>
+                  <input type="checkbox" ng-model="checkboxes[currentPage][rowIndex]" ng-click="checkRow($event, currentPage, rowIndex)">
+                </label>
+              </div>
+            </td>
+            <!-- Column -->
+            <td ng-repeat-start="column in config.columns" ng-if="!column.isHidden && !column.toggle" ng-style="getColumnStyle(column)">
+              <!-- Column values -->
+              <div ng-if="!column.toggle && !column.contextMenu">
+                <!-- Column without filter -->
+                <div ng-if="!column.filter" class="vt-ellipsis">
+                  <span class="vt-ellipsis">{{row[column.value] || column.default}}</span>
+                </div>
+                <!-- Column with filter -->
+                <div ng-if="column.filter" class="vt-ellipsis">
+                  <!-- Apply URL filter -->
+                  <span ng-if="isUrl(column)" ng-bind-html="applyFilter(row[column.value] || column.default, column.filter)"></span>
+                  <!-- Apply OTHER filters -->
+                  <span ng-if="!isUrl(column)" class="vt-ellipsis">{{applyFilter(row[column.value] || column.default, column.filter)}}</span>
+                </div>
+              </div>
+              <!-- Context Menu -->
+              <div ng-if="column.contextMenu" class="text-center" style="cursor: pointer;">
+                <div class="dropdown">
+                  <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="{{config.contextMenu.icon}}"></i>
+                  </div>
+                  <ul class="dropdown-menu dropdown-menu-right" style="right: 15px;top: 10px;">
+                    <li ng-repeat="option in config.contextMenu.options">
+                      <a ng-click="option.action(row)">
+                        <i ng-if="option.icon" class="{{option.icon}}" style="margin-right: 5px;"></i>
+                        {{option.label}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+            <!-- Toggle icon -->
+            <td ng-repeat-end="" ng-if="showToggleIcon(column)" ng-click="toggleRow($event, rowIndex, row)" class="vt-toggle-icon">
+              <div ng-model="expanded[rowIndex]" ng-init="initToggleButton(rowIndex, row)">
+                <i ng-class="getToggleIconClasses(config, expanded[rowIndex], !expanded[rowIndex])"></i>
+              </div>
+            </td>
+          </tr>
+          <!-- /Untoggable -->
+          <!-- Toggable Row -->
+          <tr ng-repeat-end="" ng-if="haveHiddenColumn(config.columns)" ng-show="expanded[rowIndex]">
+            <td colspan="{{toggleRowColspan}}">
+              <span ng-repeat="hiddenCol in hiddenContent[currentPage][rowIndex]" class="vt-hidden-column-content vt-ellipsis">
+                <div class="vt-ellipsis" ng-style="responsiveHiddenContentStyle()">
+                  <strong>{{hiddenCol.header}}: </strong>
+                  <span ng-if="!hiddenCol.filter" title="{{hiddenCol.value}}">{{hiddenCol.value}}</span>
+                  <span ng-if="hiddenCol.filter && !isUrl(hiddenCol)" title="{{applyFilter(hiddenCol.value, hiddenCol.filter)}}">{{applyFilter(hiddenCol.value, hiddenCol.filter)}}</span>
+                  <span ng-if="hiddenCol.filter && isUrl(hiddenCol)" title="{{applyFilter(hiddenCol.value, hiddenCol.filter)}}" ng-bind-html="applyFilter(hiddenCol.value, hiddenCol.filter)"></span>
+                </div>
+              </span>
+            </td>
+          </tr>
+          <!-- /Toggable -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-muted" style="text-align: right;margin-top: 12px;font-size: small;" colspan="{{toggleRowColspan}}">{{config.labels.pagination.totalItems}}: {{filteredList.length || 0}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- TODO: Externalizar em uma nova diretiva!!! -->
+  <div class="text-center" ng-if="config.pagination.enable">
+    <nav aria-label="pagination">
+      <ul class="pagination pagination-sm vt-pagination vt-no-select">
+        <li ng-disabled="isPreviousPageDisabled()" ng-class="{ 'disabled': isPreviousPageDisabled() }" ng-click="setPage(0)">
+          <span aria-label="First">
+            <span>&laquo;</span>
+          </span>
+        </li>
+        <li ng-disabled="isPreviousPageDisabled()" ng-class="{ 'disabled': isPreviousPageDisabled() }" ng-click="previousPage()">
+          <span aria-label="Previous">
+            <span>&lsaquo;</span>
+          </span>
+        </li>
+        <li ng-repeat="page in pages" ng-class="{ 'active': currentPage === page }" ng-click="setPage(page)">
+          <span>{{page + 1}}</span>
+        </li>
+        <li ng-disabled="isNextPageDisabled(paginatedList)" ng-class="{ 'disabled': isNextPageDisabled(paginatedList) }" ng-click="nextPage()">
+          <span aria-label="Next">
+            <span>&rsaquo;</span>
+          </span>
+        </li>
+        <li ng-disabled="isNextPageDisabled(paginatedList)" ng-class="{ 'disabled': isNextPageDisabled(paginatedList) }" ng-click="setPage(paginatedList.length - 1)">
+          <span aria-label="Last">
+            <span>&raquo;</span>
+          </span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- TODO: Externalizar em uma nova diretiva!!! -->
+
+  <!-- Modal -->
+  <div id="{{vetModalId}}" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" ng-class="{ 'modal-lg': config.columnFilter.modalOptions.size === 'lg','modal-sm': config.columnFilter.modalOptions.size === 'sm' }">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          <h4 class="modal-title">{{config.labels.modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="vt-modal-screen-icon-wrapper">
+                <div class="pull-right text-center vt-modal-screen-icon" ng-model="screenSize.lg" ng-click="checkAllByScreenSize('lg', modalColumns, screenSize.lg)">
+                  <i class="fa fa-desktop" data-toggle="tooltip-screen-size" data-placement="top" title="Desktop"></i>
+                </div>
+                <div class="pull-right text-center vt-modal-screen-icon" ng-model="screenSize.md" ng-click="checkAllByScreenSize('md', modalColumns, screenSize.md)">
+                  <i class="fa fa-laptop" data-toggle="tooltip-screen-size" data-placement="top" title="Laptop"></i>
+                </div>
+                <div class="pull-right text-center vt-modal-screen-icon" ng-model="screenSize.sm" ng-click="checkAllByScreenSize('sm', modalColumns, screenSize.sm)">
+                  <i class="fa fa-tablet" data-toggle="tooltip-screen-size" data-placement="top" title="Tablet"></i>
+                </div>
+                <div class="pull-right text-center vt-modal-screen-icon" ng-model="screenSize.xs" ng-click="checkAllByScreenSize('xs', modalColumns, screenSize.xs)">
+                  <i class="fa fa-mobile" data-toggle="tooltip-screen-size" data-placement="top" title="Smartphone"></i>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <div ng-repeat="(columnIndex, column) in modalColumns" ng-if="column.value !== 'toggle'" class="vt-modal-column">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div style="cursor: move;">
+                  <div class="checkbox vt-modal-checkbox pull-left" style="padding: 15px 15px;line-height: 20px;">
+                    <label><input id="cbMaster-{{column.value}}" type="checkbox" ng-model="modalCheckboxMaster[column.value]" ng-click="checkWindowSizeMaster(column, modalCheckboxMaster[column.value])">{{column.header}}</label>
+                  </div>
+                  <div class="checkbox vt-modal-checkbox pull-right" style="top: 5px;">
+                    <label><input type="checkbox" ng-model="column.hideOn.lg" ng-click="checkWindowSize(column)"></label>
+                  </div>
+                  <div class="checkbox vt-modal-checkbox pull-right" style="top: 5px;">
+                    <label><input type="checkbox" ng-model="column.hideOn.md" ng-click="checkWindowSize(column)"></label>
+                  </div>
+                  <div class="checkbox vt-modal-checkbox pull-right" style="top: 5px;">
+                    <label><input type="checkbox" ng-model="column.hideOn.sm" ng-click="checkWindowSize(column)"></label>
+                  </div>
+                  <div class="checkbox vt-modal-checkbox pull-right" style="top: 5px;">
+                    <label><input type="checkbox" ng-model="column.hideOn.xs" ng-click="checkWindowSize(column)"></label>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{config.labels.modal.cancelButton}}</button>
+          <button type="button" class="btn btn-primary" ng-click="onConfirmColumnFilterModal(modalColumns)">{{config.labels.modal.okButton}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

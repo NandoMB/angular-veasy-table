@@ -6,8 +6,6 @@ angular.module('myModule', ['veasy.table'])
 
       addListeners();
       loadUsers();
-
-      $scope.message = 'Please, open your browser\'s console to see all events broadcasts.';
     };
 
     var loadUsers = function() {
@@ -90,9 +88,9 @@ angular.module('myModule', ['veasy.table'])
             enable: true,
             icon: 'fa fa-ellipsis-v',
             options: [
-              { icon: 'fa fa-plus', label: 'Adicionar', action: function(row) { alert('Adicionar:\n\n' + JSON.stringify(row, null, 2)); } },
-              { icon: 'fa fa-pencil', label: 'Editar', action: function(row) { alert('Editar:\n\n' + JSON.stringify(row, null, 2)); } },
-              { icon: 'fa fa-trash', label: 'Excluir', action: function(row) { alert('Excluir:\n\n' + JSON.stringify(row, null, 2)); } }
+              { icon: 'fa fa-plus', label: 'Adicionar', action: function(row) { alert('Adicionar: ' + JSON.stringify(row)); } },
+              { icon: 'fa fa-pencil', label: 'Editar', action: function(row) { alert('Editar: ' + JSON.stringify(row)); } },
+              { icon: 'fa fa-trash', label: 'Excluir', action: function(row) { alert('Excluir: ' + JSON.stringify(row)); } }
             ]
           },
           toggleColumns: {
@@ -154,7 +152,7 @@ angular.module('myModule', ['veasy.table'])
         var deferred = $q.defer();
 
         $timeout(function() {
-          $http.get('../people.json').then(function(res) {
+          $http.get('../../mocks/MOCK_DATA_100.json').then(function(res) {
             res.data.forEach(function(row) {
               row.date = new Date(row.date);
               row.money = parseFloat(row.money);
