@@ -7,8 +7,10 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * [bootstrap](http://getbootstrap.com/) (^3.3.7)
 * [font-awesome](http://fontawesome.io/icons/) (^4.6.3)
 
-## Images and [demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
-
+## Images and demonstration
+* [demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
+![v2.1.x](http://nandomb.github.io/angular-veasy-table/images/v2.1.0.png)
+![v2.1.x (modal)](http://nandomb.github.io/angular-veasy-table/images/v2.1.0_modal.png)
 
 ## Instalation
 ```sh
@@ -19,7 +21,7 @@ $ bower install angular-veasy-table --save
 ```js
 angular.module('yourModule', ['veasy.table'])
 
-  .controller('yourController', function () {
+  .controller('yourController', function() {
     $scope.config = {
       // This 'id' is not necessary. Use it only if you want to set a specific id for this component.
       // If you not set a specific id, it will be randomly generated.
@@ -179,49 +181,49 @@ All of veasy-table events are use [$emit](https://docs.angularjs.org/api/ng/type
 
 ##### Click
 ```js
-$scope.$on('veasyTable:onClickRow', function (event, data) {
+$scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
 });
 ```
 ##### Selected Items
 ```js
-$scope.$on('veasyTable:selectedItems', function (event, data) {
+$scope.$on('veasyTable:selectedItems', function(event, data) {
   console.log('Some items were selected', data);
 });
 ```
 ##### Column filter
 ```js
-$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+$scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
 ##### Pagination
 ```js
-$scope.$on('veasyTable:onStartPagination', function (event) {
+$scope.$on('veasyTable:onStartPagination', function(event) {
   console.log('Pagination event was started');
 });
 
-$scope.$on('veasyTable:onEndPagination', function (event) {
+$scope.$on('veasyTable:onEndPagination', function(event) {
   console.log('Pagination event was done');
 });
 ```
 ##### Search
 ```js
-$scope.$on('veasyTable:onStartSearch', function (event) {
+$scope.$on('veasyTable:onStartSearch', function(event) {
   console.log('Search event was started');
 });
 
-$scope.$on('veasyTable:onEndSearch', function (event) {
+$scope.$on('veasyTable:onEndSearch', function(event) {
   console.log('Search event was done');
 });
 ```
 ##### Sort
 ```js
-$scope.$on('veasyTable:onStartSort', function (event) {
+$scope.$on('veasyTable:onStartSort', function(event) {
   console.log('Sort event was started');
 });
 
-$scope.$on('veasyTable:onEndSort', function (event) {
+$scope.$on('veasyTable:onEndSort', function(event) {
   console.log('Sort event was done');
 });
 ```
@@ -438,19 +440,19 @@ labels: {
 // FROM
 // TODO: REMOVE
 // events: {
-//   onClickRow: function (row) {
+//   onClickRow: function(row) {
 //     alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
 //     console.log(JSON.stringify(row, null, 2));
 //     console.log('---------------------------------');
 //     console.log('');
 //   },
-//   onApplyColumnFilter: function (columns) {
+//   onApplyColumnFilter: function(columns) {
 //     alert('Applied Columns! More details in your console.');
 //     console.log(JSON.stringify(columns, null, 2));
 //     console.log('---------------------------------');
 //     console.log('');
 //   },
-//   onTableStateChange: function (columns) {
+//   onTableStateChange: function(columns) {
 //     alert('State changed! More details in your console.');
 //     console.log(JSON.stringify(columns, null, 2));
 //     console.log('---------------------------------');
@@ -459,11 +461,11 @@ labels: {
 // }
 
 // TO
-$scope.$on('veasyTable:onClickRow', function (event, data) {
+$scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
 });
 
-$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+$scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
