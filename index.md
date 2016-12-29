@@ -7,6 +7,11 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * [bootstrap](http://getbootstrap.com/) (^3.3.7)
 * [font-awesome](http://fontawesome.io/icons/) (^4.6.3)
 
+## Images and demonstration
+* [demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
+![v2.1.x](http://nandomb.github.io/angular-veasy-table/images/v2.1.0.png)
+![v2.1.x (modal)](http://nandomb.github.io/angular-veasy-table/images/v2.1.0_modal.png)
+
 ## Instalation
 ```sh
 $ bower install angular-veasy-table --save
@@ -16,7 +21,7 @@ $ bower install angular-veasy-table --save
 ```js
 angular.module('yourModule', ['veasy.table'])
 
-  .controller('yourController', function () {
+  .controller('yourController', function() {
     $scope.config = {
       // This 'id' is not necessary. Use it only if you want to set a specific id for this component.
       // If you not set a specific id, it will be randomly generated.
@@ -31,6 +36,10 @@ angular.module('yourModule', ['veasy.table'])
           // That's the field of your column, and it's used to get value
           // from your result array.
           value: 'id',
+
+          // This property is used to define the default value to the column when necessary.
+          // The default value will be applied when the column value is: undefined, null, false or '' (empty string).
+          default: 'Not Informed',
 
           // It's used only if you want to hide this column in a specific screen size.
           // The screen sizes are separated by spaces.
@@ -83,6 +92,23 @@ toggleColumns: {
   }
 }
 ```
+##### Enable context menu
+```js
+contextMenu: {
+  enable: true,                 // Enable this feature. (Default is false).
+  icon: 'fa fa-ellipsis-v',     // Use it to set an icon to your menu.
+  options: [
+    {
+      icon: 'fa fa-trash-o',    // Use it to set an icon to your menu item.
+      label: 'Delete',          // Use it to set a text to your menu item.
+      action: function(row) {   // Use it to set a action to your menu item. The first parameter aways will be the selected row.
+        ...
+        alert('Your row has been deleted!');
+      }
+    }
+  ]
+}
+```
 ##### Enable pagination
 ```js
 pagination: {
@@ -109,6 +135,12 @@ columnFilter: {
     keyboard: true,     // Enable to use keyboard on filter modal. (Default is true)
     backdrop: true      // Enable to use backdrop on filter modal. (Default is true)
   }
+}
+```
+##### Enable click row
+```js
+clickRow: {
+  enable: true         // Enable this feature. (Default is false).
 }
 ```
 ##### Enable checkboxes
@@ -149,43 +181,49 @@ All of veasy-table events are use [$emit](https://docs.angularjs.org/api/ng/type
 
 ##### Click
 ```js
-$scope.$on('veasyTable:onClickRow', function (event, data) {
+$scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
+});
+```
+##### Selected Items
+```js
+$scope.$on('veasyTable:selectedItems', function(event, data) {
+  console.log('Some items were selected', data);
 });
 ```
 ##### Column filter
 ```js
-$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+$scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
 ##### Pagination
 ```js
-$scope.$on('veasyTable:onStartPagination', function (event) {
+$scope.$on('veasyTable:onStartPagination', function(event) {
   console.log('Pagination event was started');
 });
 
-$scope.$on('veasyTable:onEndPagination', function (event) {
+$scope.$on('veasyTable:onEndPagination', function(event) {
   console.log('Pagination event was done');
 });
 ```
 ##### Search
 ```js
-$scope.$on('veasyTable:onStartSearch', function (event) {
+$scope.$on('veasyTable:onStartSearch', function(event) {
   console.log('Search event was started');
 });
 
-$scope.$on('veasyTable:onEndSearch', function (event) {
+$scope.$on('veasyTable:onEndSearch', function(event) {
   console.log('Search event was done');
 });
 ```
 ##### Sort
 ```js
-$scope.$on('veasyTable:onStartSort', function (event) {
+$scope.$on('veasyTable:onStartSort', function(event) {
   console.log('Sort event was started');
 });
 
-$scope.$on('veasyTable:onEndSort', function (event) {
+$scope.$on('veasyTable:onEndSort', function(event) {
   console.log('Sort event was done');
 });
 ```
@@ -402,19 +440,19 @@ labels: {
 // FROM
 // TODO: REMOVE
 // events: {
-//   onClickRow: function (row) {
+//   onClickRow: function(row) {
 //     alert('Row Clicked: ' + JSON.stringify(row.id) + '. More details in your console.');
 //     console.log(JSON.stringify(row, null, 2));
 //     console.log('---------------------------------');
 //     console.log('');
 //   },
-//   onApplyColumnFilter: function (columns) {
+//   onApplyColumnFilter: function(columns) {
 //     alert('Applied Columns! More details in your console.');
 //     console.log(JSON.stringify(columns, null, 2));
 //     console.log('---------------------------------');
 //     console.log('');
 //   },
-//   onTableStateChange: function (columns) {
+//   onTableStateChange: function(columns) {
 //     alert('State changed! More details in your console.');
 //     console.log(JSON.stringify(columns, null, 2));
 //     console.log('---------------------------------');
@@ -423,11 +461,11 @@ labels: {
 // }
 
 // TO
-$scope.$on('veasyTable:onClickRow', function (event, data) {
+$scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
 });
 
-$scope.$on('veasyTable:onApplyColumnFilter', function (event, data) {
+$scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
