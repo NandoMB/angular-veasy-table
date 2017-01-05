@@ -52,7 +52,7 @@
                 </label>
               </div>
             </th>
-            <th ng-repeat-start="column in config.columns" ng-if="!column.toggle" ng-hide="hideColumnOn(column, column.hideOn)" ng-style="getColumnStyle(column)">
+            <th ng-repeat-start="column in config.columns" ng-if="!column.toggle" ng-hide="hideColumnOn(column, column.hideOn)" ng-style="{ 'max-width': getColumnStyle(column) + 'px', 'min-width': '1px' }">
               <span class="vt-ellipsis" ng-if="!column.contextMenu">
                 <i ng-if="config.sort.enable" ng-click="sort(column.value)" class="vt-sortable-icon fa" ng-class="defineSortableIcon(direction, column.value)"></i>
                 {{column.header}}
@@ -60,7 +60,7 @@
               <!--Context menu-->
               <span ng-if="column.contextMenu"></span>
             </th>
-            <th ng-repeat-end="" ng-if="showToggleIcon(column)" ng-click="toggleAllRows()" class="vt-toggle-icon-master">
+            <th ng-repeat-end ng-if="showToggleIcon(column)" ng-click="toggleAllRows()" class="vt-toggle-icon-master">
               <i class="" ng-class="getToggleIconClasses(config, master.expanded, !master.expanded)"></i>
             </th>
           </tr>
@@ -77,7 +77,7 @@
               </div>
             </td>
             <!-- Column -->
-            <td ng-repeat-start="column in config.columns" ng-if="!column.isHidden && !column.toggle" ng-style="getColumnStyle(column)">
+            <td ng-repeat-start="column in config.columns" ng-if="!column.isHidden && !column.toggle" ng-style="{ 'max-width': getColumnStyle(column) + 'px', 'min-width': '36px' }" ng-class="{ 'vt-special-column': column.contextMenu }">
               <!-- Column values -->
               <div ng-if="!column.toggle && !column.contextMenu">
                 <!-- Column without filter -->
@@ -93,7 +93,7 @@
                 </div>
               </div>
               <!-- Context Menu -->
-              <div ng-if="column.contextMenu" class="text-center" style="cursor: pointer;">
+              <div ng-if="column.contextMenu" class="text-center" style="cursor: pointer;text-align: center;">
                 <div class="dropdown">
                   <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="{{config.contextMenu.icon}}"></i>
@@ -110,7 +110,7 @@
               </div>
             </td>
             <!-- Toggle icon -->
-            <td ng-repeat-end="" ng-if="showToggleIcon(column)" ng-click="toggleRow($event, rowIndex, row)" class="vt-toggle-icon">
+            <td ng-repeat-end ng-if="showToggleIcon(column)" ng-click="toggleRow($event, rowIndex, row)" class="vt-toggle-icon" ng-style="{ 'width': getColumnStyle(column) + 'px', 'min-width': '1px' }">
               <div ng-model="expanded[rowIndex]" ng-init="initToggleButton(rowIndex, row)">
                 <i ng-class="getToggleIconClasses(config, expanded[rowIndex], !expanded[rowIndex])"></i>
               </div>
