@@ -53,7 +53,10 @@ angular.module('yourModule', ['veasy.table'])
           filter: {
             type: 'number',
             fractionSize: 0
-          }
+          },
+
+          // It's used to define percentual size to the column.
+          size: 5
         },
         { header: 'First Name', value: 'first_name' },
         { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
@@ -261,7 +264,6 @@ $scope.$on('veasyTable:onEndSort', function(event) {
 ```
 
 ### Enable angular [$filter](https://docs.angularjs.org/api/ng/filter) at columns?
-
 All of these configurations, you need put inside your target column, in your $scope.config object.
 
 ###### [Currency](https://docs.angularjs.org/api/ng/filter/currency)
@@ -374,8 +376,8 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5
     // TODO: REMOVE
-    // size: 5,
     // show: true
   }
 ]
@@ -385,6 +387,7 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5,
     // Use something like this, if you want to use responsive columns and/or angular filters
     hideOn: 'lg md sm xs',
     filter: { type: 'number', fractionSize: 0 }
@@ -410,9 +413,9 @@ checkbox: {
 
 ##### On columnFilter config, just:
 
-##### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
+###### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
 
-##### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
+###### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
 
 ```js
 // FROM
@@ -448,13 +451,13 @@ columnFilter: {
 
 ##### On translation config, just:
 
-##### 1 - Rename 'translate' property to 'labels'.
+###### 1 - Rename 'translate' property to 'labels'.
 
-##### 2 - Add 'all' property inside 'filter' object.
+###### 2 - Add 'all' property inside 'filter' object.
 
-##### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
+###### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
 
-##### 4 - Rename 'columnFilter' property to 'modal'.
+###### 4 - Rename 'columnFilter' property to 'modal'.
 
 ```js
 // FROM
@@ -494,6 +497,7 @@ labels: {
   }
 }
 ```
+
 
 ##### On events config, just remove, because now, all events use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on).
 
