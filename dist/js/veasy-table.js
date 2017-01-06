@@ -534,13 +534,13 @@ angular.module('veasy.table')
 
     var searchWithANDCondition = function (terms, value) {
       return terms.every(function (term) {
-        return value.toString().indexOf(term) !== -1;
+        return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
 
     var searchWithORCondition = function (terms, value) {
       return terms.some(function (term) {
-        return value.toString().indexOf(term) !== -1;
+        return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
 
