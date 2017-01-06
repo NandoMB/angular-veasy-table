@@ -83,6 +83,7 @@ angular.module('yourModule', ['veasy.table'])
 All of these configurations, you need put inside your config object, like '$scope.config'.
 
 ##### Enable toggle columns
+
 ```js
 toggleColumns: {
   enable: true,         // Enable this feature. (Default is false).
@@ -93,7 +94,9 @@ toggleColumns: {
   }
 }
 ```
+
 ##### Enable context menu
+
 ```js
 contextMenu: {
   enable: true,                 // Enable this feature. (Default is false).
@@ -110,7 +113,9 @@ contextMenu: {
   ]
 }
 ```
+
 ##### Enable pagination
+
 ```js
 pagination: {
   enable: true,         // Enable this feature. (Default is false).
@@ -118,7 +123,9 @@ pagination: {
   itemsPerPage: 10,     // How many items per page you want to see. Minimum is 1 and maximum is 50. (Default is 10)
 }
 ```
+
 ##### Enable data filter
+
 ```js
 filter: {
   enable: true,         // Enable this feature. (Default is false).
@@ -126,7 +133,9 @@ filter: {
   delay: 300            // Delay in milliseconds. (Default is 300ms)
 }
 ```
+
 ##### Enable column filter (show and hide columns)
+
 ```js
 columnFilter: {
   enable: true,         // Enable this feature. (Default is false).
@@ -138,25 +147,33 @@ columnFilter: {
   }
 }
 ```
+
 ##### Enable click row
+
 ```js
 clickRow: {
   enable: true         // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable checkboxes
+
 ```js
 checkbox: {
   enable: true,        // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable column sort
+
 ```js
 sort: {
   enable: true         // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable translate
+
 ```js
 labels: {
   filter: {
@@ -181,6 +198,7 @@ labels: {
 All of veasy-table events are use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on)
 
 ##### Click
+
 ```js
 $scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
