@@ -126,3 +126,62 @@ button {
   border-radius: 4px;
   background-color: #f7f7f7;
 }
+
+.vt-toggle-column {
+  width: 37px !important;
+  padding: 0 !important;
+}
+
+.vt-toggle {
+  width: 37px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.vt-context-menu-column {
+  width: 37px !important;
+  padding: 0 !important;
+}
+
+.vt-context-menu {
+  width: 37px;
+  line-height: 36px;
+  text-align: center;
+  cursor: context-menu;
+}
+
+.vt-context-menu ul {
+  top: 15px;
+  right: 27px;
+  transform: translateY(-50%);
+}
+
+.vt-arrow-right-back {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid #b5b5b5;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(100%, -50%);
+}
+
+.vt-arrow-right-front {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid #fff;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(100%, -50%);
+}
+
+
+
+
+
+

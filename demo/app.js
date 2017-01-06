@@ -76,13 +76,14 @@ angular.module('myModule', ['veasy.table'])
       veasyTableConfig: function() {
         return {
           columns: [
-            { header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
-            { header: 'First Name', value: 'first_name' },
-            { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
-            { header: 'Email', value: 'email', hideOn: 'sm xs' },
-            { header: 'Gender', value: 'gender', default: 'Not Informed', hideOn: 'sm xs' },
-            { header: 'Money', value: 'money', hideOn: 'xs', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
-            { header: 'Date', value: 'date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
+            { size: 5,  header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
+            { size: 10, header: 'First Name', value: 'first_name' },
+            { size: 10, header: 'Gender', value: 'gender', hideOn: '', default: 'Not Informed' },
+            { size: 10, header: 'Company', value: 'company', hideOn: 'xs', default: 'Not Informed' },
+            { size: 15, header: 'Address', value: 'address', hideOn: 'xs' },
+            { size: 10, header: 'Money', value: 'money', hideOn: '', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
+            { size: 30, header: 'Photo', value: 'photo', hideOn: 'sm xs' },
+            { size: 10, header: 'Date of Birth', value: 'birth_date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
           ],
           contextMenu: {
             enable: true,
@@ -152,7 +153,7 @@ angular.module('myModule', ['veasy.table'])
         var deferred = $q.defer();
 
         $timeout(function() {
-          $http.get('../../mocks/MOCK_DATA_100.json').then(function(res) {
+          $http.get('../../mocks/MOCK_DATA_NEW.json').then(function(res) {
             res.data.forEach(function(row) {
               row.date = new Date(row.date);
               row.money = parseFloat(row.money);

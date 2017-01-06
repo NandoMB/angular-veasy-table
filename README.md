@@ -51,7 +51,10 @@ angular.module('yourModule', ['veasy.table'])
           filter: {
             type: 'number',
             fractionSize: 0
-          }
+          },
+
+          // It's used to define percentual size to the column.
+          size: 5
         },
         { header: 'First Name', value: 'first_name' },
         { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
@@ -324,8 +327,8 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5
     // TODO: REMOVE
-    // size: 5,
     // show: true
   }
 ]
@@ -335,6 +338,7 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5,
     // Use something like this, if you want to use responsive columns and/or angular filters
     hideOn: 'lg md sm xs',
     filter: { type: 'number', fractionSize: 0 }

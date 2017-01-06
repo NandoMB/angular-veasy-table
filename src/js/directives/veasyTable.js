@@ -18,12 +18,7 @@ angular.module('veasy.table')
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.condition = 'AND';
           scope.searching = false;
-
-          scope.master = {
-            checkbox: false,
-            expanded: false
-          };
-
+          scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
           scope.expanded = [];
           scope.resultList = [];
@@ -45,10 +40,6 @@ angular.module('veasy.table')
               scope.openColumnFilterModal(config.columns);
             }, 0);
           }
-        };
-
-        var addContextMenu = function(config) {
-          config.columns.push({ header: '', contextMenu: true });
         };
 
         /**
@@ -115,10 +106,17 @@ angular.module('veasy.table')
           scope.toggleRowColspan = vtColumnService.defineToggleRowColspan(scope.config.columns);
           vtColumnService.closeAllOpenedRows(scope.resultList);
         };
+
+        /** --------------------------------------------------------------------
+         *                              Context Menu
+         * ------------------------------------------------------------------ */
+        var addContextMenu = function(config) {
+          config.columns.push({ header: '', contextMenu: true, size: '37px' });
+        };
+
         /** --------------------------------------------------------------------
          *                         Column Filter (Modal)
          * ------------------------------------------------------------------ */
-
         scope.openColumnFilterModal = function(columns) {
           scope.modalColumns = vtModalService.getColumns(columns);
           scope.modalCheckboxMaster = vtModalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
@@ -154,12 +152,12 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            User Events
          * ------------------------------------------------------------------ */
-        scope.onClickRow = function(row) {
-          if (!scope.config.clickRow.enable) return;
+        scope.onClickRow = function(event, row) {
+          if (event.target.className.indexOf('vt-dropdown') !== -1 || !scope.config.clickRow.enable)
+            return;
 
           var copyRow = angular.copy(row);
           delete copyRow.$$hashKey;
-
           scope.$emit('veasyTable:onClickRow', copyRow);
         };
 
@@ -185,7 +183,6 @@ angular.module('veasy.table')
 
         var sendSelectedItems = function() {
           scope.$emit('veasyTable:selectedItems', vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList))
-          // scope.selectedItems = vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList);
         };
 
         var initCheckboxes = function(paginatedList) {
@@ -201,7 +198,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Sort
          * ------------------------------------------------------------------ */
-
         scope.sort = function(predicate) {
           scope.$emit('veasyTable:onStartSort');
 
@@ -235,7 +231,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Search
          * ------------------------------------------------------------------ */
-
         scope.selectFilterColumn = function(terms, condition, col) {
           scope.selectedColumn = col;
           if (terms)
@@ -268,7 +263,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Data Filters
          * ------------------------------------------------------------------ */
-
         scope.isUrl = function(column) {
           return column.filter.type === 'url';
         };
@@ -288,7 +282,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Pagination
          * ------------------------------------------------------------------ */
-
         scope.changeItemsPerPage = function(itemsPerPage) {
           paginate(scope.filteredList, itemsPerPage, 0);
         };
@@ -297,13 +290,10 @@ angular.module('veasy.table')
           scope.currentPage = page;
           scope.pages = vtPaginationService.pages(scope.paginatedList.length - 1, page, 5);
 
-          // $timeout(function() {
           scope.expanded = [];
           scope.master.expanded = false;
           initHiddenRowsContent();
-          // delete scope.master.checkbox;
           defineCheckboxMasterState(scope.currentPage);
-          // }, 0);
         };
 
         scope.nextPage = function() {
@@ -339,7 +329,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Responsivity
          * ------------------------------------------------------------------ */
-
         var initHiddenRowsContent = function() {
           if (!scope.hiddenContent) scope.hiddenContent = [];
           if (!scope.hiddenContent[scope.currentPage || 0]) scope.hiddenContent[scope.currentPage || 0] = [];
@@ -411,28 +400,10 @@ angular.module('veasy.table')
 
         var addToggleIcon = function(config) {
           if (config.toggleColumns.position === 'begin') {
-            config.columns.unshift({ header: '', value: 'toggle', hideOn: '', toggle: true });
+            config.columns.unshift({ header: '', value: 'toggle', hideOn: '', toggle: true, size: '37px' });
           } else {
-            config.columns.push({ header: '', value: 'toggle', hideOn: '', toggle: true });
+            config.columns.push({ header: '', value: 'toggle', hideOn: '', toggle: true, size: '37px' });
           }
-        };
-
-        scope.getColumnStyle = function(column) {
-          if (column.toggle)
-            return { 'width': '37px', 'text-align': 'center' };
-
-          // Hackfix to work ellipsis
-          if (scope.outOfBound)
-            return { 'max-width': '1px', 'min-width': '1px' };
-
-          return {};
-        };
-
-        var calculateMaxWidth = function() {
-          var filteredColumns = scope.config.columns.filter(function(column) {
-            return !column.toggle && !column.isHidden;
-          }) || [];
-          return (vtScreenService.veasyTable().width/filteredColumns.length) + 'px';
         };
 
         scope.responsiveHiddenContentStyle = function() {
@@ -454,11 +425,42 @@ angular.module('veasy.table')
           return true;
         };
 
+        scope.getColumnStyle = function(column) {
+          return calculateMaxWidthDefaultColumn(scope.config, scope.config.columns, column.size);
+        };
+
+        var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
+          var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
+          var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
+          
+          if (unit.isPixel(columnSize))
+            return columnSize.split('px')[0];
+          
+          if (unit.isPercentage(columnSize))
+            return percentageToPixel(columnSize.split('%')[0], veasyTableWidth);
+          
+          if (!unit.isPixel(columnSize) && !unit.isPercentage(columnSize)) {
+            var columnWidth = percentageDistribution(percentualTotal, columnSize);
+            return percentageToPixel(columnWidth, veasyTableWidth);
+          }
+        };
+
+        var percentageDistribution = function(total, columnSize) {
+          return (((100 - total) / total) * columnSize) + columnSize;
+        };
+
+        var percentageToPixel = function(percentage, total) {
+          return (percentage * total) / 100;
+        };
+
+        var unit = {
+          isPixel: function(columnSize) { return columnSize.toString().indexOf('px') !== -1 ? true : false; },
+          isPercentage: function(columnSize) { return columnSize.toString().indexOf('%') !== -1 ? true : false; }
+        };
 
         /** --------------------------------------------------------------------
          *                          Initialize
          * ------------------------------------------------------------------ */
-
         init();
       }
     }

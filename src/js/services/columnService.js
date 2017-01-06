@@ -56,13 +56,23 @@ angular.module('veasy.table')
     return hiddenContent;
   };
 
+  var getDefaultColumns = function(columns) {
+    return columns.filter(function(column) {
+      if (!column.toggle && !column.isHidden && !column.contextMenu) {
+        return true;
+      }
+      return false;
+    }) || [];
+  };
+
   return {
     openRow: openRow,
     closeRow: closeRow,
     closeAllOpenedRows: closeAllOpenedRows,
     haveHiddenColumn: haveHiddenColumn,
     defineToggleRowColspan: defineToggleRowColspan,
-    getHiddenContent: getHiddenContent
+    getHiddenContent: getHiddenContent,
+    getDefaultColumns: getDefaultColumns
   };
 
 }]);
