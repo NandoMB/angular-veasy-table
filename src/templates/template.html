@@ -97,12 +97,12 @@
                 <div class="dropdown-toggle vt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <i class="{{config.contextMenu.icon}} vt-dropdown"></i>
                 </div>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <div class="vt-arrow-right-back"></div>
-                  <div class="vt-arrow-right-front"></div>
-                  <li ng-repeat="option in config.contextMenu.options">
-                    <a ng-click="option.action(row)">
-                      <i ng-if="option.icon" class="{{option.icon}}" style="margin-right: 5px;"></i>
+                <ul class="dropdown-menu dropdown-menu-right vt-dropdown">
+                  <div class="vt-arrow-right-back vt-dropdown"></div>
+                  <div class="vt-arrow-right-front vt-dropdown"></div>
+                  <li ng-repeat="option in config.contextMenu.options" class="vt-dropdown">
+                    <a ng-click="option.action(row)" class="vt-dropdown">
+                      <i ng-if="option.icon" class="{{option.icon}} vt-dropdown" style="margin-right: 5px;"></i>
                       {{option.label}}
                     </a>
                   </li>
