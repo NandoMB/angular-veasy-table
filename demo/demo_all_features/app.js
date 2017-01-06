@@ -3,11 +3,9 @@ angular.module('myModule', ['veasy.table'])
   .controller('myController', ['$scope', 'mockService', function($scope, mockService) {
     var init = function () {
       $scope.config = mockService.veasyTableConfig();
-
+      $scope.message = 'Please, open your browser\'s console to see all events broadcasts.';
       addListeners();
       loadUsers();
-
-      $scope.message = 'Please, open your browser\'s console to see all events broadcasts.';
     };
 
     var loadUsers = function() {
@@ -78,21 +76,22 @@ angular.module('myModule', ['veasy.table'])
       veasyTableConfig: function() {
         return {
           columns: [
-            { header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
-            { header: 'First Name', value: 'first_name' },
-            { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
-            { header: 'Email', value: 'email', hideOn: 'sm xs' },
-            { header: 'Gender', value: 'gender', default: 'Not Informed', hideOn: 'sm xs' },
-            { header: 'Money', value: 'money', hideOn: 'xs', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
-            { header: 'Date', value: 'date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
+            { size: 5,  header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
+            { size: 10, header: 'First Name', value: 'first_name' },
+            { size: 10, header: 'Gender', value: 'gender', hideOn: '', default: 'Not Informed' },
+            { size: 10, header: 'Company', value: 'company', hideOn: 'xs', default: 'Not Informed' },
+            { size: 15, header: 'Address', value: 'address', hideOn: 'xs' },
+            { size: 10, header: 'Money', value: 'money', hideOn: '', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
+            { size: 30, header: 'Photo', value: 'photo', hideOn: 'sm xs' },
+            { size: 10, header: 'Date of Birth', value: 'birth_date', hideOn: 'lg md sm xs', filter: { type: 'date', format: 'dd/MM/yyyy HH:mm:ss' } }
           ],
           contextMenu: {
             enable: true,
             icon: 'fa fa-ellipsis-v',
             options: [
-              { icon: 'fa fa-plus', label: 'Adicionar', action: function(row) { alert('Adicionar:\n\n' + JSON.stringify(row, null, 2)); } },
-              { icon: 'fa fa-pencil', label: 'Editar', action: function(row) { alert('Editar:\n\n' + JSON.stringify(row, null, 2)); } },
-              { icon: 'fa fa-trash', label: 'Excluir', action: function(row) { alert('Excluir:\n\n' + JSON.stringify(row, null, 2)); } }
+              { icon: 'fa fa-plus', label: 'Adicionar', action: function(row) { alert('Adicionar: ' + JSON.stringify(row)); } },
+              { icon: 'fa fa-pencil', label: 'Editar', action: function(row) { alert('Editar: ' + JSON.stringify(row)); } },
+              { icon: 'fa fa-trash', label: 'Excluir', action: function(row) { alert('Excluir: ' + JSON.stringify(row)); } }
             ]
           },
           toggleColumns: {

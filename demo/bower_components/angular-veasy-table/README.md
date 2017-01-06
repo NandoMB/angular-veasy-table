@@ -7,10 +7,11 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 * [bootstrap](http://getbootstrap.com/) (^3.3.7)
 * [font-awesome](http://fontawesome.io/icons/) (^4.6.3)
 
-## Images and demonstration
-* [demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
+## Images
 ![v2.1.x](http://nandomb.github.io/angular-veasy-table/images/v2.1.0.png)
 ![v2.1.x (modal)](http://nandomb.github.io/angular-veasy-table/images/v2.1.0_modal.png)
+
+## [Demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
 
 ## Instalation
 ```sh
@@ -50,7 +51,10 @@ angular.module('yourModule', ['veasy.table'])
           filter: {
             type: 'number',
             fractionSize: 0
-          }
+          },
+
+          // It's used to define percentual size to the column.
+          size: 5
         },
         { header: 'First Name', value: 'first_name' },
         { header: 'Last Name', value: 'last_name', hideOn: 'xs' },
@@ -323,8 +327,8 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5
     // TODO: REMOVE
-    // size: 5,
     // show: true
   }
 ]
@@ -334,6 +338,7 @@ columns: [
   {
     header: 'Id',
     value: 'id',
+    size: 5,
     // Use something like this, if you want to use responsive columns and/or angular filters
     hideOn: 'lg md sm xs',
     filter: { type: 'number', fractionSize: 0 }
