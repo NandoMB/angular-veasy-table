@@ -204,19 +204,25 @@ $scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
 });
 ```
+
 ##### Selected Items
+
 ```js
 $scope.$on('veasyTable:selectedItems', function(event, data) {
   console.log('Some items were selected', data);
 });
 ```
+
 ##### Column filter
+
 ```js
 $scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
+
 ##### Pagination
+
 ```js
 $scope.$on('veasyTable:onStartPagination', function(event) {
   console.log('Pagination event was started');
@@ -226,7 +232,9 @@ $scope.$on('veasyTable:onEndPagination', function(event) {
   console.log('Pagination event was done');
 });
 ```
+
 ##### Search
+
 ```js
 $scope.$on('veasyTable:onStartSearch', function(event) {
   console.log('Search event was started');
@@ -236,7 +244,9 @@ $scope.$on('veasyTable:onEndSearch', function(event) {
   console.log('Search event was done');
 });
 ```
+
 ##### Sort
+
 ```js
 $scope.$on('veasyTable:onStartSort', function(event) {
   console.log('Sort event was started');
@@ -248,9 +258,11 @@ $scope.$on('veasyTable:onEndSort', function(event) {
 ```
 
 ### Enable angular [$filter](https://docs.angularjs.org/api/ng/filter) at columns?
+
 All of these configurations, you need put inside your target column, in your $scope.config object.
 
 ###### [Currency](https://docs.angularjs.org/api/ng/filter/currency)
+
 ```js
 filter: {
   name: 'currency',
@@ -258,7 +270,9 @@ filter: {
   fractionSize: 0
 }
 ```
+
 ###### [Date](https://docs.angularjs.org/api/ng/filter/date)
+
 ```js
 filter: {
   name: 'date',
@@ -266,21 +280,27 @@ filter: {
   timezone: ''
 }
 ```
+
 ###### [Json](https://docs.angularjs.org/api/ng/filter/json)
+
 ```js
 filter: {
   name: 'json',
   spacing: 2
 }
 ```
+
 ###### [Number](https://docs.angularjs.org/api/ng/filter/number)
+
 ```js
 filter: {
   name: 'number',
   fractionSize: 2
 }
 ```
+
 ###### [LimitTo](https://docs.angularjs.org/api/ng/filter/limitTo)
+
 ```js
 filter: {
   name: 'limitTo',
@@ -288,19 +308,25 @@ filter: {
   begin: 0
 }
 ```
+
 ###### [Lowercase](https://docs.angularjs.org/api/ng/filter/lowercase)
+
 ```js
 filter: {
   name: 'lowercase'
 }
 ```
+
 ###### [Uppercase](https://docs.angularjs.org/api/ng/filter/uppercase)
+
 ```js
 filter: {
   name: 'uppercase'
 }
 ```
+
 ###### Url
+
 ```js
 filter: {
   name: 'url',
@@ -316,6 +342,7 @@ filter: {
 
 ### In your HTML:
 Just remove the 'selected-items' property
+
 ```html
 <!-- from -->
 <veasy-table config="config" list="resultList" selected-items="selectedItems"></veasy-table>
@@ -327,6 +354,7 @@ Just remove the 'selected-items' property
 ### In your Angular app:
 
 ##### On your app dependencies, just replace 'veasyTable' to 'veasy.table'.
+
 ```js
 // FROM
 angular.module('yourModule', [ 'veasyTable' ]);
@@ -336,6 +364,7 @@ angular.module('yourModule', [ 'veasy.table' ]);
 ```
 
 ##### On columns config, just remove 'size' and 'show' properties.
+
 ```js
 // FROM
 columns: [
@@ -361,6 +390,7 @@ columns: [
 ```
 
 ##### On checkbox config, just remove 'size' property.
+
 ```js
 // FROM
 checkbox: {
@@ -378,6 +408,7 @@ checkbox: {
 ##### On columnFilter config, just:
 ##### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
 ##### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
+
 ```js
 // FROM
 columnFilter: {
@@ -401,6 +432,7 @@ columnFilter: {
 ```
 
 ##### On resizable config, just remove.
+
 ```js
 // TODO: REMOVE
 // resizable: {
@@ -414,6 +446,7 @@ columnFilter: {
 ##### 2 - Add 'all' property inside 'filter' object.
 ##### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
 ##### 4 - Rename 'columnFilter' property to 'modal'.
+
 ```js
 // FROM
 translate: {
@@ -453,8 +486,8 @@ labels: {
 }
 ```
 
-
 ##### On events config, just remove, because now, all events use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on).
+
 ```js
 // FROM
 // TODO: REMOVE
