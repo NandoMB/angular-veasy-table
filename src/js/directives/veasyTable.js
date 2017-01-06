@@ -18,12 +18,7 @@ angular.module('veasy.table')
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.condition = 'AND';
           scope.searching = false;
-
-          scope.master = {
-            checkbox: false,
-            expanded: false
-          };
-
+          scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
           scope.expanded = [];
           scope.resultList = [];
@@ -45,10 +40,6 @@ angular.module('veasy.table')
               scope.openColumnFilterModal(config.columns);
             }, 0);
           }
-        };
-
-        var addContextMenu = function(config) {
-          config.columns.push({ header: '', contextMenu: true, size: '37px' });
         };
 
         /**
@@ -115,10 +106,17 @@ angular.module('veasy.table')
           scope.toggleRowColspan = vtColumnService.defineToggleRowColspan(scope.config.columns);
           vtColumnService.closeAllOpenedRows(scope.resultList);
         };
+
+        /** --------------------------------------------------------------------
+         *                              Context Menu
+         * ------------------------------------------------------------------ */
+        var addContextMenu = function(config) {
+          config.columns.push({ header: '', contextMenu: true, size: '37px' });
+        };
+
         /** --------------------------------------------------------------------
          *                         Column Filter (Modal)
          * ------------------------------------------------------------------ */
-
         scope.openColumnFilterModal = function(columns) {
           scope.modalColumns = vtModalService.getColumns(columns);
           scope.modalCheckboxMaster = vtModalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
@@ -200,7 +198,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Sort
          * ------------------------------------------------------------------ */
-
         scope.sort = function(predicate) {
           scope.$emit('veasyTable:onStartSort');
 
@@ -234,7 +231,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Search
          * ------------------------------------------------------------------ */
-
         scope.selectFilterColumn = function(terms, condition, col) {
           scope.selectedColumn = col;
           if (terms)
@@ -267,7 +263,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Data Filters
          * ------------------------------------------------------------------ */
-
         scope.isUrl = function(column) {
           return column.filter.type === 'url';
         };
@@ -287,7 +282,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Pagination
          * ------------------------------------------------------------------ */
-
         scope.changeItemsPerPage = function(itemsPerPage) {
           paginate(scope.filteredList, itemsPerPage, 0);
         };
@@ -335,7 +329,6 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Responsivity
          * ------------------------------------------------------------------ */
-
         var initHiddenRowsContent = function() {
           if (!scope.hiddenContent) scope.hiddenContent = [];
           if (!scope.hiddenContent[scope.currentPage || 0]) scope.hiddenContent[scope.currentPage || 0] = [];
@@ -413,40 +406,6 @@ angular.module('veasy.table')
           }
         };
 
-        scope.getColumnStyle = function(column) {
-          return calculateMaxWidthDefaultColumn(scope.config.id, scope.config.columns, column.size);
-        };
-
-        var calculateMaxWidthDefaultColumn = function(id, columns, columnSize) {
-          var veasyTableMaxWidth = vtScreenService.veasyTable(id).width;
-
-          if (!veasyTableMaxWidth)
-            return 1;
-
-          var existsToggleColumn = columns.some(function(column) {
-            return column.toggle;
-          });
-
-          var existsContextMenuColumn = columns.some(function(column) {
-            return column.contextMenu;
-          });
-
-          var filteredDefaultColumns = columns.filter(function(column) {
-            return !column.toggle && !column.isHidden && !column.contextMenu;
-          }) || [];
-
-          if (existsToggleColumn) veasyTableMaxWidth -= 37;
-          if (existsContextMenuColumn) veasyTableMaxWidth -= 30;
-          // veasyTableMaxWidth -= 28;
-
-          var isPixel = columnSize.toString().indexOf('px') !== -1 ? true : false;
-          var isPercentual = columnSize.toString().indexOf('%') !== -1 ? true : false;
-
-          if (isPixel) return columnSize.split('px')[0];
-          if (isPercentual) return (columnSize.split('%')[0] * veasyTableMaxWidth)/100;
-          if (!isPixel && !isPercentual)  return (columnSize * veasyTableMaxWidth)/100; // Tratar como percentual
-        };
-
         scope.responsiveHiddenContentStyle = function() {
           var screenSize = vtScreenService.screenSize();
           if (screenSize === 'lg') return { 'max-width': '1060px' };
@@ -466,11 +425,42 @@ angular.module('veasy.table')
           return true;
         };
 
+        scope.getColumnStyle = function(column) {
+          return calculateMaxWidthDefaultColumn(scope.config, scope.config.columns, column.size);
+        };
+
+        var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
+          var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
+          var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
+          
+          if (unit.isPixel(columnSize))
+            return columnSize.split('px')[0];
+          
+          if (unit.isPercentage(columnSize))
+            return percentageToPixel(columnSize.split('%')[0], veasyTableWidth);
+          
+          if (!unit.isPixel(columnSize) && !unit.isPercentage(columnSize)) {
+            var columnWidth = percentageDistribution(percentualTotal, columnSize);
+            return percentageToPixel(columnWidth, veasyTableWidth);
+          }
+        };
+
+        var percentageDistribution = function(total, columnSize) {
+          return (((100 - total) / total) * columnSize) + columnSize;
+        };
+
+        var percentageToPixel = function(percentage, total) {
+          return (percentage * total) / 100;
+        };
+
+        var unit = {
+          isPixel: function(columnSize) { return columnSize.toString().indexOf('px') !== -1 ? true : false; },
+          isPercentage: function(columnSize) { return columnSize.toString().indexOf('%') !== -1 ? true : false; }
+        };
 
         /** --------------------------------------------------------------------
          *                          Initialize
          * ------------------------------------------------------------------ */
-
         init();
       }
     }

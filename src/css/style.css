@@ -128,5 +128,5 @@ button {
 }
 
 .vt-special-column {
-  width: 37px;
+  width: 37px !important;
 }

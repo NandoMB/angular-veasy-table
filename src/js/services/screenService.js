@@ -47,10 +47,19 @@ angular.module('veasy.table')
       return false;
     };
 
+    var getVeasyTableFreeSpace = function(config, columns) {
+      var veasyTableWidth = getVeasyTable(config.id).width;
+      if (columns.some(function(column) { return column.toggle; })) veasyTableWidth -= 37;
+      if (columns.some(function(column) { return column.contextMenu; })) veasyTableWidth -= 37;
+      if (config.checkbox && config.checkbox.enable) veasyTableWidth -= 28;
+      return veasyTableWidth;
+    };
+
     return {
       screenSize: getScreenSize,
       veasyTable: getVeasyTable,
       isBrokenLayout: isBrokenLayout,
-      isNeedToHide: isNeedToHide
+      isNeedToHide: isNeedToHide,
+      getVeasyTableFreeSpace: getVeasyTableFreeSpace
     };
   }]);
