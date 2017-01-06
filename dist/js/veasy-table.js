@@ -732,12 +732,12 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            User Events
          * ------------------------------------------------------------------ */
-        scope.onClickRow = function(row) {
-          if (!scope.config.clickRow.enable) return;
+        scope.onClickRow = function(event, row) {
+          if (event.target.className.indexOf('vt-dropdown') !== -1 || !scope.config.clickRow.enable)
+            return;
 
           var copyRow = angular.copy(row);
           delete copyRow.$$hashKey;
-
           scope.$emit('veasyTable:onClickRow', copyRow);
         };
 
