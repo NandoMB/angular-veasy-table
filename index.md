@@ -14,11 +14,13 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 ## [Demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
 
 ## Instalation
+
 ```sh
 $ bower install angular-veasy-table --save
 ```
 
 ##### In your angular app
+
 ```js
 angular.module('yourModule', ['veasy.table'])
 
@@ -65,6 +67,7 @@ angular.module('yourModule', ['veasy.table'])
 ```
 
 ##### In your HTML
+
 ```html
 <head>
   <link rel="stylesheet" href="bower_components/angular-veasy-table/dist/css/veasy-table.min.css" media="screen" charset="utf-8"/>
@@ -406,7 +409,9 @@ checkbox: {
 ```
 
 ##### On columnFilter config, just:
+
 ##### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
+
 ##### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
 
 ```js
@@ -442,9 +447,13 @@ columnFilter: {
 ```
 
 ##### On translation config, just:
+
 ##### 1 - Rename 'translate' property to 'labels'.
+
 ##### 2 - Add 'all' property inside 'filter' object.
+
 ##### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
+
 ##### 4 - Rename 'columnFilter' property to 'modal'.
 
 ```js
