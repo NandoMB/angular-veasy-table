@@ -596,13 +596,13 @@ angular.module('veasy.table')
           scope.vetModalId = vtModalService.getModalId(scope.config.id);
           scope.filterColumnsList = vtSearchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
           scope.selectedColumn = scope.filterColumnsList[0];
-          scope.condition = 'AND';
+          scope.updatingTableColumns = true;
           scope.searching = false;
+          scope.condition = 'AND';
           scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
           scope.expanded = [];
           scope.resultList = [];
-          scope.updatingTableColumns = true;
 
           registerEvents();
           enableFeatures(scope.config);
@@ -692,7 +692,7 @@ angular.module('veasy.table')
          *                              Context Menu
          * ------------------------------------------------------------------ */
         var addContextMenu = function(config) {
-          config.columns.push({ header: '', contextMenu: true, size: '37px' });
+          config.columns.push({ header: '', value: 'contextMenu', contextMenu: true, size: '37px' });
         };
 
         /** --------------------------------------------------------------------

@@ -112,7 +112,7 @@ angular.module('veasy.table')
          *                              Context Menu
          * ------------------------------------------------------------------ */
         var addContextMenu = function(config) {
-          config.columns.push({ header: '', contextMenu: true, size: '37px' });
+          config.columns.push({ header: '', value: 'contextMenu', contextMenu: true, size: '37px' });
         };
 
         /** --------------------------------------------------------------------
