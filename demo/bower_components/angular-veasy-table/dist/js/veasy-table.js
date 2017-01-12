@@ -596,8 +596,9 @@ angular.module('veasy.table')
           scope.vetModalId = vtModalService.getModalId(scope.config.id);
           scope.filterColumnsList = vtSearchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
           scope.selectedColumn = scope.filterColumnsList[0];
-          scope.condition = 'AND';
+          scope.updatingTableColumns = true;
           scope.searching = false;
+          scope.condition = 'AND';
           scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
           scope.expanded = [];
@@ -691,7 +692,7 @@ angular.module('veasy.table')
          *                              Context Menu
          * ------------------------------------------------------------------ */
         var addContextMenu = function(config) {
-          config.columns.push({ header: '', contextMenu: true, size: '37px' });
+          config.columns.push({ header: '', value: 'contextMenu', contextMenu: true, size: '37px' });
         };
 
         /** --------------------------------------------------------------------
@@ -1012,13 +1013,13 @@ angular.module('veasy.table')
         var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
           var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
           var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
-          
+
           if (unit.isPixel(columnSize))
             return columnSize.split('px')[0];
-          
+
           if (unit.isPercentage(columnSize))
             return percentageToPixel(columnSize.split('%')[0], veasyTableWidth);
-          
+
           if (!unit.isPixel(columnSize) && !unit.isPercentage(columnSize)) {
             var columnWidth = percentageDistribution(percentualTotal, columnSize);
             return percentageToPixel(columnWidth, veasyTableWidth);

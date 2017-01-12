@@ -1,6 +1,6 @@
 {
   "name": "angular-veasy-table",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "authors": [
     "Fernando Machado Bernardino <fernandombernardino@gmail.com> (https://github.com/NandoMB)"
   ],
@@ -30,13 +30,13 @@
     "angular-sanitize": "^1.5.8",
     "font-awesome": "^4.6.3"
   },
-  "_release": "2.1.3",
+  "_release": "2.1.4",
   "_resolution": {
     "type": "version",
-    "tag": "2.1.3",
-    "commit": "9ffa3b0f7aecb520b3aa2d3b23aa9b2ba9bccdd1"
+    "tag": "2.1.4",
+    "commit": "dcdce886a6d1417d807ab57d26123cb3363be317"
   },
   "_source": "https://github.com/NandoMB/angular-veasy-table.git",
-  "_target": "^2.1.3",
+  "_target": "^2.1.4",
   "_originalSource": "angular-veasy-table"
 }

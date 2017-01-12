@@ -14,11 +14,13 @@ AngularJS directive to create quickly data tables without giving up the beauty a
 ## [Demonstration](http://nandomb.github.io/angular-veasy-table/demo/demo_all_features/)
 
 ## Instalation
+
 ```sh
 $ bower install angular-veasy-table --save
 ```
 
 ##### In your angular app
+
 ```js
 angular.module('yourModule', ['veasy.table'])
 
@@ -68,6 +70,7 @@ angular.module('yourModule', ['veasy.table'])
 ```
 
 ##### In your HTML
+
 ```html
 <head>
   <link rel="stylesheet" href="bower_components/angular-veasy-table/dist/css/veasy-table.min.css" media="screen" charset="utf-8"/>
@@ -86,6 +89,7 @@ angular.module('yourModule', ['veasy.table'])
 All of these configurations, you need put inside your config object, like '$scope.config'.
 
 ##### Enable toggle columns
+
 ```js
 toggleColumns: {
   enable: true,         // Enable this feature. (Default is false).
@@ -96,7 +100,9 @@ toggleColumns: {
   }
 }
 ```
+
 ##### Enable context menu
+
 ```js
 contextMenu: {
   enable: true,                 // Enable this feature. (Default is false).
@@ -113,7 +119,9 @@ contextMenu: {
   ]
 }
 ```
+
 ##### Enable pagination
+
 ```js
 pagination: {
   enable: true,         // Enable this feature. (Default is false).
@@ -121,7 +129,9 @@ pagination: {
   itemsPerPage: 10,     // How many items per page you want to see. Minimum is 1 and maximum is 50. (Default is 10)
 }
 ```
+
 ##### Enable data filter
+
 ```js
 filter: {
   enable: true,         // Enable this feature. (Default is false).
@@ -129,7 +139,9 @@ filter: {
   delay: 300            // Delay in milliseconds. (Default is 300ms)
 }
 ```
+
 ##### Enable column filter (show and hide columns)
+
 ```js
 columnFilter: {
   enable: true,         // Enable this feature. (Default is false).
@@ -141,25 +153,33 @@ columnFilter: {
   }
 }
 ```
+
 ##### Enable click row
+
 ```js
 clickRow: {
   enable: true         // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable checkboxes
+
 ```js
 checkbox: {
   enable: true,        // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable column sort
+
 ```js
 sort: {
   enable: true         // Enable this feature. (Default is false).
 }
 ```
+
 ##### Enable translate
+
 ```js
 labels: {
   filter: {
@@ -184,24 +204,31 @@ labels: {
 All of veasy-table events are use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on)
 
 ##### Click
+
 ```js
 $scope.$on('veasyTable:onClickRow', function(event, data) {
   console.log('Some row was clicked', data);
 });
 ```
+
 ##### Selected Items
+
 ```js
 $scope.$on('veasyTable:selectedItems', function(event, data) {
   console.log('Some items were selected', data);
 });
 ```
+
 ##### Column filter
+
 ```js
 $scope.$on('veasyTable:onApplyColumnFilter', function(event, data) {
   console.log('Some columns was applied', data);
 });
 ```
+
 ##### Pagination
+
 ```js
 $scope.$on('veasyTable:onStartPagination', function(event) {
   console.log('Pagination event was started');
@@ -211,7 +238,9 @@ $scope.$on('veasyTable:onEndPagination', function(event) {
   console.log('Pagination event was done');
 });
 ```
+
 ##### Search
+
 ```js
 $scope.$on('veasyTable:onStartSearch', function(event) {
   console.log('Search event was started');
@@ -221,7 +250,9 @@ $scope.$on('veasyTable:onEndSearch', function(event) {
   console.log('Search event was done');
 });
 ```
+
 ##### Sort
+
 ```js
 $scope.$on('veasyTable:onStartSort', function(event) {
   console.log('Sort event was started');
@@ -236,6 +267,7 @@ $scope.$on('veasyTable:onEndSort', function(event) {
 All of these configurations, you need put inside your target column, in your $scope.config object.
 
 ###### [Currency](https://docs.angularjs.org/api/ng/filter/currency)
+
 ```js
 filter: {
   name: 'currency',
@@ -243,7 +275,9 @@ filter: {
   fractionSize: 0
 }
 ```
+
 ###### [Date](https://docs.angularjs.org/api/ng/filter/date)
+
 ```js
 filter: {
   name: 'date',
@@ -251,21 +285,27 @@ filter: {
   timezone: ''
 }
 ```
+
 ###### [Json](https://docs.angularjs.org/api/ng/filter/json)
+
 ```js
 filter: {
   name: 'json',
   spacing: 2
 }
 ```
+
 ###### [Number](https://docs.angularjs.org/api/ng/filter/number)
+
 ```js
 filter: {
   name: 'number',
   fractionSize: 2
 }
 ```
+
 ###### [LimitTo](https://docs.angularjs.org/api/ng/filter/limitTo)
+
 ```js
 filter: {
   name: 'limitTo',
@@ -273,19 +313,25 @@ filter: {
   begin: 0
 }
 ```
+
 ###### [Lowercase](https://docs.angularjs.org/api/ng/filter/lowercase)
+
 ```js
 filter: {
   name: 'lowercase'
 }
 ```
+
 ###### [Uppercase](https://docs.angularjs.org/api/ng/filter/uppercase)
+
 ```js
 filter: {
   name: 'uppercase'
 }
 ```
+
 ###### Url
+
 ```js
 filter: {
   name: 'url',
@@ -301,6 +347,7 @@ filter: {
 
 ### In your HTML:
 Just remove the 'selected-items' property
+
 ```html
 <!-- from -->
 <veasy-table config="config" list="resultList" selected-items="selectedItems"></veasy-table>
@@ -312,6 +359,7 @@ Just remove the 'selected-items' property
 ### In your Angular app:
 
 ##### On your app dependencies, just replace 'veasyTable' to 'veasy.table'.
+
 ```js
 // FROM
 angular.module('yourModule', [ 'veasyTable' ]);
@@ -321,6 +369,7 @@ angular.module('yourModule', [ 'veasy.table' ]);
 ```
 
 ##### On columns config, just remove 'size' and 'show' properties.
+
 ```js
 // FROM
 columns: [
@@ -347,6 +396,7 @@ columns: [
 ```
 
 ##### On checkbox config, just remove 'size' property.
+
 ```js
 // FROM
 checkbox: {
@@ -362,8 +412,11 @@ checkbox: {
 ```
 
 ##### On columnFilter config, just:
-##### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
-##### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
+
+###### 1 - Move 'autoOpen' property to inside of new property named 'modalOptions'.
+
+###### 2 - Move 'modalSize' property to inside of new property named 'modalOptions' and rename to 'size'.
+
 ```js
 // FROM
 columnFilter: {
@@ -387,6 +440,7 @@ columnFilter: {
 ```
 
 ##### On resizable config, just remove.
+
 ```js
 // TODO: REMOVE
 // resizable: {
@@ -396,10 +450,15 @@ columnFilter: {
 ```
 
 ##### On translation config, just:
-##### 1 - Rename 'translate' property to 'labels'.
-##### 2 - Add 'all' property inside 'filter' object.
-##### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
-##### 4 - Rename 'columnFilter' property to 'modal'.
+
+###### 1 - Rename 'translate' property to 'labels'.
+
+###### 2 - Add 'all' property inside 'filter' object.
+
+###### 3 - Rename 'itemsByPage' property, inside 'pagination' object, to 'itemsPerPage'.
+
+###### 4 - Rename 'columnFilter' property to 'modal'.
+
 ```js
 // FROM
 translate: {
@@ -441,6 +500,7 @@ labels: {
 
 
 ##### On events config, just remove, because now, all events use [$emit](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit), and to listen these events you need to use [$on](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on).
+
 ```js
 // FROM
 // TODO: REMOVE
