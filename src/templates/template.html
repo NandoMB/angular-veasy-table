@@ -201,7 +201,7 @@
               </div>
             </div>
           </div>
-          <div ng-repeat="(columnIndex, column) in modalColumns" ng-if="column.value !== 'toggle'" class="vt-modal-column">
+          <div ng-repeat="(columnIndex, column) in modalColumns" ng-if="column.value !== 'toggle' && column.value !== 'contextMenu'" class="vt-modal-column">
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div style="cursor: move;">

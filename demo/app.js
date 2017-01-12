@@ -89,7 +89,6 @@ angular.module('myModule', ['veasy.table'])
             enable: true,
             icon: 'fa fa-ellipsis-v',
             options: [
-              { icon: 'fa fa-plus', label: 'Adicionar', action: function(row) { alert('Adicionar: ' + JSON.stringify(row)); } },
               { icon: 'fa fa-pencil', label: 'Editar', action: function(row) { alert('Editar: ' + JSON.stringify(row)); } },
               { icon: 'fa fa-trash', label: 'Excluir', action: function(row) { alert('Excluir: ' + JSON.stringify(row)); } }
             ]
