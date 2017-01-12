@@ -602,6 +602,7 @@ angular.module('veasy.table')
           scope.checkboxes = [];
           scope.expanded = [];
           scope.resultList = [];
+          scope.updatingTableColumns = true;
 
           registerEvents();
           enableFeatures(scope.config);
@@ -1012,13 +1013,13 @@ angular.module('veasy.table')
         var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
           var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
           var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
-          
+
           if (unit.isPixel(columnSize))
             return columnSize.split('px')[0];
-          
+
           if (unit.isPercentage(columnSize))
             return percentageToPixel(columnSize.split('%')[0], veasyTableWidth);
-          
+
           if (!unit.isPixel(columnSize) && !unit.isPercentage(columnSize)) {
             var columnWidth = percentageDistribution(percentualTotal, columnSize);
             return percentageToPixel(columnWidth, veasyTableWidth);
