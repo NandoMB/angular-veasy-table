@@ -2,7 +2,7 @@
   {
     "id":1,
     "first_name":"Thomas",
-    "gender":"Male",
+    "gender":null,
     "company":"Google",
     "address":"2 Lakewood Road",
     "money":"206.00",
