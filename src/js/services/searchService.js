@@ -18,25 +18,41 @@ angular.module('veasy.table')
       return array;
     };
 
-    var search = function (terms, condition, column, list) {
+    var search = function (terms, condition, column, list, isCaseSensitive, isDropdownFilter) {
       var splittedTerms = terms.split(' ');
 
       return $filter('filter')(list, function (row) {
         if (condition === 'AND')
-          return searchWithANDCondition(splittedTerms, transformValue(column, row));
+          return searchWithANDCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
         if (condition === 'OR')
-          return searchWithORCondition(splittedTerms, transformValue(column, row));
+          return searchWithORCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
       });
     };
 
-    var searchWithANDCondition = function (terms, value) {
+    var searchWithANDCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
+      if (isDropdownFilter) {
+        return terms.every(function (term) {
+          if (isCaseSensitive) return value.toString() === term.toString();
+          return value.toString().toLowerCase() === term.toString().toLowerCase();
+        });
+      }
+
       return terms.every(function (term) {
+        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
         return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
 
-    var searchWithORCondition = function (terms, value) {
+    var searchWithORCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
+      if (isDropdownFilter) {
+        return terms.some(function (term) {
+          if (isCaseSensitive) return value.toString() === term.toString();
+          return value.toString().toLowerCase() === term.toString().toLowerCase();
+        });
+      }
+
       return terms.some(function (term) {
+        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
         return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
