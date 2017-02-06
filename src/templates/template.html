@@ -65,7 +65,7 @@
                     <div class="vt-dd-arrow-top"></div>
                     <li ng-repeat="filter in dropdownFilters[column.value]">
                       <div ng-click="addDropdownFilter($event, dropdownFilters, column.value);" class="checkbox" style="margin: 0px 10px 0px 10px;">
-                        <label style="width: 100%;"><input type="checkbox" ng-model="filter.checked"> {{filter.label}}</label>
+                        <label style="width: 100%;"><input type="checkbox" ng-model="filter.checked"> {{filter.label || filter.defaultValue}}</label>
                       </div>
                     </li>
                   </ul>

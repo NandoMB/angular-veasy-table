@@ -836,18 +836,14 @@ angular.module('veasy.table')
         };
 
         scope.addDropdownFilter = function(event, filters) {
+          if (event)
+            event.stopPropagation();
+
           scope.terms = '';
 
-          if (event) {
-            // event.preventDefault();
-            event.stopPropagation();
-          };
-
+          var cols = '';
           var filtersConfig = [];
           var columns = scope.config.columns.map(function(elem) { return elem.value });
-
-
-          var cols = '';
 
           columns.forEach(function(columnName) {
             if (filters[columnName]) {
@@ -868,8 +864,12 @@ angular.module('veasy.table')
             }
           });
 
-          if (filtersConfig.length)
+
+          // TODO: Remover a condicional!
+          // if (filtersConfig.length)
             scope.searchByDropdownFilter(filtersConfig);
+          // else
+            // scope.searchByDropdownFilter([]);
         };
 
         var catalogDropdownFilter = function(columns, list) {
