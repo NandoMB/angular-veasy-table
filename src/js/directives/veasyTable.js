@@ -18,6 +18,7 @@ angular.module('veasy.table')
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.updatingTableColumns = true;
           scope.searching = false;
+          scope.terms = '';
           scope.condition = 'AND';
           scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
@@ -48,13 +49,16 @@ angular.module('veasy.table')
          */
         var registerEvents = function() {
 
-          scope.$watch('list', function(result) {
+          scope.$watchCollection('list', function(result) {
             if (!result) return;
-
+            scope.updatingTableColumns = true;
             scope.resultList = angular.copy(result);
             scope.filteredList = angular.copy(result);
-            paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
-            catalogDropdownFilter(scope.config.columns, result);
+
+            if (!scope.dropdownFilters)
+              catalogDropdownFilter(scope.config.columns, result);
+
+            scope.addDropdownFilter(null, scope.dropdownFilters || []);
             dispatchVtEvent('resize');
           });
 
@@ -243,8 +247,6 @@ angular.module('veasy.table')
           if (event)
             event.stopPropagation();
 
-          scope.terms = '';
-
           var cols = '';
           var filtersConfig = [];
           var columns = scope.config.columns.map(function(elem) { return elem.value });
@@ -268,7 +270,7 @@ angular.module('veasy.table')
             }
           });
 
-            scope.searchByDropdownFilter(filtersConfig);
+          scope.searchByDropdownFilter(filtersConfig);
         };
 
         var catalogDropdownFilter = function(columns, list) {
@@ -338,7 +340,7 @@ angular.module('veasy.table')
           scope.dropDownFilterList = angular.copy(list);
 
           scope.queryBusy = $timeout(function() {
-            paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
+            scope.search(scope.terms, scope.condition, scope.selectedColumn, false);
             scope.searching = false;
             scope.$emit('veasyTable:onEndSearch');
           }, scope.config.filter.delay);
@@ -367,8 +369,10 @@ angular.module('veasy.table')
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
 
+          scope.terms = terms || '';
+
           scope.queryBusy = $timeout(function() {
-            scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.dropDownFilterList, isCaseSensitive, false);
+            scope.filteredList = vtSearchService.search(scope.terms, condition, column, scope.dropDownFilterList || scope.resultList, isCaseSensitive, false);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
             scope.$emit('veasyTable:onEndSearch');
