@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
       <div class="form-group">
-        <div class="input-group" ng-if="config.filter.enable">
+        <div class="input-group" ng-show="config.filter.enable">
           <input type="text" class="form-control input-sm" name="terms" ng-model="terms" ng-change="search(terms, condition, selectedColumn)" placeholder="{{config.labels.filter.by}}">
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{selectedColumn.header}} <span class="caret"></span></button>
@@ -65,7 +65,7 @@
                     <div class="vt-dd-arrow-top"></div>
                     <li ng-repeat="filter in dropdownFilters[column.value]">
                       <div ng-click="addDropdownFilter($event, dropdownFilters, column.value);" class="checkbox" style="margin: 0px 10px 0px 10px;">
-                        <label style="width: 100%;"><input type="checkbox" ng-model="filter.checked"> {{filter.label || filter.defaultValue}}</label>
+                        <label style="width: 100%;"><input type="checkbox" ng-model="filter.checked" checked="{{filter.checked}}">{{filter.label || filter.defaultValue}}</label>
                       </div>
                     </li>
                   </ul>
