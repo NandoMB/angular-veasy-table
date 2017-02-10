@@ -521,25 +521,41 @@ angular.module('veasy.table')
       return array;
     };
 
-    var search = function (terms, condition, column, list) {
+    var search = function (terms, condition, column, list, isCaseSensitive, isDropdownFilter) {
       var splittedTerms = terms.split(' ');
 
       return $filter('filter')(list, function (row) {
         if (condition === 'AND')
-          return searchWithANDCondition(splittedTerms, transformValue(column, row));
+          return searchWithANDCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
         if (condition === 'OR')
-          return searchWithORCondition(splittedTerms, transformValue(column, row));
+          return searchWithORCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
       });
     };
 
-    var searchWithANDCondition = function (terms, value) {
+    var searchWithANDCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
+      if (isDropdownFilter) {
+        return terms.every(function (term) {
+          if (isCaseSensitive) return value.toString() === term.toString();
+          return value.toString().toLowerCase() === term.toString().toLowerCase();
+        });
+      }
+
       return terms.every(function (term) {
+        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
         return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
 
-    var searchWithORCondition = function (terms, value) {
+    var searchWithORCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
+      if (isDropdownFilter) {
+        return terms.some(function (term) {
+          if (isCaseSensitive) return value.toString() === term.toString();
+          return value.toString().toLowerCase() === term.toString().toLowerCase();
+        });
+      }
+
       return terms.some(function (term) {
+        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
         return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       });
     };
@@ -598,6 +614,7 @@ angular.module('veasy.table')
           scope.selectedColumn = scope.filterColumnsList[0];
           scope.updatingTableColumns = true;
           scope.searching = false;
+          scope.terms = '';
           scope.condition = 'AND';
           scope.master = { checkbox: false, expanded: false };
           scope.checkboxes = [];
@@ -628,12 +645,16 @@ angular.module('veasy.table')
          */
         var registerEvents = function() {
 
-          scope.$watch('list', function(result) {
+          scope.$watchCollection('list', function(result) {
             if (!result) return;
-
+            scope.updatingTableColumns = true;
             scope.resultList = angular.copy(result);
             scope.filteredList = angular.copy(result);
-            paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
+
+            if (!scope.dropdownFilters)
+              catalogDropdownFilter(scope.config.columns, result);
+
+            scope.addDropdownFilter(null, scope.dropdownFilters || []);
             dispatchVtEvent('resize');
           });
 
@@ -810,31 +831,144 @@ angular.module('veasy.table')
         };
 
         /** --------------------------------------------------------------------
-         *                            Search
+         *                          Dropdown Filter
+         * ------------------------------------------------------------------ */
+        scope.openDropdownFilter = function(id) {
+          $timeout(function() {
+            $('#dd-' + id).dropdown('toggle');
+          }, 0);
+        };
+
+        scope.addDropdownFilter = function(event, filters) {
+          if (event)
+            event.stopPropagation();
+
+          var cols = '';
+          var filtersConfig = [];
+          var columns = scope.config.columns.map(function(elem) { return elem.value });
+
+          columns.forEach(function(columnName) {
+            if (filters[columnName]) {
+              var terms = filters[columnName].filter(function(elem) {
+                if (!elem.checked) return false;
+                cols += elem.column + ' ';
+                return true;
+              }).map(function(elem) {
+                return elem.label;
+              }).join(' ');
+
+              if (cols.indexOf(columnName) !== -1) {
+                var column = scope.filterColumnsList.filter(function(elem) {
+                  return elem.value === columnName;
+                })[0];
+                filtersConfig.push({ terms: terms, condition: 'OR', column: column, isCaseSensitive: true });
+              }
+            }
+          });
+
+          scope.searchByDropdownFilter(filtersConfig);
+        };
+
+        var catalogDropdownFilter = function(columns, list) {
+          var filters = addHeadersToDropdownFilter(columns);
+          scope.dropdownFilters = addValuesToDropdownFilter(columns, filters, list);
+        };
+
+        var addHeadersToDropdownFilter = function(columns) {
+          return columns.filter(function(column) {
+            return column.dropdown;
+          }).map(function(column) {
+            return column.value;
+          }).reduce(function(previous, current) {
+            previous[current] = [];
+            return previous;
+          }, {});
+        };
+
+        var addValuesToDropdownFilter = function(columns, filters, list) {
+          var keys = Object.keys(filters);
+
+          list.forEach(function(row) {
+            keys.forEach(function(key) {
+              var defaultValue = getDefaultColumnValue(columns, key);
+              var tempArray = filters[key].map(function(element) { return element.label; });
+
+              if (tempArray.indexOf(row[key] || defaultValue) === -1) {
+                var aux = { label: row[key], column: key, checked: false };
+                if (defaultValue)
+                  aux.defaultValue = defaultValue;
+                  if (!existeNoArray(filters[key], aux))
+                    filters[key].push(aux);
+              }
+            });
+          });
+
+          return filters;
+        };
+
+        var existeNoArray = function(array, item) {
+          var exist = array.filter(function(elem) {
+            return elem.label === item.label;
+          });
+          return exist.length > 0;
+        };
+
+        var getDefaultColumnValue = function(columns, key) {
+          return columns.filter(function(column) {
+            return column.value === key;
+          })[0].default || '';
+        };
+
+        scope.searchByDropdownFilter = function(array) {
+          if (scope.queryBusy)
+            $timeout.cancel(scope.queryBusy);
+
+          var list = scope.resultList;
+
+          scope.searching = true;
+          scope.$emit('veasyTable:onStartSearch');
+
+          array.forEach(function(elem) {
+            list = vtSearchService.search(elem.terms, elem.condition, elem.column, list, elem.isCaseSensitive, true);
+          });
+
+          scope.filteredList = angular.copy(list);
+          scope.dropDownFilterList = angular.copy(list);
+
+          scope.queryBusy = $timeout(function() {
+            scope.search(scope.terms, scope.condition, scope.selectedColumn, false);
+            scope.searching = false;
+            scope.$emit('veasyTable:onEndSearch');
+          }, scope.config.filter.delay);
+        };
+
+        /** --------------------------------------------------------------------
+         *                           Input Text Filter
          * ------------------------------------------------------------------ */
         scope.selectFilterColumn = function(terms, condition, col) {
           scope.selectedColumn = col;
           if (terms)
-            scope.search(terms, condition, col);
+            scope.search(terms, condition, col, false);
         };
 
         scope.changeSearchCondition = function(terms, condition, selectedColumn) {
           scope.condition = condition;
           if (terms)
-            scope.search(terms, condition, selectedColumn);
+            scope.search(terms, condition, selectedColumn, false);
         }
 
-        scope.search = function(terms, condition, column) {
+        scope.search = function(terms, condition, column, isCaseSensitive) {
           if (!condition || !column) return;
-
           if (scope.queryBusy)
             $timeout.cancel(scope.queryBusy);
 
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
 
+          scope.terms = terms || '';
+
           scope.queryBusy = $timeout(function() {
-            scope.filteredList = vtSearchService.search(terms || '', condition, column, scope.resultList);
+            scope.filteredList = vtSearchService.search(scope.terms, condition, column, scope.dropDownFilterList || scope.resultList, isCaseSensitive, false);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
             scope.$emit('veasyTable:onEndSearch');

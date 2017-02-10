@@ -1,12 +1,12 @@
 {
   "name": "demo",
-  "version": "2.1.4",
+  "version": "2.1.6",
   "description": "https://github.com/NandoMB/angular-veasy-table",
   "authors": [
     "Fernando Machado Bernardino"
   ],
   "dependencies": {
-    "angular-veasy-table": "^2.1.4",
+    "angular-veasy-table": "^2.1.6",
     "bootstrap": "^3.3.7",
     "angular": "^1.5.8",
     "angular-sanitize": "^1.5.8",

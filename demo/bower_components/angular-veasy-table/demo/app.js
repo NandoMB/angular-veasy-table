@@ -78,8 +78,8 @@ angular.module('myModule', ['veasy.table'])
           columns: [
             { size: 5,  header: 'Id', value: 'id', filter: { type: 'number', fractionSize: 0 } },
             { size: 10, header: 'First Name', value: 'first_name' },
-            { size: 10, header: 'Gender', value: 'gender', hideOn: '', default: 'Not Informed' },
-            { size: 10, header: 'Company', value: 'company', hideOn: 'xs', default: 'Not Informed' },
+            { size: 10, header: 'Gender', value: 'gender', dropdown: true, hideOn: '', default: 'Not Informed' },
+            { size: 10, header: 'Company', value: 'company', dropdown: true, hideOn: 'xs', default: 'Not Informed' },
             { size: 15, header: 'Address', value: 'address', hideOn: 'xs' },
             { size: 10, header: 'Money', value: 'money', hideOn: '', filter: { type: 'currency', symbol: 'R$', fractionSize: 2 } },
             { size: 30, header: 'Photo', value: 'photo', hideOn: 'sm xs' },

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
       <div class="form-group">
-        <div class="input-group" ng-if="config.filter.enable">
+        <div class="input-group" ng-show="config.filter.enable">
           <input type="text" class="form-control input-sm" name="terms" ng-model="terms" ng-change="search(terms, condition, selectedColumn)" placeholder="{{config.labels.filter.by}}">
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{selectedColumn.header}} <span class="caret"></span></button>
@@ -53,10 +53,24 @@
               </div>
             </th>
             <th ng-repeat-start="column in config.columns" ng-if="!column.toggle" ng-hide="hideColumnOn(column, column.hideOn)" ng-style="{ 'width': getColumnStyle(column) + 'px', 'max-width': getColumnStyle(column) + 'px', 'min-width': '1px' }" ng-class="{ 'vt-special-column': column.contextMenu }">
-              <span class="vt-ellipsis" ng-if="!column.contextMenu">
-                <i ng-if="config.sort.enable" ng-click="sort(column.value)" class="vt-sortable-icon fa" ng-class="defineSortableIcon(direction, column.value)"></i>
-                {{column.header}}
-              </span>
+              <div ng-if="!column.contextMenu">
+                <span class="vt-ellipsis">
+                  <i ng-if="config.sort.enable" ng-click="sort(column.value)" class="vt-sortable-icon fa" ng-class="defineSortableIcon(direction, column.value)"></i>
+                  <span ng-if="!dropdownFilters[column.value]">{{column.header}}</span>
+                  <span class="vt-column-filter-data" ng-if="dropdownFilters[column.value]" ng-click="openDropdownFilter(column.value)">{{column.header}}</span>
+                </span>
+                <div class="dropdown" ng-if="dropdownFilters[column.value]">
+                  <button id="dd-{{column.value}}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="display: none;"></button>
+                  <ul class="dropdown-menu vt-column-dd">
+                    <div class="vt-dd-arrow-top"></div>
+                    <li ng-repeat="filter in dropdownFilters[column.value]">
+                      <div ng-click="addDropdownFilter($event, dropdownFilters, column.value);" class="checkbox" style="margin: 0px 10px 0px 10px;">
+                        <label style="width: 100%;"><input type="checkbox" ng-model="filter.checked" checked="{{filter.checked}}">{{filter.label || filter.defaultValue}}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <!--Context menu-->
               <span ng-if="column.contextMenu"></span>
             </th>
@@ -98,8 +112,7 @@
                   <i class="{{config.contextMenu.icon}} vt-dropdown"></i>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-right vt-dropdown">
-                  <div class="vt-arrow-right-back vt-dropdown"></div>
-                  <div class="vt-arrow-right-front vt-dropdown"></div>
+                  <div class="vt-dd-arrow-right vt-dropdown"></div>
                   <li ng-repeat="option in config.contextMenu.options" class="vt-dropdown">
                     <a ng-click="option.action(row)" class="vt-dropdown">
                       <i ng-if="option.icon" class="{{option.icon}} vt-dropdown" style="margin-right: 5px;"></i>

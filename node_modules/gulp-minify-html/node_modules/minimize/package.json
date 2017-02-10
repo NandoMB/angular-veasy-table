@@ -1,0 +1,72 @@
+{
+  "name": "minimize",
+  "version": "1.8.1",
+  "description": "Minimize HTML",
+  "main": "./lib/minimize",
+  "bin": {
+    "minimize": "./bin/minimize"
+  },
+  "scripts": {
+    "test": "mocha $(find test -name '*.test.js')",
+    "watch": "mocha --watch $(find test -name '*.test.js')",
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- $(find test -name '*.test.js')",
+    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- $(find test -name '*.test.js')"
+  },
+  "dependencies": {
+    "argh": "~0.1.4",
+    "async": "~1.5.2",
+    "cli-color": "~1.1.0",
+    "diagnostics": "~1.0.1",
+    "emits": "~3.0.0",
+    "htmlparser2": "~3.9.0",
+    "node-uuid": "~1.4.7"
+  },
+  "devDependencies": {
+    "chai": "~3.4.1",
+    "istanbul": "~0.4.2",
+    "mocha": "~2.3.4",
+    "pre-commit": "~1.1.2",
+    "sinon": "~1.17.2",
+    "sinon-chai": "~2.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Moveo/minimize.git"
+  },
+  "keywords": [
+    "minify",
+    "minimize",
+    "HTML"
+  ],
+  "author": {
+    "name": "Martijn Swaagman"
+  },
+  "license": "MIT",
+  "gitHead": "65970685b68d0e96474f331f57f2905dcc8fc8d2",
+  "bugs": {
+    "url": "https://github.com/Moveo/minimize/issues"
+  },
+  "homepage": "https://github.com/Moveo/minimize#readme",
+  "_id": "minimize@1.8.1",
+  "_shasum": "a3674ade93f28a75ffa23b8e0f365cdc23d69d8b",
+  "_from": "minimize@>=1.5.0 <2.0.0",
+  "_npmVersion": "2.14.12",
+  "_nodeVersion": "4.2.4",
+  "_npmUser": {
+    "name": "swaagie",
+    "email": "info@martijnswaagman.nl"
+  },
+  "maintainers": [
+    {
+      "name": "swaagie",
+      "email": "info@martijnswaagman.nl"
+    }
+  ],
+  "dist": {
+    "shasum": "a3674ade93f28a75ffa23b8e0f365cdc23d69d8b",
+    "tarball": "https://registry.npmjs.org/minimize/-/minimize-1.8.1.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/minimize/-/minimize-1.8.1.tgz",
+  "readme": "ERROR: No README data found!"
+}

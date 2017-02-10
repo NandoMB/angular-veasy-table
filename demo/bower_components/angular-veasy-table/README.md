@@ -40,6 +40,9 @@ angular.module('yourModule', ['veasy.table'])
           // from your result array.
           value: 'id',
 
+          // This property is used to add to this column a dropdown filter.
+          dropdown: true,
+
           // This property is used to define the default value to the column when necessary.
           // The default value will be applied when the column value is: undefined, null, false or '' (empty string).
           default: 'Not Informed',
