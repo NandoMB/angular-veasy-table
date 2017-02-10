@@ -154,7 +154,7 @@ angular.module('myModule', ['veasy.table'])
         $timeout(function() {
           $http.get('../../mocks/MOCK_DATA_NEW.json').then(function(res) {
             res.data.forEach(function(row) {
-              row.date = new Date(row.date);
+              row.birth_date = new Date(row.birth_date);
               row.money = parseFloat(row.money);
             });
 
