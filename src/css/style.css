@@ -167,9 +167,13 @@ button {
   cursor: context-menu;
 }
 
+.vt-dropdown-item {
+  cursor: pointer;
+}
+
 
 /* -----------------------
-           Arrows
+          Arrows
 --------------------------*/
 div.vt-dd-arrow-top,
 div.vt-dd-arrow-left,

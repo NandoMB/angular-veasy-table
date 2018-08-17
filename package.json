@@ -1,25 +1,46 @@
 {
   "name": "angular-veasy-table",
-  "version": "2.1.6",
+  "version": "3.0.0",
   "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
   "author": "Fernando Machado Bernardino <fernandombernardino@gmail.com> (https://github.com/NandoMB)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NandoMB/angular-veasy-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NandoMB/angular-veasy-table/issues"
+  },
+  "homepage": "https://github.com/NandoMB/angular-veasy-table#readme",
+  "keywords": [
+    "angular",
+    "grid",
+    "table"
+  ],
   "main": "./dist/js/veasy-table.js",
   "scripts": {
     "start": "node_modules/http-server/bin/http-server -c-1 -a 127.0.0.1 -p 4000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "angular": "1.7.3",
+    "angular-sanitize": "1.7.3",
+    "bootstrap": "4.1.3",
+    "font-awesome": "4.7.0",
+    "jquery": "3.3.1",
+    "popper.js": "^1.14.4"
+  },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-minify-html": "^1.0.6",
-    "gulp-ng-html2js": "^0.2.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
-    "run-sequence": "^1.2.2",
-    "http-server": "^0.7.5"
+    "gulp": "3.9.1",
+    "gulp-clean": "0.4.0",
+    "gulp-concat": "2.6.1",
+    "gulp-minify-css": "1.2.4",
+    "gulp-minify-html": "1.0.6",
+    "gulp-ng-html2js": "0.2.2",
+    "gulp-rename": "1.4.0",
+    "gulp-uglify": "3.0.1",
+    "gulp-util": "3.0.8",
+    "http-server": "0.11.1",
+    "run-sequence": "2.2.1"
   }
 }

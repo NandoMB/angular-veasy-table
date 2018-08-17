@@ -34,13 +34,17 @@
       </div>
     </div>
   </div>
+
+
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
       <div ng-show="updatingTableColumns" class="vt-updating-backdrop" ng-style="getTBodyStyle()">
         <div class="text-center vt-updating-icon-wrapper" ng-style="{ 'line-height': getTBodyStyle().height }">
           <i class="fa fa-refresh fa-spin"></i>
         </div>
       </div>
+
       <table id="{{config.id}}" class="table table-hover veasy-table" ng-class="{ 'table-striped': haveHiddenColumn(config.columns) && config.toggleColumns }">
         <thead>
           <tr>
@@ -52,6 +56,7 @@
                 </label>
               </div>
             </th>
+
             <th ng-repeat-start="column in config.columns" ng-if="!column.toggle" ng-hide="hideColumnOn(column, column.hideOn)" ng-style="{ 'width': getColumnStyle(column) + 'px', 'max-width': getColumnStyle(column) + 'px', 'min-width': '1px' }" ng-class="{ 'vt-special-column': column.contextMenu }">
               <div ng-if="!column.contextMenu">
                 <span class="vt-ellipsis">

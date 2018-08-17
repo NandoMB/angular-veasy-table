@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{$root.appName}}</title>
+    <!-- Libs -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css" media="screen" charset="utf-8"/>
+    <!-- Veasy-Table V3 -->
+    <link rel="stylesheet" href="../dist/css/veasy-table.css" media="screen" charset="utf-8"/>
+  </head>
+  <body>
+    <div ng-controller="myController" class="container">
+      <div class="row" style="margin-top: 50px;">
+        <div class="col">
+          <veasy-table config="config" list="resultList"></veasy-table>
+        </div>
+      </div>
+    </div>
+    <!-- Libs -->
+    <script src="../node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+    <script src="../node_modules/angular/angular.js" charset="utf-8"></script>
+    <!-- Angular Location -->
+    <script src="https://code.angularjs.org/1.5.8/i18n/angular-locale_pt-br.js" charset="utf-8"></script>
+    <!-- <script src="https://code.angularjs.org/1.5.8/i18n/angular-locale_en-us.js" charset="utf-8"></script> -->
+    <script src="../node_modules/angular-sanitize/angular-sanitize.js" charset="utf-8"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.js" charset="utf-8"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js" charset="utf-8"></script>
+    <!-- Demonstration App -->
+    <script src="./app.js" charset="utf-8"></script>
+    <!-- Veasy-Table V3 -->
+    <script src="../dist/js/veasy-table-tpls-bs4.min.js" charset="utf-8"></script>
+    <script src="../dist/js/veasy-table.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -27,11 +27,12 @@ var color = {
 };
 
 var templates = [
-  'src/templates/template.html'
+  // 'src/templates/template.html'
+  'src/templates/template-bootstrap4.html'
 ];
 
 var stylesheets = [
-  'src/css/style.css'
+  'src/css/style-bootstrap4.css'
 ];
 
 var scripts = [
@@ -107,7 +108,7 @@ gulp.task('min:html', function () {
       moduleName: 'veasy.table.templates',
     }))
     .pipe(uglify())
-    .pipe(concat('veasy-table-tpls.min.js'))
+    .pipe(concat('veasy-table-tpls-bs4.min.js'))
     .pipe(gulp.dest('dist/js'))
     .on('error', gutil.log);
 });
@@ -119,3 +120,15 @@ gulp.task('dist', function () {
   gutil.log(color.blue('Compilando em modo de distribuição'));
   sequence('clean', 'concat:js', 'concat:css', 'min:js', 'min:css', 'min:html');
 });
+
+gulp.task('watch', function () {
+  gulp.watch([
+    'src/**/*'
+  ], ['dev']);
+});
+
+gulp.task('dev', function () {
+  gutil.log(color.blue('Compilando em modo de desenvolvimento'));
+  sequence('clean', 'concat:js', 'concat:css', 'min:js', 'min:css', 'min:html', 'watch');
+});
+

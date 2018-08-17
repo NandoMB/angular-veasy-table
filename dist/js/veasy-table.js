@@ -600,7 +600,7 @@ angular.module('veasy.table')
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: 'template.html',
+      templateUrl: 'template-bootstrap4.html',
       scope: {
         config: '=',
         list: '='
