@@ -137,9 +137,11 @@ pagination: {
 
 ```js
 filter: {
-  enable: true,         // Enable this feature. (Default is false).
-  conditional: true,    // Conditional filter 'AND' or 'OR'. (Default is AND)
-  delay: 300            // Delay in milliseconds. (Default is 300ms)
+  enable: true,                   // Enable this feature. (Default is false).
+  conditional: true,              // Conditional filter 'AND' or 'OR'. (Default is AND)
+  isCaseSensitive: false,         // To make the query case sensitive (Default is true)
+  ignoreSpecialCharacters: true,  // To ignore special characters and accentuations (Default is false)
+  delay: 300                      // Delay in milliseconds. (Default is 300ms)
 }
 ```
 

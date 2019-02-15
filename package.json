@@ -1,12 +1,14 @@
 {
   "name": "angular-veasy-table",
-  "version": "2.1.6",
+  "version": "2.2.6",
   "description": "AngularJS directive to create quickly data tables without giving up the beauty and functionality.",
   "author": "Fernando Machado Bernardino <fernandombernardino@gmail.com> (https://github.com/NandoMB)",
   "license": "MIT",
   "main": "./dist/js/veasy-table.js",
   "scripts": {
+    "prestart": "npm install && bower install && gulp dist",
     "start": "node_modules/http-server/bin/http-server -c-1 -a 127.0.0.1 -p 4000",
+    "dev": "gulp dist && node_modules/http-server/bin/http-server -c-1 -a 127.0.0.1 -p 4000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

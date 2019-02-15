@@ -118,6 +118,8 @@ angular.module('myModule', ['veasy.table'])
           filter: {
             enable: true,
             conditional: true,
+            isCaseSensitive: false,
+            ignoreSpecialCharacters: true,
             delay: 300
           },
           columnFilter: {

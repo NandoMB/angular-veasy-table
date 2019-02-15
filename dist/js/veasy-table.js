@@ -165,113 +165,110 @@ angular.module('veasy.table')
 
 }]);
 
-angular.module('veasy.table')
+angular.module('veasy.table').service('vtConfigService', [ function () {
 
-  .service('vtConfigService', [ function () {
+  var validateConfigs = function (config) {
+    if (!config) config = {};
+    if (!config.columns) config.columns = [];
+    config.id = validateIdConfig(config.id);
+    config.toggleColumns = validateToggleColumnsConfig(config.toggleColumns);
+    config.checkbox = validateCheckboxConfig(config.checkbox);
+    config.sort = validateSortConfig(config.sort);
+    config.pagination = validatePaginationConfig(config.pagination);
+    config.filter = validateFilterConfig(config.filter);
+    config.columnFilter = validateColumnFilterConfig(config.columnFilter);
+    config.labels = validateTranslationConfig(config.labels);
+    return config;
+  };
 
-    var validateConfigs = function (config) {
-      if (!config) config = {};
-      if (!config.columns) config.columns = [];
+  var validateIdConfig = function(id) {
+    if (!id) id = generateRandomId();
+    return id;
+  };
 
-      config.id = validateIdConfig(config.id);
-      config.toggleColumns = validateToggleColumnsConfig(config.toggleColumns);
-      config.checkbox = validateCheckboxConfig(config.checkbox);
-      config.sort = validateSortConfig(config.sort);
-      config.pagination = validatePaginationConfig(config.pagination);
-      config.filter = validateFilterConfig(config.filter);
-      config.columnFilter = validateColumnFilterConfig(config.columnFilter);
-      config.labels = validateTranslationConfig(config.labels);
-      return config;
-    };
+  var generateRandomId = function() {
+    var number = Math.round(Math.random()*4 * 100000);
+    var newId = 'veasy-table-' + number;
+    var elements = angular.element('table#' + newId);
+    if (elements && elements.length > 0) {
+      generateRandomId();
+    }
+    return newId;
+  };
 
-    var validateIdConfig = function(id) {
-      if (!id) id = generateRandomId();
-      return id;
-    };
+  var validateToggleColumnsConfig = function (toggleColumns) {
+    if (!toggleColumns) toggleColumns = {};
+    if (!toggleColumns.enable) toggleColumns.enable = false;
+    if (!toggleColumns.position) toggleColumns.position = false;
+    if (!toggleColumns.icons) toggleColumns.icons = {};
+    if (!toggleColumns.icons.opened) toggleColumns.icons.opened = 'fa fa-chevron-down';
+    if (!toggleColumns.icons.closed) toggleColumns.icons.closed = 'fa fa-chevron-left';
+    return toggleColumns;
+  };
 
-    var generateRandomId = function() {
-      var number = Math.round(Math.random()*4 * 100000);
-      var newId = 'veasy-table-' + number;
-      var elements = angular.element('table#' + newId);
+  var validateCheckboxConfig = function (checkbox) {
+    if (!checkbox) checkbox = {};
+    if (!checkbox.enable) checkbox.enable = false;
+    return checkbox;
+  };
 
-      if (elements && elements.length > 0)
-        generateRandomId();
+  var validateSortConfig = function (sort) {
+    if (!sort) sort = {};
+    if (!sort.enable) sort.enable = false;
+    return sort;
+  };
 
-      return newId;
-    };
+  var validatePaginationConfig = function (pagination) {
+    if (!pagination) pagination = {};
+    if (!pagination.enable) pagination.enable = false;
+    if (!pagination.currentPage) pagination.currentPage = 0;
+    if (!pagination.itemsPerPage) pagination.itemsPerPage = 10;
+    return pagination;
+  };
 
-    var validateToggleColumnsConfig = function (toggleColumns) {
-      if (!toggleColumns) toggleColumns = {};
-      if (!toggleColumns.enable) toggleColumns.enable = false;
-      if (!toggleColumns.position) toggleColumns.position = false;
-      if (!toggleColumns.icons) toggleColumns.icons = {};
-      if (!toggleColumns.icons.opened) toggleColumns.icons.opened = 'fa fa-chevron-down';
-      if (!toggleColumns.icons.closed) toggleColumns.icons.closed = 'fa fa-chevron-left';
-      return toggleColumns;
-    };
+  var validateFilterConfig = function (filter) {
+    if (!filter) filter = {};
+    if (!filter.enable) filter.enable = false;
+    if (!filter.conditional) filter.conditional = false;
+    if (filter.isCaseSensitive === null || filter.isCaseSensitive === undefined) filter.isCaseSensitive = true;
+    if (!filter.ignoreSpecialCharacters) filter.ignoreSpecialCharacters = false;
+    if (!filter.delay) filter.delay = 500;
+    return filter;
+  };
 
-    var validateCheckboxConfig = function (checkbox) {
-      if (!checkbox) checkbox = {};
-      if (!checkbox.enable) checkbox.enable = false;
-      return checkbox;
-    };
+  var validateColumnFilterConfig = function (columnFilter) {
+    if (!columnFilter) columnFilter = {};
+    if (!columnFilter.enable) columnFilter.enable = false;
+    if (!columnFilter.modalOptions) columnFilter.modalOptions = {};
+    if (!columnFilter.modalOptions.size) columnFilter.modalOptions.size = 'md';
+    if (!columnFilter.modalOptions.autoOpen) columnFilter.modalOptions.autoOpen = false;
+    if (!columnFilter.modalOptions.keyboard) columnFilter.modalOptions.keyboard = true;
+    if (!columnFilter.modalOptions.backdrop) columnFilter.modalOptions.backdrop = true;
+    return columnFilter;
+  };
 
-    var validateSortConfig = function (sort) {
-      if (!sort) sort = {};
-      if (!sort.enable) sort.enable = false;
-      return sort;
-    };
+  var validateTranslationConfig = function (labels) {
+    if (!labels) labels = {};
+    if (!labels.filter) labels.filter = {};
+    if (!labels.filter.by) labels.filter.by = 'Filter by...';
+    if (!labels.filter.all) labels.filter.all = 'All';
+    if (!labels.filter.and) labels.filter.and = 'AND';
+    if (!labels.filter.or) labels.filter.or = 'OR';
+    if (!labels.pagination) labels.pagination = {};
+    if (!labels.pagination.itemsPerPage) labels.pagination.itemsPerPage = 'Items by Page';
+    if (!labels.pagination.totalItems) labels.pagination.totalItems = 'Total of Items';
+    if (!labels.modal) labels.modal = {};
+    if (!labels.modal.title) labels.modal.title = 'Which columns you want to display?';
+    if (!labels.modal.okButton) labels.modal.okButton = 'Apply';
+    if (!labels.modal.cancelButton) labels.modal.cancelButton = 'Cancel';
+    return labels;
+  };
 
-    var validatePaginationConfig = function (pagination) {
-      if (!pagination) pagination = {};
-      if (!pagination.enable) pagination.enable = false;
-      if (!pagination.currentPage) pagination.currentPage = 0;
-      if (!pagination.itemsPerPage) pagination.itemsPerPage = 10;
-      return pagination;
-    };
+  return {
+    validate: validateConfigs
+  };
 
-    var validateFilterConfig = function (filter) {
-      if (!filter) filter = {};
-      if (!filter.enable) filter.enable = false;
-      if (!filter.conditional) filter.conditional = false;
-      if (!filter.delay) filter.delay = 500;
-      return filter;
-    };
-
-    // FIXME: REFATORAR
-    var validateColumnFilterConfig = function (columnFilter) {
-      if (!columnFilter) columnFilter = {};
-      if (!columnFilter.enable) columnFilter.enable = false;
-      if (!columnFilter.modalOptions) columnFilter.modalOptions = {};
-      if (!columnFilter.modalOptions.size) columnFilter.modalOptions.size = 'md';
-      if (!columnFilter.modalOptions.autoOpen) columnFilter.modalOptions.autoOpen = false;
-      if (!columnFilter.modalOptions.keyboard) columnFilter.modalOptions.keyboard = true;
-      if (!columnFilter.modalOptions.backdrop) columnFilter.modalOptions.backdrop = true;
-      return columnFilter;
-    };
-
-    var validateTranslationConfig = function (labels) {
-      if (!labels) labels = {};
-      if (!labels.filter) labels.filter = {};
-      if (!labels.filter.by) labels.filter.by = 'Filter by...';
-      if (!labels.filter.all) labels.filter.all = 'All';
-      if (!labels.filter.and) labels.filter.and = 'AND';
-      if (!labels.filter.or) labels.filter.or = 'OR';
-      if (!labels.pagination) labels.pagination = {};
-      if (!labels.pagination.itemsPerPage) labels.pagination.itemsPerPage = 'Items by Page';
-      if (!labels.pagination.totalItems) labels.pagination.totalItems = 'Total of Items';
-      if (!labels.modal) labels.modal = {};
-      if (!labels.modal.title) labels.modal.title = 'Which columns you want to display?';
-      if (!labels.modal.okButton) labels.modal.okButton = 'Apply';
-      if (!labels.modal.cancelButton) labels.modal.cancelButton = 'Cancel';
-      return labels;
-    };
-
-    return {
-      validate: validateConfigs
-    };
-
-  }]);
+}]);
 
 angular.module('veasy.table')
 
@@ -501,98 +498,90 @@ angular.module('veasy.table')
     };
   }]);
 
-angular.module('veasy.table')
+angular.module('veasy.table').service('vtSearchService', ['$filter', function ($filter) {
 
-  .service('vtSearchService', ['$filter', function ($filter) {
+  var defineFilterColumnsDropdown = function (columns, labels) {
+    var array = [];
+    var filters = {};
+    columns.forEach(function (column, index) {
+      if (!column.toggle) {
+        array.push(column);
+        filters[column.value] = column.filter;
+      }
+    });
+    array.unshift({ header: labels.filter.all, value: 'all', filters: filters });
+    return array;
+  };
 
-    var defineFilterColumnsDropdown = function (columns, labels) {
-      var array = [];
-      var filters = {};
+  var search = function (terms, condition, column, list, isDropdownFilter, isCaseSensitive, ignoreSpecialCharacters) {
+    var splittedTerms = terms.split(' ');
+    return $filter('filter')(list, function (row) {
+      var rowValue = ignoreSpecialCharacters ? replaceSpecialCharacters(transformValue(column, row)) : transformValue(column, row);
+      if (condition === 'AND') return executeSearch('AND', splittedTerms, rowValue, isDropdownFilter, isCaseSensitive, ignoreSpecialCharacters);
+      if (condition === 'OR') return executeSearch('OR', splittedTerms, rowValue, isDropdownFilter, isCaseSensitive, ignoreSpecialCharacters);
+    });
+  };
 
-      columns.forEach(function (column, index) {
-        if (!column.toggle) {
-          array.push(column);
-          filters[column.value] = column.filter;
-        }
-      });
-
-      array.unshift({ header: labels.filter.all, value: 'all', filters: filters });
-
-      return array;
-    };
-
-    var search = function (terms, condition, column, list, isCaseSensitive, isDropdownFilter) {
-      var splittedTerms = terms.split(' ');
-
-      return $filter('filter')(list, function (row) {
-        if (condition === 'AND')
-          return searchWithANDCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
-        if (condition === 'OR')
-          return searchWithORCondition(splittedTerms, transformValue(column, row), isCaseSensitive, isDropdownFilter);
-      });
-    };
-
-    var searchWithANDCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
+  var executeSearch = function (conditional, terms, row, isDropdownFilter, isCaseSensitive, ignoreSpecialCharacters) {
+    var conditionalFunction = conditional === 'AND' ? Array.prototype.every : Array.prototype.some;
+    var parsedRow = replaceSpecialCharacters(row);
+    return conditionalFunction.bind(terms)(function (term) {
+      term = term.toString();
+      var parsedTerm = replaceSpecialCharacters(term);
       if (isDropdownFilter) {
-        return terms.every(function (term) {
-          if (isCaseSensitive) return value.toString() === term.toString();
-          return value.toString().toLowerCase() === term.toString().toLowerCase();
-        });
+        if (isCaseSensitive && ignoreSpecialCharacters) return parsedRow === parsedTerm;
+        if (isCaseSensitive) return row.toString() === term;
+        if (ignoreSpecialCharacters) return parsedRow.toLowerCase() === parsedTerm.toLowerCase();
+        return row.toString().toLowerCase() === term.toLowerCase();
+      } else {
+        if (isCaseSensitive && ignoreSpecialCharacters) return parsedRow.indexOf(parsedTerm) !== -1;
+        if (isCaseSensitive) return row.toString().indexOf(term) !== -1;
+        if (ignoreSpecialCharacters) return parsedRow.toLowerCase().indexOf(parsedTerm.toLowerCase()) !== -1;
+        return row.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
       }
+    });
+  };
 
-      return terms.every(function (term) {
-        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
-        return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
-      });
+  var replaceSpecialCharacters = function (str) {
+    var translate = {
+      'á': 'a', 'â': 'a', 'à': 'a', 'ã': 'a', 'Á': 'A', 'Â': 'A', 'À': 'A', 'Ã': 'A',
+      'ç': 'c', 'Ç': 'C',
+      'é': 'e', 'ê': 'e', 'É': 'E', 'Ê': 'E',
+      'í': 'i', 'Í': 'I',
+      'ó': 'o', 'ô': 'o', 'õ': 'o', 'Ó': 'O', 'Ô': 'O', 'Õ': 'O',
+      'ú': 'u', 'ü': 'u', 'Ú': 'U', 'Ü': 'U'
     };
+    return str.replace(new RegExp('[' + Object.keys(translate).join('') + ']', 'g'), function (character) { return translate[character]; });
+  };
 
-    var searchWithORCondition = function (terms, value, isCaseSensitive, isDropdownFilter) {
-      if (isDropdownFilter) {
-        return terms.some(function (term) {
-          if (isCaseSensitive) return value.toString() === term.toString();
-          return value.toString().toLowerCase() === term.toString().toLowerCase();
-        });
-      }
+  var applyFilter = function (value, filter) {
+    var type = filter ? filter.type : '';
+    if (type === 'date') return $filter('date')(value, filter.format, filter.timezone);
+    if (type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
+    if (type === 'number') return $filter('number')(value, filter.fractionSize);
+    return value;
+  };
 
-      return terms.some(function (term) {
-        if (isCaseSensitive) return value.toString().indexOf(term) !== -1;
-        return value.toString().toLowerCase().indexOf(term.toLowerCase()) !== -1;
-      });
-    };
+  var transformValue = function (column, row) {
+    if (row.$$hashKey) delete row.$$hashKey;
+    if (column.value === 'all') return transformAllColumnsValue(column, row);
+    return applyFilter(row[column.value] || '', column.filter);
+  };
 
-    var applyFilter = function (value, filter) {
-      var type = filter ? filter.type : '';
-      if (type === 'date') return $filter('date')(value, filter.format, filter.timezone);
-      if (type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
-      if (type === 'number') return $filter('number')(value, filter.fractionSize);
-      return value;
-    };
+  var transformAllColumnsValue = function (column, row) {
+    var str = '';
+    for (var prop in row) {
+      str += (applyFilter(row[prop] || '', column.filters[prop]) + ' ');
+    }
+    return str;
+  };
 
-    var transformValue = function (column, row) {
-      if (row.$$hashKey) delete row.$$hashKey;
+  return {
+    getColumnsDropdown: defineFilterColumnsDropdown,
+    search: search
+  };
 
-      if (column.value === 'all')
-        return transformAllColumnsValue(column, row);
-
-      return applyFilter(row[column.value] || '', column.filter);
-    };
-
-    var transformAllColumnsValue = function (column, row) {
-      var str = '';
-
-      for (var prop in row) {
-        str += (applyFilter(row[prop] || '', column.filters[prop]) + ' ');
-      }
-
-      return str;
-    };
-
-    return {
-      getColumnsDropdown: defineFilterColumnsDropdown,
-      search: search
-    };
-
-  }]);
+}]);
 
 angular.module('veasy.table')
 
@@ -620,19 +609,18 @@ angular.module('veasy.table')
           scope.checkboxes = [];
           scope.expanded = [];
           scope.resultList = [];
-
           registerEvents();
           enableFeatures(scope.config);
           updateVeasyTable();
         };
 
         var enableFeatures = function(config) {
-          if (config.contextMenu.enable)
+          if (config.contextMenu.enable) {
             addContextMenu(config);
-
-          if (config.toggleColumns.enable)
+          }
+          if (config.toggleColumns.enable) {
             addToggleIcon(config);
-
+          }
           if (config.columnFilter.enable && config.columnFilter.modalOptions.autoOpen) {
             $timeout(function() {
               scope.openColumnFilterModal(config.columns);
@@ -644,16 +632,14 @@ angular.module('veasy.table')
          * Registra os eventos.
          */
         var registerEvents = function() {
-
           scope.$watchCollection('list', function(result) {
             if (!result) return;
             scope.updatingTableColumns = true;
             scope.resultList = angular.copy(result);
             scope.filteredList = angular.copy(result);
-
-            if (!scope.dropdownFilters)
+            if (!scope.dropdownFilters) {
               catalogDropdownFilter(scope.config.columns, result);
-
+            }
             scope.addDropdownFilter(null, scope.dropdownFilters || []);
             dispatchVtEvent('resize');
           });
@@ -666,14 +652,13 @@ angular.module('veasy.table')
           $window.addEventListener('resize', function() {
             scope.updatingTableColumns = true;
             scope.outOfBound = false;
-
             scope.$apply(function() {
               $timeout(function() {
-                if (vtScreenService.isBrokenLayout(scope.config.id)) scope.outOfBound = true;
-
+                if (vtScreenService.isBrokenLayout(scope.config.id)) {
+                  scope.outOfBound = true;
+                }
                 updateVeasyTable();
                 updateAllHiddenRowsContent();
-
                 $timeout(function() {
                   scope.updatingTableColumns = false;
                 }, 500);
@@ -691,7 +676,6 @@ angular.module('veasy.table')
         scope.getTBodyStyle = function() {
           var element = angular.element('table#' + scope.config.id);
           var obj = {};
-
           if (element) {
             obj['width'] = element.width() ? element.width() + 'px' : '0px';
             obj['height'] = element.height() ? element.height() + 'px' : '0px';
@@ -700,7 +684,6 @@ angular.module('veasy.table')
               obj['left'] = element.position().left ? element.position().left + 'px' : '0px';
             }
           }
-
           return obj;
         };
 
@@ -722,7 +705,6 @@ angular.module('veasy.table')
         scope.openColumnFilterModal = function(columns) {
           scope.modalColumns = vtModalService.getColumns(columns);
           scope.modalCheckboxMaster = vtModalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
-
           vtModalService.openModal(scope.vetModalId, scope.config.columnFilter.modalOptions);
         };
 
@@ -738,7 +720,9 @@ angular.module('veasy.table')
         };
 
         scope.checkAllByScreenSize = function(size, modalColumns, value) {
-          if (!scope.screenSize) scope.screenSize = {};
+          if (!scope.screenSize) {
+            scope.screenSize = {};
+          }
           scope.screenSize[size] = !value;
           scope.modalCheckboxMaster = vtModalService.checkAllByScreenSize(size, modalColumns, scope.screenSize[size], scope.vetModalId);
         };
@@ -746,7 +730,6 @@ angular.module('veasy.table')
         scope.onConfirmColumnFilterModal = function(data) {
           scope.config.columns = vtModalService.updateColumnsVisibility(scope.config.columns, data);
           delete scope.modalColumns;
-
           vtModalService.closeModal(scope.vetModalId);
           scope.$emit('veasyTable:onApplyColumnFilter', angular.copy(scope.config.columns));
         };
@@ -755,9 +738,7 @@ angular.module('veasy.table')
          *                            User Events
          * ------------------------------------------------------------------ */
         scope.onClickRow = function(event, row) {
-          if (event.target.className.indexOf('vt-dropdown') !== -1 || !scope.config.clickRow.enable)
-            return;
-
+          if (event.target.className.indexOf('vt-dropdown') !== -1 || !scope.config.clickRow.enable) return;
           var copyRow = angular.copy(row);
           delete copyRow.$$hashKey;
           scope.$emit('veasyTable:onClickRow', copyRow);
@@ -767,8 +748,9 @@ angular.module('veasy.table')
          *                      Checkboxes/Items Selections
          * ------------------------------------------------------------------ */
         scope.checkAllPageRows = function(currentPage, checkboxMaster) {
-          if (!scope.checkboxes[currentPage]) scope.checkboxes[currentPage] = {};
-
+          if (!scope.checkboxes[currentPage]) {
+            scope.checkboxes[currentPage] = {};
+          }
           for (var i = 0; i < scope.checkboxes[currentPage].length; i++) {
             scope.checkboxes[currentPage][i] = checkboxMaster;
           }
@@ -802,17 +784,14 @@ angular.module('veasy.table')
          * ------------------------------------------------------------------ */
         scope.sort = function(predicate) {
           scope.$emit('veasyTable:onStartSort');
-
-          if (scope.predicate === predicate)
+          if (scope.predicate === predicate) {
             scope.reverse = !scope.reverse;
-
+          }
           scope.predicate = predicate;
-
           if (scope.predicate !== '') {
             var list = $filter('orderBy')(scope.filteredList, scope.predicate, scope.reverse);
             paginate(list, scope.config.pagination.itemsPerPage, 0);
           }
-
           scope.$emit('veasyTable:onEndSort');
         };
 
@@ -840,13 +819,12 @@ angular.module('veasy.table')
         };
 
         scope.addDropdownFilter = function(event, filters) {
-          if (event)
+          if (event) {
             event.stopPropagation();
-
+          }
           var cols = '';
           var filtersConfig = [];
           var columns = scope.config.columns.map(function(elem) { return elem.value });
-
           columns.forEach(function(columnName) {
             if (filters[columnName]) {
               var terms = filters[columnName].filter(function(elem) {
@@ -856,16 +834,14 @@ angular.module('veasy.table')
               }).map(function(elem) {
                 return elem.label;
               }).join(' ');
-
               if (cols.indexOf(columnName) !== -1) {
                 var column = scope.filterColumnsList.filter(function(elem) {
                   return elem.value === columnName;
                 })[0];
-                filtersConfig.push({ terms: terms, condition: 'OR', column: column, isCaseSensitive: true });
+                filtersConfig.push({ terms: terms, condition: 'OR', column: column, isCaseSensitive: true, ignoreSpecialCharacters: false });
               }
             }
           });
-
           scope.searchByDropdownFilter(filtersConfig);
         };
 
@@ -887,22 +863,21 @@ angular.module('veasy.table')
 
         var addValuesToDropdownFilter = function(columns, filters, list) {
           var keys = Object.keys(filters);
-
           list.forEach(function(row) {
             keys.forEach(function(key) {
               var defaultValue = getDefaultColumnValue(columns, key);
               var tempArray = filters[key].map(function(element) { return element.label; });
-
               if (tempArray.indexOf(row[key] || defaultValue) === -1) {
                 var aux = { label: row[key], column: key, checked: false };
-                if (defaultValue)
+                if (defaultValue) {
                   aux.defaultValue = defaultValue;
-                  if (!existeNoArray(filters[key], aux))
-                    filters[key].push(aux);
+                }
+                if (!existeNoArray(filters[key], aux)) {
+                  filters[key].push(aux);
+                }
               }
             });
           });
-
           return filters;
         };
 
@@ -920,21 +895,17 @@ angular.module('veasy.table')
         };
 
         scope.searchByDropdownFilter = function(array) {
-          if (scope.queryBusy)
+          if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
-
+          }
           var list = scope.resultList;
-
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
-
           array.forEach(function(elem) {
-            list = vtSearchService.search(elem.terms, elem.condition, elem.column, list, elem.isCaseSensitive, true);
+            list = vtSearchService.search(elem.terms, elem.condition, elem.column, list, true, elem.isCaseSensitive, elem.ignoreSpecialCharacters);
           });
-
           scope.filteredList = angular.copy(list);
           scope.dropDownFilterList = angular.copy(list);
-
           scope.queryBusy = $timeout(function() {
             scope.search(scope.terms, scope.condition, scope.selectedColumn, false);
             scope.searching = false;
@@ -947,28 +918,28 @@ angular.module('veasy.table')
          * ------------------------------------------------------------------ */
         scope.selectFilterColumn = function(terms, condition, col) {
           scope.selectedColumn = col;
-          if (terms)
+          if (terms) {
             scope.search(terms, condition, col, false);
+          }
         };
 
         scope.changeSearchCondition = function(terms, condition, selectedColumn) {
           scope.condition = condition;
-          if (terms)
+          if (terms) {
             scope.search(terms, condition, selectedColumn, false);
+          }
         }
 
-        scope.search = function(terms, condition, column, isCaseSensitive) {
+        scope.search = function(terms, condition, column) {
           if (!condition || !column) return;
-          if (scope.queryBusy)
+          if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
-
+          }
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
-
           scope.terms = terms || '';
-
           scope.queryBusy = $timeout(function() {
-            scope.filteredList = vtSearchService.search(scope.terms, condition, column, scope.dropDownFilterList || scope.resultList, isCaseSensitive, false);
+            scope.filteredList = vtSearchService.search(scope.terms, condition, column, scope.dropDownFilterList || scope.resultList, false, scope.config.filter.isCaseSensitive, scope.config.filter.ignoreSpecialCharacters);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
             scope.$emit('veasyTable:onEndSearch');
@@ -1004,7 +975,6 @@ angular.module('veasy.table')
         scope.setPage = function(page) {
           scope.currentPage = page;
           scope.pages = vtPaginationService.pages(scope.paginatedList.length - 1, page, 5);
-
           scope.expanded = [];
           scope.master.expanded = false;
           initHiddenRowsContent();
@@ -1056,7 +1026,6 @@ angular.module('veasy.table')
 
         var updateAllHiddenRowsContent = function() {
           if (!scope.paginatedList || !scope.paginatedList[scope.currentPage]) return;
-
           for (var i = 0; i < scope.paginatedList[scope.currentPage].length; i++) {
             updateHiddenRowsContent(i, scope.paginatedList[scope.currentPage][i]);
           }
@@ -1078,7 +1047,6 @@ angular.module('veasy.table')
 
         scope.toggleAllRows = function() {
           scope.master.expanded = !scope.master.expanded;
-
           if (scope.master.expanded) {
             openAllClosedRows();
           } else {
@@ -1135,7 +1103,6 @@ angular.module('veasy.table')
             delete column.isHidden;
             return false;
           }
-
           column.isHidden = true;
           return true;
         };
@@ -1147,13 +1114,12 @@ angular.module('veasy.table')
         var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
           var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
           var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
-
-          if (unit.isPixel(columnSize))
+          if (unit.isPixel(columnSize)) {
             return columnSize.split('px')[0];
-
-          if (unit.isPercentage(columnSize))
+          }
+          if (unit.isPercentage(columnSize)) {
             return percentageToPixel(columnSize.split('%')[0], veasyTableWidth);
-
+          }
           if (!unit.isPixel(columnSize) && !unit.isPercentage(columnSize)) {
             var columnWidth = percentageDistribution(percentualTotal, columnSize);
             return percentageToPixel(columnWidth, veasyTableWidth);
