@@ -113,7 +113,7 @@ angular.module('myModule', ['veasy.table'])
           pagination: {
             enable: true,
             currentPage: 0,
-            itemsPerPage: 10
+            itemsPerPage: 20
           },
           filter: {
             enable: true,

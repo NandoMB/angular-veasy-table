@@ -8,7 +8,7 @@
   "scripts": {
     "prestart": "npm install && bower install && gulp dist",
     "start": "node_modules/http-server/bin/http-server -c-1 -a 127.0.0.1 -p 4000",
-    "dev": "gulp dist && node_modules/http-server/bin/http-server -c-1 -a 127.0.0.1 -p 4000",
+    "dev": "gulp dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

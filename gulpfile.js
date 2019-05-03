@@ -119,3 +119,7 @@ gulp.task('dist', function () {
   gutil.log(color.blue('Compilando em modo de distribuição'));
   sequence('clean', 'concat:js', 'concat:css', 'min:js', 'min:css', 'min:html');
 });
+
+gulp.task('dev', function () {
+  gulp.watch('src/**/*', ['dist']);
+});
