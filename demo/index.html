@@ -13,10 +13,10 @@
   </head>
   <body>
     <div ng-controller="myController" class="container">
+      Index Watchers = {{$$watchers.length}}
       <div class="row" style="margin-top: 50px;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          {{$root.$$watchersCount}}
-          <veasy-table config="config" list="resultList"></veasy-table>
+          <veasy-table config="veasyTableConfig" list="resultList"></veasy-table>
         </div>
       </div>
     </div>

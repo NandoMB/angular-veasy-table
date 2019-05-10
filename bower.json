@@ -26,8 +26,8 @@
   ],
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "angular": "^1.5.8",
-    "angular-sanitize": "^1.5.8",
+    "angular": "^1.7.8",
+    "angular-sanitize": "^1.7.8",
     "font-awesome": "^4.6.3"
   }
 }
