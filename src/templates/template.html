@@ -29,15 +29,15 @@
         <button ng-if="config.columnFilter.enable" class="btn btn-default btn-sm pull-right" ng-click="openColumnFilterModal(config.columns)">
           <i class="fa fa-filter"></i>
         </button>
-        <input ng-if="config.pagination.enable" type="number" min="1" max="50" class="form-control input-sm vt-ipp-input pull-right" ng-model="config.pagination.itemsPerPage" ng-change="changeItemsPerPage(config.pagination.itemsPerPage)">
+        <input ng-if="config.pagination.enable" type="number" min="1" max="100" class="form-control input-sm vt-ipp-input pull-right" ng-model="config.pagination.itemsPerPage" ng-model-options="{updateOn: 'blur'}" ng-change="changeItemsPerPage(config.pagination.itemsPerPage)">
         <span ng-if="config.pagination.enable" class="vt-ipp-label text-muted pull-right">{{config.labels.pagination.itemsPerPage}}: </span>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div ng-show="updatingTableColumns" class="vt-updating-backdrop" ng-style="::getTBodyStyle()">
-        <div class="text-center vt-updating-icon-wrapper" ng-style="::{ 'line-height': getTBodyStyle().height }">
+      <div ng-show="updatingTableColumns" class="vt-updating-backdrop" ng-style="getTBodyStyle()">
+        <div class="text-center vt-updating-icon-wrapper" ng-style="{ 'line-height': getTBodyStyle().height }">
           <i class="fa fa-refresh fa-spin"></i>
         </div>
       </div>

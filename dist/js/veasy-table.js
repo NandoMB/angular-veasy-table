@@ -584,7 +584,6 @@ angular.module('veasy.table').service('vtSearchService', ['$filter', function ($
 }]);
 
 angular.module('veasy.table')
-
   .directive('veasyTable', ['$templateCache', '$window', '$filter', '$timeout', 'vtScreenService', 'vtPaginationService', 'vtSearchService', 'vtCheckboxService', 'vtColumnService', 'vtConfigService', 'vtModalService', function ($templateCache, $window, $filter, $timeout, vtScreenService, vtPaginationService, vtSearchService, vtCheckboxService, vtColumnService, vtConfigService, vtModalService) {
     return {
       restrict: 'E',
@@ -595,12 +594,6 @@ angular.module('veasy.table')
         list: '='
       },
       link: function (scope, element, attributes, controller) {
-
-        const digest = function (msg) {
-          $timeout(function () {
-            scope.$digest();
-          }, 0);
-        };
 
         var init = function () {
           scope.config = vtConfigService.validate(scope.config);
@@ -634,6 +627,12 @@ angular.module('veasy.table')
           }
         };
 
+        const digest = function (msg) {
+          $timeout(function () {
+            scope.$digest();
+          });
+        };
+
         /**
          * Registra os eventos.
          */
@@ -650,10 +649,10 @@ angular.module('veasy.table')
             dispatchVtEvent('resize');
           });
 
-          scope.$watch('config.columns', function (result) {
+          scope.$watchCollection('config.columns', function (result) {
             if (!result) return;
             dispatchVtEvent('resize');
-          }, true);
+          });
 
           $window.addEventListener('resize', function () {
             scope.updatingTableColumns = true;
