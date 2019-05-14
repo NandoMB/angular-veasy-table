@@ -585,7 +585,7 @@ angular.module('veasy.table').service('vtSearchService', ['$filter', function ($
 
 angular.module('veasy.table')
 
-  .directive('veasyTable', ['$templateCache', '$window', '$filter', '$timeout', 'vtScreenService', 'vtPaginationService', 'vtSearchService', 'vtCheckboxService', 'vtColumnService', 'vtConfigService', 'vtModalService', function($templateCache, $window, $filter, $timeout, vtScreenService, vtPaginationService, vtSearchService, vtCheckboxService, vtColumnService, vtConfigService, vtModalService) {
+  .directive('veasyTable', ['$templateCache', '$window', '$filter', '$timeout', 'vtScreenService', 'vtPaginationService', 'vtSearchService', 'vtCheckboxService', 'vtColumnService', 'vtConfigService', 'vtModalService', function ($templateCache, $window, $filter, $timeout, vtScreenService, vtPaginationService, vtSearchService, vtCheckboxService, vtColumnService, vtConfigService, vtModalService) {
     return {
       restrict: 'E',
       replace: true,
@@ -594,9 +594,15 @@ angular.module('veasy.table')
         config: '=',
         list: '='
       },
-      link: function(scope, element, attributes, controller) {
+      link: function (scope, element, attributes, controller) {
 
-        var init = function() {
+        const digest = function (msg) {
+          $timeout(function () {
+            scope.$digest();
+          }, 0);
+        };
+
+        var init = function () {
           scope.config = vtConfigService.validate(scope.config);
           scope.vetModalId = vtModalService.getModalId(scope.config.id);
           scope.filterColumnsList = vtSearchService.getColumnsDropdown(scope.config.columns, scope.config.labels);
@@ -614,7 +620,7 @@ angular.module('veasy.table')
           updateVeasyTable();
         };
 
-        var enableFeatures = function(config) {
+        var enableFeatures = function (config) {
           if (config.contextMenu.enable) {
             addContextMenu(config);
           }
@@ -622,7 +628,7 @@ angular.module('veasy.table')
             addToggleIcon(config);
           }
           if (config.columnFilter.enable && config.columnFilter.modalOptions.autoOpen) {
-            $timeout(function() {
+            $timeout(function () {
               scope.openColumnFilterModal(config.columns);
             }, 0);
           }
@@ -631,8 +637,8 @@ angular.module('veasy.table')
         /**
          * Registra os eventos.
          */
-        var registerEvents = function() {
-          scope.$watchCollection('list', function(result) {
+        var registerEvents = function () {
+          scope.$watchCollection('list', function (result) {
             if (!result) return;
             scope.updatingTableColumns = true;
             scope.resultList = angular.copy(result);
@@ -644,22 +650,22 @@ angular.module('veasy.table')
             dispatchVtEvent('resize');
           });
 
-          scope.$watch('config.columns', function(result) {
+          scope.$watch('config.columns', function (result) {
             if (!result) return;
             dispatchVtEvent('resize');
           }, true);
 
-          $window.addEventListener('resize', function() {
+          $window.addEventListener('resize', function () {
             scope.updatingTableColumns = true;
             scope.outOfBound = false;
-            scope.$apply(function() {
-              $timeout(function() {
+            scope.$apply(function () {
+              $timeout(function () {
                 if (vtScreenService.isBrokenLayout(scope.config.id)) {
                   scope.outOfBound = true;
                 }
                 updateVeasyTable();
                 updateAllHiddenRowsContent();
-                $timeout(function() {
+                $timeout(function () {
                   scope.updatingTableColumns = false;
                 }, 500);
               }, 0);
@@ -667,13 +673,13 @@ angular.module('veasy.table')
           });
         };
 
-        var dispatchVtEvent = function(eventName) {
-          $timeout(function() {
+        var dispatchVtEvent = function (eventName) {
+          $timeout(function () {
             $window.dispatchEvent(new Event(eventName));
           }, 0);
         };
 
-        scope.getTBodyStyle = function() {
+        scope.getTBodyStyle = function () {
           var element = angular.element('table#' + scope.config.id);
           var obj = {};
           if (element) {
@@ -687,7 +693,7 @@ angular.module('veasy.table')
           return obj;
         };
 
-        var updateVeasyTable = function() {
+        var updateVeasyTable = function () {
           scope.toggleRowColspan = vtColumnService.defineToggleRowColspan(scope.config.columns);
           vtColumnService.closeAllOpenedRows(scope.resultList);
         };
@@ -695,31 +701,32 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                              Context Menu
          * ------------------------------------------------------------------ */
-        var addContextMenu = function(config) {
+        var addContextMenu = function (config) {
           config.columns.push({ header: '', value: 'contextMenu', contextMenu: true, size: '37px' });
         };
 
         /** --------------------------------------------------------------------
          *                         Column Filter (Modal)
          * ------------------------------------------------------------------ */
-        scope.openColumnFilterModal = function(columns) {
+        scope.openColumnFilterModal = function (columns) {
           scope.modalColumns = vtModalService.getColumns(columns);
           scope.modalCheckboxMaster = vtModalService.initMasterCheckbox(scope.vetModalId, scope.modalColumns);
           vtModalService.openModal(scope.vetModalId, scope.config.columnFilter.modalOptions);
         };
 
-        scope.checkWindowSize = function(column) {
+        scope.checkWindowSize = function (column, size) {
           var selector = '#' + scope.vetModalId + ' input#cbMaster-' + column.value;
+          column.hideOn[size] = !column.hideOn[size];
           scope.modalCheckboxMaster[column.value] = vtModalService.defineMasterCheckboxState(selector, column);
         };
 
-        scope.checkWindowSizeMaster = function(column, masterValue) {
+        scope.checkWindowSizeMaster = function (column, masterValue) {
           for (var prop in column.hideOn) {
-            column.hideOn[prop] = masterValue;
+            column.hideOn[prop] = !masterValue;
           }
         };
 
-        scope.checkAllByScreenSize = function(size, modalColumns, value) {
+        scope.checkAllByScreenSize = function (size, modalColumns, value) {
           if (!scope.screenSize) {
             scope.screenSize = {};
           }
@@ -727,7 +734,7 @@ angular.module('veasy.table')
           scope.modalCheckboxMaster = vtModalService.checkAllByScreenSize(size, modalColumns, scope.screenSize[size], scope.vetModalId);
         };
 
-        scope.onConfirmColumnFilterModal = function(data) {
+        scope.onConfirmColumnFilterModal = function (data) {
           scope.config.columns = vtModalService.updateColumnsVisibility(scope.config.columns, data);
           delete scope.modalColumns;
           vtModalService.closeModal(scope.vetModalId);
@@ -737,7 +744,7 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            User Events
          * ------------------------------------------------------------------ */
-        scope.onClickRow = function(event, row) {
+        scope.onClickRow = function (event, row) {
           if (event.target.className.indexOf('vt-dropdown') !== -1 || !scope.config.clickRow.enable) return;
           var copyRow = angular.copy(row);
           delete copyRow.$$hashKey;
@@ -747,7 +754,7 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                      Checkboxes/Items Selections
          * ------------------------------------------------------------------ */
-        scope.checkAllPageRows = function(currentPage, checkboxMaster) {
+        scope.checkAllPageRows = function (currentPage, checkboxMaster) {
           if (!scope.checkboxes[currentPage]) {
             scope.checkboxes[currentPage] = {};
           }
@@ -757,24 +764,24 @@ angular.module('veasy.table')
           sendSelectedItems();
         };
 
-        scope.checkRow = function(event, currentPage, rowIndex) {
+        scope.checkRow = function (event, currentPage, rowIndex) {
           event.stopPropagation();
           if (!scope.checkboxes[currentPage]) scope.checkboxes[currentPage] = {};
-          if (!scope.checkboxes[currentPage][rowIndex]) scope.checkboxes[currentPage][rowIndex] = !!scope.checkboxes[currentPage][rowIndex];
+          scope.checkboxes[currentPage][rowIndex] = !scope.checkboxes[currentPage][rowIndex];
           defineCheckboxMasterState(currentPage);
           sendSelectedItems();
         };
 
-        var sendSelectedItems = function() {
+        var sendSelectedItems = function () {
           scope.$emit('veasyTable:selectedItems', vtCheckboxService.getSelectedItems(scope.checkboxes, scope.paginatedList))
         };
 
-        var initCheckboxes = function(paginatedList) {
+        var initCheckboxes = function (paginatedList) {
           scope.checkboxes = vtCheckboxService.reset(paginatedList);
           sendSelectedItems();
         };
 
-        var defineCheckboxMasterState = function(currentPage) {
+        var defineCheckboxMasterState = function (currentPage) {
           var selector = '#' + scope.config.id + ' input#checkbox-master';
           scope.master.checkbox = vtCheckboxService.defineCheckboxMasterState(selector, scope.checkboxes, currentPage);
         };
@@ -782,7 +789,7 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                            Sort
          * ------------------------------------------------------------------ */
-        scope.sort = function(predicate) {
+        scope.sort = function (predicate) {
           scope.$emit('veasyTable:onStartSort');
           if (scope.predicate === predicate) {
             scope.reverse = !scope.reverse;
@@ -795,7 +802,7 @@ angular.module('veasy.table')
           scope.$emit('veasyTable:onEndSort');
         };
 
-        scope.defineSortableIcon = function(direction, columnName) {
+        scope.defineSortableIcon = function (direction, columnName) {
           return {
             'fa-sort': changeSortableDirection('', columnName),
             'fa-sort-asc': changeSortableDirection('asc', columnName),
@@ -803,7 +810,7 @@ angular.module('veasy.table')
           }
         };
 
-        var changeSortableDirection = function(direction, predicate) {
+        var changeSortableDirection = function (direction, predicate) {
           if (direction === 'asc') return scope.predicate === predicate && !scope.reverse;
           if (direction === 'desc') return scope.predicate === predicate && scope.reverse;
           return true;
@@ -812,30 +819,30 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Dropdown Filter
          * ------------------------------------------------------------------ */
-        scope.openDropdownFilter = function(id) {
-          $timeout(function() {
+        scope.openDropdownFilter = function (id) {
+          $timeout(function () {
             $('#dd-' + id).dropdown('toggle');
           }, 0);
         };
 
-        scope.addDropdownFilter = function(event, filters) {
+        scope.addDropdownFilter = function (event, filters) {
           if (event) {
             event.stopPropagation();
           }
           var cols = '';
           var filtersConfig = [];
-          var columns = scope.config.columns.map(function(elem) { return elem.value });
-          columns.forEach(function(columnName) {
+          var columns = scope.config.columns.map(function (elem) { return elem.value });
+          columns.forEach(function (columnName) {
             if (filters[columnName]) {
-              var terms = filters[columnName].filter(function(elem) {
+              var terms = filters[columnName].filter(function (elem) {
                 if (!elem.checked) return false;
                 cols += elem.column + ' ';
                 return true;
-              }).map(function(elem) {
+              }).map(function (elem) {
                 return elem.label;
               }).join(' ');
               if (cols.indexOf(columnName) !== -1) {
-                var column = scope.filterColumnsList.filter(function(elem) {
+                var column = scope.filterColumnsList.filter(function (elem) {
                   return elem.value === columnName;
                 })[0];
                 filtersConfig.push({ terms: terms, condition: 'OR', column: column, isCaseSensitive: true, ignoreSpecialCharacters: false });
@@ -845,28 +852,28 @@ angular.module('veasy.table')
           scope.searchByDropdownFilter(filtersConfig);
         };
 
-        var catalogDropdownFilter = function(columns, list) {
+        var catalogDropdownFilter = function (columns, list) {
           var filters = addHeadersToDropdownFilter(columns);
           scope.dropdownFilters = addValuesToDropdownFilter(columns, filters, list);
         };
 
-        var addHeadersToDropdownFilter = function(columns) {
-          return columns.filter(function(column) {
+        var addHeadersToDropdownFilter = function (columns) {
+          return columns.filter(function (column) {
             return column.dropdown;
-          }).map(function(column) {
+          }).map(function (column) {
             return column.value;
-          }).reduce(function(previous, current) {
+          }).reduce(function (previous, current) {
             previous[current] = [];
             return previous;
           }, {});
         };
 
-        var addValuesToDropdownFilter = function(columns, filters, list) {
+        var addValuesToDropdownFilter = function (columns, filters, list) {
           var keys = Object.keys(filters);
-          list.forEach(function(row) {
-            keys.forEach(function(key) {
+          list.forEach(function (row) {
+            keys.forEach(function (key) {
               var defaultValue = getDefaultColumnValue(columns, key);
-              var tempArray = filters[key].map(function(element) { return element.label; });
+              var tempArray = filters[key].map(function (element) { return element.label; });
               if (tempArray.indexOf(row[key] || defaultValue) === -1) {
                 var aux = { label: row[key], column: key, checked: false };
                 if (defaultValue) {
@@ -881,32 +888,32 @@ angular.module('veasy.table')
           return filters;
         };
 
-        var existeNoArray = function(array, item) {
-          var exist = array.filter(function(elem) {
+        var existeNoArray = function (array, item) {
+          var exist = array.filter(function (elem) {
             return elem.label === item.label;
           });
           return exist.length > 0;
         };
 
-        var getDefaultColumnValue = function(columns, key) {
-          return columns.filter(function(column) {
+        var getDefaultColumnValue = function (columns, key) {
+          return columns.filter(function (column) {
             return column.value === key;
           })[0].default || '';
         };
 
-        scope.searchByDropdownFilter = function(array) {
+        scope.searchByDropdownFilter = function (array) {
           if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
           }
           var list = scope.resultList;
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
-          array.forEach(function(elem) {
+          array.forEach(function (elem) {
             list = vtSearchService.search(elem.terms, elem.condition, elem.column, list, true, elem.isCaseSensitive, elem.ignoreSpecialCharacters);
           });
           scope.filteredList = angular.copy(list);
           scope.dropDownFilterList = angular.copy(list);
-          scope.queryBusy = $timeout(function() {
+          scope.queryBusy = $timeout(function () {
             scope.search(scope.terms, scope.condition, scope.selectedColumn, false);
             scope.searching = false;
             scope.$emit('veasyTable:onEndSearch');
@@ -916,21 +923,21 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                           Input Text Filter
          * ------------------------------------------------------------------ */
-        scope.selectFilterColumn = function(terms, condition, col) {
+        scope.selectFilterColumn = function (terms, condition, col) {
           scope.selectedColumn = col;
           if (terms) {
             scope.search(terms, condition, col, false);
           }
         };
 
-        scope.changeSearchCondition = function(terms, condition, selectedColumn) {
+        scope.changeSearchCondition = function (terms, condition, selectedColumn) {
           scope.condition = condition;
           if (terms) {
             scope.search(terms, condition, selectedColumn, false);
           }
         }
 
-        scope.search = function(terms, condition, column) {
+        scope.search = function (terms, condition, column) {
           if (!condition || !column) return;
           if (scope.queryBusy) {
             $timeout.cancel(scope.queryBusy);
@@ -938,7 +945,7 @@ angular.module('veasy.table')
           scope.searching = true;
           scope.$emit('veasyTable:onStartSearch');
           scope.terms = terms || '';
-          scope.queryBusy = $timeout(function() {
+          scope.queryBusy = $timeout(function () {
             scope.filteredList = vtSearchService.search(scope.terms, condition, column, scope.dropDownFilterList || scope.resultList, false, scope.config.filter.isCaseSensitive, scope.config.filter.ignoreSpecialCharacters);
             paginate(scope.filteredList, scope.config.pagination.itemsPerPage, 0);
             scope.searching = false;
@@ -949,59 +956,63 @@ angular.module('veasy.table')
         /** --------------------------------------------------------------------
          *                          Data Filters
          * ------------------------------------------------------------------ */
-        scope.isUrl = function(column) {
+        scope.isUrl = function (column) {
           return column.filter.type === 'url';
         };
 
-        scope.applyFilter = function(value, filter) {
-          if (filter.type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
-          if (filter.type === 'date') return $filter('date')(value, filter.format, filter.timezone);
-          if (filter.type === 'json') return $filter('json')(value, filter.spacing);
-          if (filter.type === 'url') return $filter('vtUrl')(value, filter.text, filter.target);
-          if (filter.type === 'number') return $filter('number')(value, filter.fractionSize);
-          if (filter.type === 'limitTo') return $filter('limitTo')(value, filter.limit, filter.begin);
-          if (filter.type === 'lowercase') return $filter('lowercase')(value);
-          if (filter.type === 'uppercase') return $filter('uppercase')(value);
+        scope.applyFilter = function (value, filter) {
+          if (filter) {
+            if (filter.type === 'currency') return $filter('currency')(value, filter.symbol, filter.fractionSize);
+            if (filter.type === 'date') return $filter('date')(value, filter.format, filter.timezone);
+            if (filter.type === 'json') return $filter('json')(value, filter.spacing);
+            if (filter.type === 'url') return $filter('vtUrl')(value, filter.text, filter.target);
+            if (filter.type === 'number') return $filter('number')(value, filter.fractionSize);
+            if (filter.type === 'limitTo') return $filter('limitTo')(value, filter.limit, filter.begin);
+            if (filter.type === 'lowercase') return $filter('lowercase')(value);
+            if (filter.type === 'uppercase') return $filter('uppercase')(value);
+          }
           return value;
         };
 
         /** --------------------------------------------------------------------
          *                            Pagination
          * ------------------------------------------------------------------ */
-        scope.changeItemsPerPage = function(itemsPerPage) {
+        scope.changeItemsPerPage = function (itemsPerPage) {
           paginate(scope.filteredList, itemsPerPage, 0);
         };
 
-        scope.setPage = function(page) {
+        scope.setPage = function (page) {
           scope.currentPage = page;
           scope.pages = vtPaginationService.pages(scope.paginatedList.length - 1, page, 5);
           scope.expanded = [];
           scope.master.expanded = false;
           initHiddenRowsContent();
           defineCheckboxMasterState(scope.currentPage);
+          digest();
         };
 
-        scope.nextPage = function() {
+        scope.nextPage = function () {
           if (scope.currentPage < scope.paginatedList.length - 1) scope.setPage(scope.currentPage + 1);
         };
 
-        scope.previousPage = function() {
+        scope.previousPage = function () {
           if (scope.currentPage > 0) scope.setPage(scope.currentPage - 1);
         };
 
-        scope.isNextPageDisabled = function(list) {
+        scope.isNextPageDisabled = function (list) {
           if (!list) return;
           return scope.currentPage === (list.length - 1);
         };
 
-        scope.isPreviousPageDisabled = function() {
+        scope.isPreviousPageDisabled = function () {
           return scope.currentPage === 0;
         };
 
-        var paginate = function(list, pageSize, initialPage) {
+        var paginate = function (list, pageSize, initialPage) {
           if (!scope.config.pagination.enable) {
             scope.paginatedList = [list];
             scope.currentPage = 0;
+            digest();
             return;
           };
           scope.$emit('veasyTable:onStartPagination');
@@ -1009,43 +1020,44 @@ angular.module('veasy.table')
           scope.setPage(initialPage);
           initCheckboxes(scope.paginatedList);
           scope.$emit('veasyTable:onEndPagination');
+          digest();
         };
 
         /** --------------------------------------------------------------------
          *                          Responsivity
          * ------------------------------------------------------------------ */
-        var initHiddenRowsContent = function() {
+        var initHiddenRowsContent = function () {
           if (!scope.hiddenContent) scope.hiddenContent = [];
           if (!scope.hiddenContent[scope.currentPage || 0]) scope.hiddenContent[scope.currentPage || 0] = [];
         };
 
-        var updateHiddenRowsContent = function(rowIndex, row) {
+        var updateHiddenRowsContent = function (rowIndex, row) {
           initHiddenRowsContent();
           scope.hiddenContent[scope.currentPage][rowIndex] = vtColumnService.getHiddenContent(row, scope.config.columns);
         };
 
-        var updateAllHiddenRowsContent = function() {
+        var updateAllHiddenRowsContent = function () {
           if (!scope.paginatedList || !scope.paginatedList[scope.currentPage]) return;
           for (var i = 0; i < scope.paginatedList[scope.currentPage].length; i++) {
             updateHiddenRowsContent(i, scope.paginatedList[scope.currentPage][i]);
           }
         };
 
-        scope.initToggleButton = function(rowIndex, row) {
+        scope.initToggleButton = function (rowIndex, row) {
           scope.expanded[rowIndex] = false;
           updateHiddenRowsContent(rowIndex, row);
         };
 
-        scope.toggleRow = function(event, rowIndex, row) {
+        scope.toggleRow = function (event, rowIndex, row) {
           event.stopPropagation();
           scope.expanded[rowIndex] = !scope.expanded[rowIndex];
         };
 
-        scope.showToggleIcon = function(column) {
+        scope.showToggleIcon = function (column) {
           return scope.config.toggleColumns && scope.config.toggleColumns.enable && column.toggle && scope.haveHiddenColumn(scope.config.columns);
         };
 
-        scope.toggleAllRows = function() {
+        scope.toggleAllRows = function () {
           scope.master.expanded = !scope.master.expanded;
           if (scope.master.expanded) {
             openAllClosedRows();
@@ -1054,34 +1066,34 @@ angular.module('veasy.table')
           }
         };
 
-        var openAllClosedRows = function() {
+        var openAllClosedRows = function () {
           for (var i = 0; i < scope.expanded.length; i++) {
             scope.expanded[i] = true;
           }
         };
 
-        var closeAllOpenedRows = function() {
+        var closeAllOpenedRows = function () {
           for (var i = 0; i < scope.expanded.length; i++) {
             scope.expanded[i] = false;
           }
         };
 
-        scope.showToggleHeader = function(column) {
+        scope.showToggleHeader = function (column) {
           return !column.toggle || (column.toggle && scope.haveHiddenColumn(scope.config.columns));
         };
 
-        scope.haveHiddenColumn = function(columns) {
+        scope.haveHiddenColumn = function (columns) {
           return vtColumnService.haveHiddenColumn(columns);
         };
 
-        scope.getToggleIconClasses = function(config, openCondition, closeCondition) {
+        scope.getToggleIconClasses = function (config, openCondition, closeCondition) {
           var icons = {};
           icons[config.toggleColumns.icons.closed] = closeCondition;
           icons[config.toggleColumns.icons.opened] = openCondition;
           return icons;
         };
 
-        var addToggleIcon = function(config) {
+        var addToggleIcon = function (config) {
           if (config.toggleColumns.position === 'begin') {
             config.columns.unshift({ header: '', value: 'toggle', hideOn: '', toggle: true, size: '37px' });
           } else {
@@ -1089,7 +1101,7 @@ angular.module('veasy.table')
           }
         };
 
-        scope.responsiveHiddenContentStyle = function() {
+        scope.responsiveHiddenContentStyle = function () {
           var screenSize = vtScreenService.screenSize();
           if (screenSize === 'lg') return { 'max-width': '1060px' };
           if (screenSize === 'md') return { 'max-width': '860px' };
@@ -1098,7 +1110,7 @@ angular.module('veasy.table')
           return {};
         };
 
-        scope.hideColumnOn = function(column, hideColumnOn) {
+        scope.hideColumnOn = function (column, hideColumnOn) {
           if (!vtScreenService.isNeedToHide(hideColumnOn)) {
             delete column.isHidden;
             return false;
@@ -1107,13 +1119,13 @@ angular.module('veasy.table')
           return true;
         };
 
-        scope.getColumnStyle = function(column) {
+        scope.getColumnStyle = function (column) {
           return calculateMaxWidthDefaultColumn(scope.config, scope.config.columns, column.size);
         };
 
-        var calculateMaxWidthDefaultColumn = function(config, columns, columnSize) {
+        var calculateMaxWidthDefaultColumn = function (config, columns, columnSize) {
           var veasyTableWidth = vtScreenService.getVeasyTableFreeSpace(config, columns);
-          var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function(sum, element) { return sum + element.size; }, 0);
+          var percentualTotal = vtColumnService.getDefaultColumns(columns).reduce(function (sum, element) { return sum + element.size; }, 0);
           if (unit.isPixel(columnSize)) {
             return columnSize.split('px')[0];
           }
@@ -1126,17 +1138,17 @@ angular.module('veasy.table')
           }
         };
 
-        var percentageDistribution = function(total, columnSize) {
+        var percentageDistribution = function (total, columnSize) {
           return (((100 - total) / total) * columnSize) + columnSize;
         };
 
-        var percentageToPixel = function(percentage, total) {
+        var percentageToPixel = function (percentage, total) {
           return (percentage * total) / 100;
         };
 
         var unit = {
-          isPixel: function(columnSize) { return columnSize.toString().indexOf('px') !== -1 ? true : false; },
-          isPercentage: function(columnSize) { return columnSize.toString().indexOf('%') !== -1 ? true : false; }
+          isPixel: function (columnSize) { return columnSize.toString().indexOf('px') !== -1 ? true : false; },
+          isPercentage: function (columnSize) { return columnSize.toString().indexOf('%') !== -1 ? true : false; }
         };
 
         /** --------------------------------------------------------------------
