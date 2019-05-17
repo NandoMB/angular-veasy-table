@@ -210,7 +210,7 @@ angular.module('veasy.table')
           }
           scope.predicate = predicate;
           if (scope.predicate !== '') {
-            var list = $filter('orderBy')(scope.filteredList, scope.predicate, scope.reverse);
+            var list = $filter('vtLocaleOrderBy')(scope.filteredList, scope.predicate, scope.reverse);
             paginate(list, scope.config.pagination.itemsPerPage, 0);
           }
           scope.$emit('veasyTable:onEndSort');

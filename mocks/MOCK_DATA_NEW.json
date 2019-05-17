@@ -11,7 +11,7 @@
   },
   {
     "id":2,
-    "first_name":"Lisa",
+    "first_name":"Aalana",
     "gender":"Female",
     "company":"Apple",
     "address":"193 Straubel Plaza",
@@ -71,7 +71,7 @@
   },
   {
     "id":8,
-    "first_name":"Bobby",
+    "first_name":"Áalfred",
     "gender":null,
     "company":null,
     "address":"9 Grover Center",
